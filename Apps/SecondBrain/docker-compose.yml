@@ -1,0 +1,87 @@
+name: second-brain
+services:
+  second-brain:
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/second-brain:v1.0.0
+    container_name: second-brain
+    restart: unless-stopped
+    ports:
+      - mode: ingress
+        target: 3030
+        published: "3030"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: /DATA/AppData/LCFC_APP/data/hermes-data
+        target: /wiki-root
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: /DATA/AppData/LCFC_APP/data/second-brain
+        target: /app/data
+        bind:
+          create_host_path: true
+    environment:
+      SECOND_BRAIN_ADMIN_USER: admin
+      SECOND_BRAIN_ADMIN_PASSWORD: admin
+      SECOND_BRAIN_HOST: 0.0.0.0
+      SECOND_BRAIN_PORT: "3030"
+      ADAPTER_PROTOCOL: https
+      ADAPTER_PORT: 8787
+      ADAPTER_API_KEY: change-me-local-dev
+      HOST_DATA_ROOT: /DATA/AppData/LCFC_APP/data/hermes-data
+      CONTAINER_DATA_ROOT: /wiki-root
+    networks:
+      default: null
+    healthcheck:
+      test: ["CMD", "wget", "-qO", "/dev/null", "http://127.0.0.1:3030/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    command: []
+    cpu_shares: 90
+    deploy:
+      resources:
+        limits:
+          memory: "33115533312"
+        reservations: {}
+
+networks:
+  default:
+    name: second-brain_default
+
+x-casaos:
+  app_id: com.mycyberwing.second-brain
+  id: com.mycyberwing.second-brain
+  main: second-brain
+  index: /
+  port_map: "3030"
+  scheme: http
+  icon: https://zimaos-store.oss-cn-beijing.aliyuncs.com/SecondBrain/icon.png
+  title:
+    en_US: "Second Brain"
+    zh_CN: "第二大脑"
+  tagline:
+    en_US: "Your Personal Memory Network"
+    zh_CN: "第二大脑"
+  description:
+    en_US: "Your Personal Memory Network"
+    zh_CN: "第二大脑"
+  screenshot_link:
+    - "https://zimaos-store.oss-cn-beijing.aliyuncs.com/SecondBrain/screenshot-1.png"
+    - "https://zimaos-store.oss-cn-beijing.aliyuncs.com/SecondBrain/screenshot-2.png"
+    - "https://zimaos-store.oss-cn-beijing.aliyuncs.com/SecondBrain/screenshot-3.png"
+  tips: {}
+  author: LCFC
+  developer: sven
+  category: AI
+  architectures:
+    - amd64
+  version: "1.0.0"
+  update_at: "2026-07-06"
+  release_notes:
+    en_US: |-
+      - First release
+    zh_CN: |-
+      - 首次上线

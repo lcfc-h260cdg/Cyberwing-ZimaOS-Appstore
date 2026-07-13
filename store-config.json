@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "store_id": "cyberwing-zimaos-appstore",
+  "name": {
+    "en_US": "ZimaOS AppStore",
+    "vi_VN": "Kho ứng dụng ZimaOS",
+    "zh_CN": "ZimaOS 应用商店",
+    "zh_TW": "ZimaOS 應用商店"
+  },
+  "description": {
+    "en_US": "Official ZimaOS application store, providing a curated collection of self-hosted applications.",
+    "vi_VN": "Kho ứng dụng chính thức của ZimaOS, cung cấp tuyển tập các ứng dụng self-hosted được chọn lọc cẩn thận.",
+    "zh_CN": "ZimaOS 官方应用商店，提供精选的自托管应用集合。",
+    "zh_TW": "ZimaOS 官方應用商店，提供精選的自託管應用程式集合。"
+  },
+  "maintainer": "LCFC",
+  "url": "https://github.com/lcfc-h260cdg/cyberwing-zimaos-appstore"
+}
