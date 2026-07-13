@@ -1,0 +1,29 @@
+{
+  "app_id": "com.mycyberwing.smart-album",
+  "tagline": "Photo & Video Management Platform",
+  "description": "Smart Album is a photo and video management platform designed for personal and family use.\nStore your photos securely on your own home server and access them through a web browser. With Smart Album, you can:\n\n- Browse all your photos and videos chronologically\n- Upload and preserve your media for long-term storage\n- Organize content with albums and quickly find specific photos using search\n- Share albums with family members or generate public sharing links for others\n",
+  "screenshot_link": [
+    "/apps/com.mycyberwing.smart-album/assets/screenshot-1.webp",
+    "/apps/com.mycyberwing.smart-album/assets/screenshot-2.webp"
+  ],
+  "tips": {},
+  "author": "LCFC",
+  "developer": "dk",
+  "category": "Media",
+  "architectures": [
+    "amd64"
+  ],
+  "update_at": "2026-07-08",
+  "title": "Smart Album",
+  "release_note": "- First release",
+  "base_url": "https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages",
+  "id": "com.mycyberwing.smart-album",
+  "version": "1.0.0",
+  "categories": [
+    "media"
+  ],
+  "min_memory": 0,
+  "min_image_size": {
+    "amd64": 1692003634
+  }
+}

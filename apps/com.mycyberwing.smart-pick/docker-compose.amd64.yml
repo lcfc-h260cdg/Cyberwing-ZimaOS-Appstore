@@ -1,0 +1,59 @@
+name: smart-pick
+services:
+  capture-score:
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-pick/capture-score:v1.0.1@sha256:3f38c55cfba0ed0935fcd7b26f9f88ae54c1e6965781147db0dd8a8e40e384be
+    container_name: capture-score
+    restart: unless-stopped
+    volumes:
+    - type: bind
+      source: /DATA/AppData/LCFC_APP/data/capture-score
+      target: /app/backend/data
+      bind:
+        create_host_path: true
+    - type: bind
+      source: /DATA/AppData/LCFC_APP/data/capture-score-mount
+      target: /app/immich
+      bind:
+        create_host_path: true
+    environment:
+      MPLCONFIGDIR: /tmp/matplotlib
+      PYTHONUNBUFFERED: '1'
+      TZ: Asia/Shanghai
+    healthcheck:
+      test:
+      - CMD
+      - python
+      - -c
+      - import socket; s=socket.create_connection(('127.0.0.1', 3500), 5); s.close()
+      timeout: 5s
+      interval: 30s
+      retries: 3
+      start_period: 30s
+    command: []
+    cpu_shares: 90
+    deploy:
+      resources:
+        limits:
+          memory: '33115533312'
+        reservations: {}
+    logging:
+      driver: json-file
+      options:
+        max-file: '3'
+        max-size: 10m
+    network_mode: host
+    privileged: true
+networks:
+  default:
+    name: smart-pick_default
+x-casaos:
+  id: com.mycyberwing.smart-pick
+  main: capture-score
+  index: /
+  port_map: '3500'
+  scheme: http
+  icon: https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages/apps/com.mycyberwing.smart-pick/assets/icon.png
+  title:
+    en_US: Smart Pick
+    zh_CN: 智能选片
+  version: 1.0.0

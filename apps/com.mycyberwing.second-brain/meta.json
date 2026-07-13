@@ -1,0 +1,30 @@
+{
+  "app_id": "com.mycyberwing.second-brain",
+  "tagline": "Your Personal Memory Network",
+  "description": "Your Personal Memory Network",
+  "screenshot_link": [
+    "/apps/com.mycyberwing.second-brain/assets/screenshot-1.webp",
+    "/apps/com.mycyberwing.second-brain/assets/screenshot-2.webp",
+    "/apps/com.mycyberwing.second-brain/assets/screenshot-3.webp"
+  ],
+  "tips": {},
+  "author": "LCFC",
+  "developer": "sven",
+  "category": "AI",
+  "architectures": [
+    "amd64"
+  ],
+  "update_at": "2026-07-06",
+  "title": "Second Brain",
+  "release_note": "- First release",
+  "base_url": "https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages",
+  "id": "com.mycyberwing.second-brain",
+  "version": "1.0.0",
+  "categories": [
+    "ai"
+  ],
+  "min_memory": 0,
+  "min_image_size": {
+    "amd64": 48898834
+  }
+}

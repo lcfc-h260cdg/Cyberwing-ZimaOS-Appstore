@@ -1,0 +1,29 @@
+{
+  "app_id": "com.mycyberwing.smart-pick",
+  "tagline": "A desktop web-based tool designed for professional photo selection workflows",
+  "description": "Smart Pick is a desktop web-based tool designed for professional photo selection workflows. It helps photographers, retouchers, and photo culling operators batch-import portrait photos with single, front-facing subjects, enabling automated initial filtering, manual review, final selection, and album export.\n\nThe system provides the following capabilities:\n- Photo Import: Support importing photos from local storage, folders, or SD cards.\n- Library Management: View total photo count, recommended selections, burst groups, and selected photos.\n- Automatic First-Pass Selection: Generate initial picks based on selection score thresholds, weighting templates, and burst-shot fallback rules.\n- Burst Sequence Optimization: Review burst groups, view recommended frames, and adjust selections within each group.\n- Focus Analysis: Filter photos for review based on focus status, such as sharp, slightly soft, or out of focus.\n- Expression Screening: Filter photos by eye status (open, partially closed, closed) and smile detection results.\n- Large Image Review: View scores and risk tags, zoom in for detailed inspection, and manually add or remove photos from the selection.\n- Export Results: Confirm the final selections and upload them to the Smart Album platform.\n",
+  "screenshot_link": [
+    "/apps/com.mycyberwing.smart-pick/assets/screenshot-1.webp",
+    "/apps/com.mycyberwing.smart-pick/assets/screenshot-2.webp"
+  ],
+  "tips": {},
+  "author": "LCFC",
+  "developer": "dk",
+  "category": "Media",
+  "architectures": [
+    "amd64"
+  ],
+  "update_at": "2026-07-09",
+  "title": "Smart Pick",
+  "release_note": "- First release",
+  "base_url": "https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages",
+  "id": "com.mycyberwing.smart-pick",
+  "version": "1.0.0",
+  "categories": [
+    "media"
+  ],
+  "min_memory": 0,
+  "min_image_size": {
+    "amd64": 526223278
+  }
+}

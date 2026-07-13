@@ -1,0 +1,14 @@
+docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/ai-api:v2.0.0_202607080936 sha256:df097d759d2e41dda759217e907350ea0fdf0256d8a537d6377a3cd5016f81b4
+docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/asr-server:v1.0.0_20260114 sha256:b96afe0c210b01543f34842bd6934c4c8c150c75693a6a36b3a7b5cbba479da6
+docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/file-rag-nas:v2.0.0_20260706 sha256:151ffe3e5ce943227c224455037c352858f7b219b26bb93dab5523420bc33e0e
+docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-adapter:v1.0.0 sha256:9a8d0cdc7088af7f14ed6088b1eea4ae17817ec1f0a8ef4804c6104e365d70d1
+docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-agent-custom:v1.0.0 sha256:734bd51c9f0e41f74b5ea076b69a88ff753fdb511fca5c1ae3f7b3476850b923
+docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0 sha256:928c580aa718930fd471442dde28cd91e20e8ddb067343605111db734400b394
+docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/llm_server:2.1 sha256:893aec20ff0a86f48b1e90d988959863346c7487a09bd953d41f693dc63741b4
+docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/pgvector/pgvector:pg18-trixie sha256:de7e23dbfb8bec8c460c0b40888a6bd1a0302041aabffb19f7b9b9fd9837e104
+docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/second-brain:v1.0.0 sha256:cf443469be8fadf1f7346f3d4f307beee6887bd0f1927cadd5bcee24dc9e77db
+docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-machine-learning:v1.0.0 sha256:b1632bdf9f8bcea9d1c192541f5c44d7135c7d6791e978934fe3b1dea87f8894
+docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-server:v1.0.0 sha256:539122f67aa2e19b244251479ca78e2528c2f683b81287d8c52c857b99cc5bb5
+docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-web:v1.0.0 sha256:37216a363f53d4f921ee5c463f1c23cce238a4519a93bb8ab4964d31379d318f
+docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-pick/capture-score:v1.0.1 sha256:3f38c55cfba0ed0935fcd7b26f9f88ae54c1e6965781147db0dd8a8e40e384be
+docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/valkey/valkey:9 sha256:7a48ff82d4b41e6faa1de0e10a1343bcfef8f0a7a0cd5df4b5b360daf7ab0139

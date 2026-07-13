@@ -1,0 +1,29 @@
+{
+  "apps": [
+    {
+      "id": "com.mycyberwing.second-brain",
+      "tagline": "第二大脑",
+      "title": "第二大脑"
+    },
+    {
+      "id": "com.mycyberwing.smart-album",
+      "tagline": "照片与视频管理平台",
+      "title": "智能相册"
+    },
+    {
+      "id": "com.mycyberwing.smart-file-search",
+      "tagline": "智能检索服务",
+      "title": "智能检索服务"
+    },
+    {
+      "id": "com.mycyberwing.smart-pick",
+      "tagline": "面向摄影选片场景的电脑端 Web 工具",
+      "title": "智能选片"
+    },
+    {
+      "id": "com.mycyberwing.xiaobao-agent",
+      "tagline": "小宝智能体，你的专属智能体",
+      "title": "小宝智能体"
+    }
+  ]
+}

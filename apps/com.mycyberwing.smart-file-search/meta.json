@@ -1,0 +1,25 @@
+{
+  "app_id": "com.mycyberwing.smart-file-search",
+  "tagline": "RAG Service for Cyberwing Device",
+  "description": "RAG Service for Cyberwing Device",
+  "tips": {},
+  "author": "LCFC",
+  "developer": "nmh",
+  "category": "AI",
+  "architectures": [
+    "amd64"
+  ],
+  "update_at": "2026-07-08",
+  "title": "RAG Service",
+  "release_note": "- First release",
+  "base_url": "https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages",
+  "id": "com.mycyberwing.smart-file-search",
+  "version": "1.0.0",
+  "categories": [
+    "ai"
+  ],
+  "min_memory": 2147483648,
+  "min_image_size": {
+    "amd64": 22041318171
+  }
+}

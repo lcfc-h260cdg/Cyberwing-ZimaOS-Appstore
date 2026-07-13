@@ -1,0 +1,108 @@
+{
+  "version": 2,
+  "updated_at": "2026-07-13T10:31:01Z",
+  "app_count": 5,
+  "base_url": "https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages",
+  "apps": [
+    {
+      "id": "com.mycyberwing.second-brain",
+      "title": "Second Brain",
+      "tagline": "Your Personal Memory Network",
+      "category": "AI",
+      "categories": [
+        "ai"
+      ],
+      "author": "LCFC",
+      "developer": "sven",
+      "architectures": [
+        "amd64"
+      ],
+      "icon": "/apps/com.mycyberwing.second-brain/assets/icon.png",
+      "thumbnail": "",
+      "compose_url": "/apps/com.mycyberwing.second-brain/docker-compose.yml",
+      "meta_url": "/apps/com.mycyberwing.second-brain/meta.json",
+      "content_hash": "047a4b49",
+      "version": "1.0.0"
+    },
+    {
+      "id": "com.mycyberwing.smart-album",
+      "title": "Smart Album",
+      "tagline": "Photo & Video Management Platform",
+      "category": "Media",
+      "categories": [
+        "media"
+      ],
+      "author": "LCFC",
+      "developer": "dk",
+      "architectures": [
+        "amd64"
+      ],
+      "icon": "/apps/com.mycyberwing.smart-album/assets/icon.png",
+      "thumbnail": "",
+      "compose_url": "/apps/com.mycyberwing.smart-album/docker-compose.yml",
+      "meta_url": "/apps/com.mycyberwing.smart-album/meta.json",
+      "content_hash": "e37e53ea",
+      "version": "1.0.0"
+    },
+    {
+      "id": "com.mycyberwing.smart-file-search",
+      "title": "RAG Service",
+      "tagline": "RAG Service for Cyberwing Device",
+      "category": "AI",
+      "categories": [
+        "ai"
+      ],
+      "author": "LCFC",
+      "developer": "nmh",
+      "architectures": [
+        "amd64"
+      ],
+      "icon": "/apps/com.mycyberwing.smart-file-search/assets/icon.png",
+      "thumbnail": "",
+      "compose_url": "/apps/com.mycyberwing.smart-file-search/docker-compose.yml",
+      "meta_url": "/apps/com.mycyberwing.smart-file-search/meta.json",
+      "content_hash": "6a3d203c",
+      "version": "1.0.0"
+    },
+    {
+      "id": "com.mycyberwing.smart-pick",
+      "title": "Smart Pick",
+      "tagline": "A desktop web-based tool designed for professional photo selection workflows",
+      "category": "Media",
+      "categories": [
+        "media"
+      ],
+      "author": "LCFC",
+      "developer": "dk",
+      "architectures": [
+        "amd64"
+      ],
+      "icon": "/apps/com.mycyberwing.smart-pick/assets/icon.png",
+      "thumbnail": "",
+      "compose_url": "/apps/com.mycyberwing.smart-pick/docker-compose.yml",
+      "meta_url": "/apps/com.mycyberwing.smart-pick/meta.json",
+      "content_hash": "c3c94c2b",
+      "version": "1.0.0"
+    },
+    {
+      "id": "com.mycyberwing.xiaobao-agent",
+      "title": "Xiaobao Agent",
+      "tagline": "Xiaobao Agent, Your Personal AI Agent",
+      "category": "AI",
+      "categories": [
+        "ai"
+      ],
+      "author": "LCFC",
+      "developer": "sven",
+      "architectures": [
+        "amd64"
+      ],
+      "icon": "/apps/com.mycyberwing.xiaobao-agent/assets/icon.png",
+      "thumbnail": "",
+      "compose_url": "/apps/com.mycyberwing.xiaobao-agent/docker-compose.yml",
+      "meta_url": "/apps/com.mycyberwing.xiaobao-agent/meta.json",
+      "content_hash": "08c1c7de",
+      "version": "1.0.0"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "store_id": "cyberwing-zimaos-appstore",
+  "name": "ZimaOS AppStore",
+  "description": "Official ZimaOS application store, providing a curated collection of self-hosted applications.",
+  "maintainer": "LCFC",
+  "url": "https://github.com/lcfc-h260cdg/cyberwing-zimaos-appstore"
+}
