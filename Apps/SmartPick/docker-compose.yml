@@ -94,7 +94,7 @@ x-casaos:
   tips: {}
   author: LCFC
   developer: dk
-  category: Cyberwing
+  category: Media
   architectures:
     - amd64
   version: "1.0.2"

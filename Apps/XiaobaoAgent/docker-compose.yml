@@ -139,7 +139,7 @@ x-casaos:
   tips: {}
   author: LCFC
   developer: sven
-  category: Cyberwing
+  category: AI
   architectures:
     - amd64
   version: "1.0.2"
