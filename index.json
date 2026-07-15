@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-07-15T15:10:54Z",
+  "updated_at": "2026-07-15T16:38:29Z",
   "app_count": 6,
   "base_url": "https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages",
   "apps": [
@@ -8,9 +8,9 @@
       "id": "com.mycyberwing.second-brain",
       "title": "Second Brain",
       "tagline": "Your Personal Memory Network",
-      "category": "AI",
+      "category": "Cyberwing",
       "categories": [
-        "ai"
+        "cyberwing"
       ],
       "author": "LCFC",
       "developer": "sven",
@@ -21,16 +21,16 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.second-brain/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.second-brain/meta.json",
-      "content_hash": "9fd6bd91",
+      "content_hash": "a3063522",
       "version": "1.0.0"
     },
     {
       "id": "com.mycyberwing.smart-album",
       "title": "Smart Album",
       "tagline": "Photo & Video Management Platform",
-      "category": "Media",
+      "category": "Cyberwing",
       "categories": [
-        "media"
+        "cyberwing"
       ],
       "author": "LCFC",
       "developer": "dk",
@@ -41,16 +41,16 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.smart-album/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.smart-album/meta.json",
-      "content_hash": "40cfa98c",
+      "content_hash": "07715a01",
       "version": "1.0.1"
     },
     {
       "id": "com.mycyberwing.smart-file-search",
       "title": "RAG Service",
       "tagline": "RAG Service for Cyberwing Device",
-      "category": "AI",
+      "category": "Cyberwing",
       "categories": [
-        "ai"
+        "cyberwing"
       ],
       "author": "LCFC",
       "developer": "nmh",
@@ -61,16 +61,16 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.smart-file-search/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.smart-file-search/meta.json",
-      "content_hash": "b94abe4c",
+      "content_hash": "b9067aea",
       "version": "1.0.1"
     },
     {
       "id": "com.mycyberwing.smart-pick",
       "title": "Smart Pick",
       "tagline": "A desktop web-based tool designed for professional photo selection workflows",
-      "category": "Media",
+      "category": "Cyberwing",
       "categories": [
-        "media"
+        "cyberwing"
       ],
       "author": "LCFC",
       "developer": "dk",
@@ -81,16 +81,16 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.smart-pick/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.smart-pick/meta.json",
-      "content_hash": "cdde8e26",
+      "content_hash": "2b236968",
       "version": "1.0.2"
     },
     {
       "id": "com.mycyberwing.xiaobao-agent",
       "title": "Xiaobao Agent",
       "tagline": "Xiaobao Agent, Your Personal AI Agent",
-      "category": "AI",
+      "category": "Cyberwing",
       "categories": [
-        "ai"
+        "cyberwing"
       ],
       "author": "LCFC",
       "developer": "sven",
@@ -101,16 +101,16 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.xiaobao-agent/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.xiaobao-agent/meta.json",
-      "content_hash": "f916662f",
+      "content_hash": "422cfaf7",
       "version": "1.0.2"
     },
     {
       "id": "com.mycyberwing.xiaobao-assistant",
       "title": "Xiaobao Assistant",
       "tagline": "Xiaobao AI Chat Assistant for Cyberwing Device",
-      "category": "AI",
+      "category": "Cyberwing",
       "categories": [
-        "ai"
+        "cyberwing"
       ],
       "author": "LCFC",
       "developer": "lgy,hjx",
@@ -121,7 +121,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.xiaobao-assistant/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.xiaobao-assistant/meta.json",
-      "content_hash": "7171df55",
+      "content_hash": "eda89034",
       "version": "1.0.0"
     }
   ]
