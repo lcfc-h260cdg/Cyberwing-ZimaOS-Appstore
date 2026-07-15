@@ -277,7 +277,7 @@ x-casaos:
   tips: {}
   author: LCFC
   developer: nmh
-  category: AI
+  category: Cyberwing
   architectures:
     - amd64
   version: "1.0.1"

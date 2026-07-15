@@ -104,7 +104,7 @@ x-casaos:
   tips: {}
   author: LCFC
   developer: "lgy,hjx"
-  category: AI
+  category: Cyberwing
   architectures:
     - amd64
   version: "1.0.0"

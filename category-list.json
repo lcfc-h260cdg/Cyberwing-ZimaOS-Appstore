@@ -40,6 +40,11 @@
     "description": "Developer Apps"
   },
   {
+    "name": "Cyberwing",
+    "font": "assistant",
+    "description": "Cyberwing Official Apps"
+  },
+  {
     "name": "Others",
     "font": "apps",
     "description": "Other Apps"
