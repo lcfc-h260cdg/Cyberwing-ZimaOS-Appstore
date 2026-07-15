@@ -2,7 +2,7 @@ name: smart-pick
 
 services:
   capture-score:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-pick/capture-score:v1.0.1
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-pick/capture-score:v1.0.2
     container_name: capture-score
     restart: unless-stopped
     volumes:
@@ -97,10 +97,12 @@ x-casaos:
   category: Media
   architectures:
     - amd64
-  version: "1.0.1"
-  update_at: "2026-07-09"
+  version: "1.0.2"
+  update_at: "2026-07-15"
   release_notes:
     en_US: |-
       - First release
+      - Limit the number and size of files uploaded at any one time
     zh_CN: |-
       - 首次上线
+      - 限制每次同时上传的文件数量和大小
