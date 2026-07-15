@@ -24,6 +24,11 @@
       "id": "com.mycyberwing.xiaobao-agent",
       "tagline": "小宝智能体，你的专属智能体",
       "title": "小宝智能体"
+    },
+    {
+      "id": "com.mycyberwing.xiaobao-assistant",
+      "tagline": "小宝语音助手",
+      "title": "小宝语音助手"
     }
   ]
 }

@@ -91,7 +91,7 @@ services:
       HOST: 0.0.0.0
       PORT: '20194'
       TZ: Asia/Shanghai
-      OPENAI_API_KEY: sk-fafd563dd30c4e11a2e92f7f5ca363f8
+      OPENAI_API_KEY: sk-abcdefg0123456789abcdefg
       OPENAI_BASE_URL: https://dashscope.aliyuncs.com/compatible-mode/v1
       OPENAI_MODEL: qwen-plus
       RAG_TEMPERATURE: '0'
@@ -168,7 +168,7 @@ services:
         max-file: '3'
         compress: 'true'
   ai-api:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/ai-api:v2.0.0_202607080936@sha256:df097d759d2e41dda759217e907350ea0fdf0256d8a537d6377a3cd5016f81b4
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/ai-api:devel-202607101551@sha256:d02a3285598c17d450dc6ed900ce92dd405c240ae265a81b68a1b11cfc230a9f
     container_name: ai-api
     restart: unless-stopped
     depends_on:
@@ -238,8 +238,8 @@ networks:
     name: smart-file-search_default
 x-casaos:
   id: com.mycyberwing.smart-file-search
-  icon: https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages/apps/com.mycyberwing.smart-file-search/assets/icon.png
+  icon: https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages/apps/com.mycyberwing.smart-file-search/assets/icon.svg
   title:
     en_US: RAG Service
     zh_CN: 智能检索服务
-  version: 1.0.0
+  version: 1.0.1

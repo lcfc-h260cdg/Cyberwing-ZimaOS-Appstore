@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "updated_at": "2026-07-13T10:31:01Z",
-  "app_count": 5,
+  "updated_at": "2026-07-15T10:41:46Z",
+  "app_count": 6,
   "base_url": "https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages",
   "apps": [
     {
@@ -41,8 +41,8 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.smart-album/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.smart-album/meta.json",
-      "content_hash": "e37e53ea",
-      "version": "1.0.0"
+      "content_hash": "a7d0c464",
+      "version": "1.0.1"
     },
     {
       "id": "com.mycyberwing.smart-file-search",
@@ -57,12 +57,12 @@
       "architectures": [
         "amd64"
       ],
-      "icon": "/apps/com.mycyberwing.smart-file-search/assets/icon.png",
+      "icon": "/apps/com.mycyberwing.smart-file-search/assets/icon.svg",
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.smart-file-search/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.smart-file-search/meta.json",
-      "content_hash": "6a3d203c",
-      "version": "1.0.0"
+      "content_hash": "d9fd4c80",
+      "version": "1.0.1"
     },
     {
       "id": "com.mycyberwing.smart-pick",
@@ -81,8 +81,8 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.smart-pick/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.smart-pick/meta.json",
-      "content_hash": "c3c94c2b",
-      "version": "1.0.0"
+      "content_hash": "df4f80d7",
+      "version": "1.0.1"
     },
     {
       "id": "com.mycyberwing.xiaobao-agent",
@@ -102,6 +102,26 @@
       "compose_url": "/apps/com.mycyberwing.xiaobao-agent/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.xiaobao-agent/meta.json",
       "content_hash": "08c1c7de",
+      "version": "1.0.0"
+    },
+    {
+      "id": "com.mycyberwing.xiaobao-assistant",
+      "title": "Xiaobao Assistant",
+      "tagline": "Xiaobao AI Chat Assistant for Cyberwing Device",
+      "category": "AI",
+      "categories": [
+        "ai"
+      ],
+      "author": "LCFC",
+      "developer": "lgy,hjx",
+      "architectures": [
+        "amd64"
+      ],
+      "icon": "/apps/com.mycyberwing.xiaobao-assistant/assets/icon.svg",
+      "thumbnail": "",
+      "compose_url": "/apps/com.mycyberwing.xiaobao-assistant/docker-compose.yml",
+      "meta_url": "/apps/com.mycyberwing.xiaobao-assistant/meta.json",
+      "content_hash": "37955c7e",
       "version": "1.0.0"
     }
   ]

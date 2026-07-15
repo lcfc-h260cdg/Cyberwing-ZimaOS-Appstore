@@ -1,0 +1,95 @@
+name: xiaobao-assistant
+services:
+  voiceprint-api:
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/xiaobao-voiceprint:v1.0.0@sha256:cd5cad491c9c6d9258caf552e54010d24cfbfce672228e063becce49d4dcdc5c
+    container_name: xiaobao-voiceprint
+    restart: unless-stopped
+    network_mode: host
+    security_opt:
+    - seccomp:unconfined
+    environment:
+      TZ: Asia/Shanghai
+      VOICEPRINT_MODEL_PATH: /app/data/models/3dspeaker_speech_campplus_sv_zh-cn_16k-common.onnx
+    healthcheck:
+      test:
+      - CMD
+      - python
+      - -c
+      - import urllib.request; urllib.request.urlopen('http://127.0.0.1:8015/voiceprint/health',
+        timeout=5)
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 120s
+  xiaobao-server:
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/xiaobao-server:v1.0.0@sha256:9aa6edbcfb8a45530a7bcd9f35f64dbe00b3102f70d65a7b8a87af46dd936d27
+    container_name: xiaobao-server
+    restart: always
+    init: true
+    network_mode: host
+    security_opt:
+    - seccomp:unconfined
+    volumes:
+    - /DATA/.config/xiaobao/backend/config.yaml:/opt/xiaobao-server/config.yaml:ro
+    - /DATA/AppData/LCFC_APP/data/xiaobao/backend:/opt/xiaobao-server
+    - /DATA/AppData/AI_MODELS/xiaobao:/opt/xiaobao-server/models:ro
+    environment:
+      TZ: Asia/Shanghai
+      CREDIT_API_BASE: http://127.0.0.1:20100
+  xiaobao:
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/xiaobao-client:v1.0.1@sha256:5eb0f8f90ac74690ca4ceef650ef15c9ab1d91a92582e433f5e3279fe3950010
+    container_name: xiaobao-client
+    restart: unless-stopped
+    depends_on:
+      voiceprint-api:
+        condition: service_healthy
+      xiaobao-server:
+        condition: service_started
+    tty: true
+    stdin_open: true
+    privileged: true
+    user: $PUID:$PGID
+    network_mode: host
+    devices:
+    - /dev/snd:/dev/snd
+    group_add:
+    - audio
+    cap_add:
+    - DAC_OVERRIDE
+    - SYS_RESOURCE
+    volumes:
+    - /DATA/Media/Music:/app/music
+    - /DATA/AppData/LCFC_APP/data/xiaobao/frontend:/app/data
+    environment:
+      TZ: Asia/Shanghai
+      HOME: /home/xiaobao
+      XIAOZHI_DATA_DIR: /app/data
+      XIAOBAO_MODE: headless
+      XIAOBAO_PROTOCOL: websocket
+      XIAOBAO_SKIP_ACTIVATION: 'false'
+      VOICEPRINT_BASE_URL: http://127.0.0.1:8015/voiceprint
+      ELEVOC_DEFAULT_SINK: soft_echoCancelsink
+      ELEVOC_DEFAULT_SOURCE: noiseReduceSource
+      ALSA_CARD: '0'
+      PULSE_ALSA_PROFILE: output:analog-stereo+input:analog-stereo
+      XDG_RUNTIME_DIR: /tmp/pulse-runtime-1000
+      PULSE_SERVER: unix:/tmp/pulse-runtime-1000/pulse/native
+      VOLUME_BACKEND: auto
+    healthcheck:
+      test:
+      - CMD
+      - python
+      - -c
+      - import urllib.request,socket; socket.setdefaulttimeout(5); urllib.request.urlopen('http://127.0.0.1:8060/musicpath',
+        timeout=3).read()
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 180s
+x-casaos:
+  id: com.mycyberwing.xiaobao-assistant
+  icon: https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages/apps/com.mycyberwing.xiaobao-assistant/assets/icon.svg
+  title:
+    en_US: Xiaobao Assistant
+    zh_CN: 小宝语音助手
+  version: 1.0.0

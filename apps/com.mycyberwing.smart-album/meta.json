@@ -13,12 +13,12 @@
   "architectures": [
     "amd64"
   ],
-  "update_at": "2026-07-08",
+  "update_at": "2026-07-15",
   "title": "Smart Album",
-  "release_note": "- First release",
+  "release_note": "- First release\n- \"Update album external dir to: `~/Gallery`\"",
   "base_url": "https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages",
   "id": "com.mycyberwing.smart-album",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "categories": [
     "media"
   ],

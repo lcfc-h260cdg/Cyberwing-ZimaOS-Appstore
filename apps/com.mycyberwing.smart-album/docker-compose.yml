@@ -144,8 +144,8 @@ services:
       bind:
         create_host_path: true
     - type: bind
-      source: /DATA/AppData/LCFC_APP/data/smart_album/external
-      target: /external
+      source: /DATA/Gallery
+      target: /DATA/Gallery
       bind:
         create_host_path: true
     - type: bind
@@ -334,4 +334,4 @@ x-casaos:
   title:
     en_US: Smart Album
     zh_CN: 智能相册
-  version: 1.0.0
+  version: 1.0.1
