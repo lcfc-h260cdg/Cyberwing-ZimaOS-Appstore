@@ -1,4 +1,5 @@
 name: smart-album
+
 services:
   database:
     image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0
@@ -145,8 +146,8 @@ services:
         bind:
           create_host_path: true
       - type: bind
-        source: /DATA/AppData/LCFC_APP/data/smart_album/external
-        target: /external
+        source: /DATA/Gallery
+        target: /DATA/Gallery
         bind:
           create_host_path: true
       - type: bind
@@ -432,10 +433,12 @@ x-casaos:
   category: Media
   architectures:
     - amd64
-  version: "1.0.0"
-  update_at: "2026-07-08"
+  version: "1.0.1"
+  update_at: "2026-07-15"
   release_notes:
     en_US: |-
       - First release
+      - "Update album external dir to: `~/Gallery`"
     zh_CN: |-
       - 首次上线
+      - "更新相册外部库路径至：`~/Gallery`"

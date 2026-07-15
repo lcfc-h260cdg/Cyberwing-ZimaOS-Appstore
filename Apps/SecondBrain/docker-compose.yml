@@ -1,4 +1,5 @@
 name: second-brain
+
 services:
   second-brain:
     image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/second-brain:v1.0.0

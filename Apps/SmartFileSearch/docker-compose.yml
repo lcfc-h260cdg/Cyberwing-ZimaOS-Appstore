@@ -100,7 +100,7 @@ services:
       HOST: 0.0.0.0
       PORT: "20194"
       TZ: Asia/Shanghai
-      OPENAI_API_KEY: sk-fafd563dd30c4e11a2e92f7f5ca363f8
+      OPENAI_API_KEY: sk-abcdefg0123456789abcdefg
       OPENAI_BASE_URL: https://dashscope.aliyuncs.com/compatible-mode/v1
       OPENAI_MODEL: qwen-plus
       RAG_TEMPERATURE: "0"
@@ -181,7 +181,7 @@ services:
         compress: "true"
 
   ai-api:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/ai-api:v2.0.0_202607080936
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/ai-api:devel-202607101551
     container_name: ai-api
     restart: unless-stopped
     depends_on:
@@ -264,7 +264,7 @@ networks:
 x-casaos:
   app_id: com.mycyberwing.smart-file-search
   id: com.mycyberwing.smart-file-search
-  icon: "icon.png"
+  icon: "https://zimaos-store.oss-cn-beijing.aliyuncs.com/default_app_icon.svg"
   title:
     en_US: "RAG Service"
     zh_CN: 智能检索服务
@@ -280,10 +280,12 @@ x-casaos:
   category: AI
   architectures:
     - amd64
-  version: "1.0.0"
-  update_at: "2026-07-08"
+  version: "1.0.1"
+  update_at: "2026-07-15"
   release_notes:
     en_US: |-
       - First release
+      - Update ai-api service
     zh_CN: |-
       - 首次上线
+      - 更新 ai-api 服务

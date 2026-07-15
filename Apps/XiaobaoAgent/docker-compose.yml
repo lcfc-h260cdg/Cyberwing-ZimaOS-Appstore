@@ -1,4 +1,5 @@
 name: xiaobao-agent
+
 services:
   hermes-agent-image-preload:
     image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-agent-custom:v1.0.0

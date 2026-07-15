@@ -1,4 +1,5 @@
 name: smart-pick
+
 services:
   capture-score:
     image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-pick/capture-score:v1.0.1
@@ -96,7 +97,7 @@ x-casaos:
   category: Media
   architectures:
     - amd64
-  version: "1.0.0"
+  version: "1.0.1"
   update_at: "2026-07-09"
   release_notes:
     en_US: |-
