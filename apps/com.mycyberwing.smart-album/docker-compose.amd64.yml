@@ -37,7 +37,7 @@ services:
         reservations: {}
     shm_size: '134217728'
   immich-init:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-server:v1.0.0@sha256:539122f67aa2e19b244251479ca78e2528c2f683b81287d8c52c857b99cc5bb5
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-server:v1.0.1@sha256:410e6e7c10cab043c61678ae4b57c91809e926e01f2f5d0eae3bf4b05c76fec0
     build:
       context: /DATA
       dockerfile: server/Dockerfile.dev
@@ -107,7 +107,7 @@ services:
           memory: '33115533312'
         reservations: {}
   immich-server:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-server:v1.0.0@sha256:539122f67aa2e19b244251479ca78e2528c2f683b81287d8c52c857b99cc5bb5
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-server:v1.0.1@sha256:410e6e7c10cab043c61678ae4b57c91809e926e01f2f5d0eae3bf4b05c76fec0
     build:
       context: /DATA
       dockerfile: server/Dockerfile.dev
@@ -189,7 +189,7 @@ services:
     tmpfs:
     - /tmp
   immich-web:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-web:v1.0.0@sha256:37216a363f53d4f921ee5c463f1c23cce238a4519a93bb8ab4964d31379d318f
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-web:v1.0.1@sha256:1bcd69f7168190c8d1a85d19af1037a26f1f663f75ca9c653668a7b6c2a0343d
     build:
       context: /DATA
       dockerfile: server/Dockerfile.dev

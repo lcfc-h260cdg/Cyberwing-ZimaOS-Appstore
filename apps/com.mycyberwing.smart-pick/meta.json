@@ -13,17 +13,17 @@
   "architectures": [
     "amd64"
   ],
-  "update_at": "2026-07-09",
+  "update_at": "2026-07-15",
   "title": "Smart Pick",
-  "release_note": "- First release",
+  "release_note": "- First release\n- Limit the number and size of files uploaded at any one time",
   "base_url": "https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages",
   "id": "com.mycyberwing.smart-pick",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "categories": [
     "media"
   ],
   "min_memory": 0,
   "min_image_size": {
-    "amd64": 526223278
+    "amd64": 629533712
   }
 }
