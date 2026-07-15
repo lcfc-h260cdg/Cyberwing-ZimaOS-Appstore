@@ -28,6 +28,14 @@ services:
       UPLOAD_LOCATION: /DATA/AppData/LCFC_APP/data/smart_album/library
     networks:
       default: null
+    healthcheck:
+      test:
+      - CMD-SHELL
+      - pg_isready --host=127.0.0.1 --dbname="$${POSTGRES_DB}" --username="$${POSTGRES_USER}"
+        || exit 1
+      timeout: 5s
+      interval: 2s
+      retries: 300
     command: []
     cpu_shares: 90
     deploy:
@@ -76,7 +84,7 @@ services:
     restart: unless-stopped
     depends_on:
       database:
-        condition: service_started
+        condition: service_healthy
         required: true
     ports:
     - mode: ingress
@@ -116,13 +124,13 @@ services:
     restart: unless-stopped
     depends_on:
       database:
-        condition: service_started
+        condition: service_healthy
         required: true
       immich-init:
         condition: service_healthy
         required: true
       redis:
-        condition: service_started
+        condition: service_healthy
         required: true
     ports:
     - mode: ingress
@@ -241,6 +249,9 @@ services:
       test:
       - CMD-SHELL
       - redis-cli ping || exit 1
+      timeout: 3s
+      interval: 2s
+      retries: 30
     command: []
     cpu_shares: 90
     deploy:
@@ -254,7 +265,7 @@ services:
     restart: 'no'
     depends_on:
       database:
-        condition: service_started
+        condition: service_healthy
         required: true
       immich-server:
         condition: service_started
@@ -286,21 +297,30 @@ services:
       \ -U \"$$DB_USERNAME\" -d \"$$DB_DATABASE_NAME\" \"$$@\"\n}\n\nhttp_request()\
       \ {\n  local method=\"$$1\"\n  local url=\"$$2\"\n  local body=\"$${3:-}\"\n\
       \  local target=\"$${url#http://}\"\n  local host=\"$${target%%/*}\"\n  local\
-      \ path=\"/$${target#*/}\"\n  local port=80\n\n  if [ \"$$host\" != \"$${host%:*}\"\
-      \ ]; then\n    port=\"$${host##*:}\"\n    host=\"$${host%:*}\"\n  fi\n\n  exec\
-      \ 3<>\"/dev/tcp/$$host/$$port\" || return 1\n  if [ \"$$method\" = \"POST\"\
-      \ ]; then\n    printf 'POST %s HTTP/1.1\\r\\nHost: %s\\r\\nContent-Type: application/json\\\
-      r\\nContent-Length: %s\\r\\nConnection: close\\r\\n\\r\\n%s' \"$$path\" \"$$host\"\
-      \ \"$${#body}\" \"$$body\" >&3\n  else\n    printf 'GET %s HTTP/1.1\\r\\nHost:\
-      \ %s\\r\\nConnection: close\\r\\n\\r\\n' \"$$path\" \"$$host\" >&3\n  fi\n \
-      \ cat <&3 >/dev/null || true\n  exec 3<&-\n  exec 3>&-\n}\n\necho \"[immich-bootstrap]\
-      \ waiting for postgres\"\nuntil pg_isready -h database -U \"$$DB_USERNAME\"\
-      \ -d \"$$DB_DATABASE_NAME\" >/dev/null 2>&1; do\n  sleep 2\ndone\n\necho \"\
-      [immich-bootstrap] waiting for immich server\"\nuntil http_request GET \"$$API_BASE/server/ping\"\
-      ; do\n  sleep 2\ndone\n\necho \"[immich-bootstrap] waiting for migrations\"\n\
-      until [ \"$$(psql_immich -At <<'SQL'\nSELECT to_regclass('public.\"user\"')\
-      \ IS NOT NULL\n    AND to_regclass('public.api_key') IS NOT NULL;\nSQL\n)\"\
-      \ = \"t\" ]; do\n  sleep 2\ndone\n\nif [ \"$$(psql_immich -v admin_email=\"\
+      \ path=\"/$${target#*/}\"\n  local port=80\n  local status\n\n  if [ \"$$host\"\
+      \ != \"$${host%:*}\" ]; then\n    port=\"$${host##*:}\"\n    host=\"$${host%:*}\"\
+      \n  fi\n\n  if ! { exec 3<>\"/dev/tcp/$$host/$$port\"; } 2>/dev/null; then\n\
+      \    return 1\n  fi\n  if [ \"$$method\" = \"POST\" ]; then\n    printf 'POST\
+      \ %s HTTP/1.1\\r\\nHost: %s\\r\\nContent-Type: application/json\\r\\nContent-Length:\
+      \ %s\\r\\nConnection: close\\r\\n\\r\\n%s' \"$$path\" \"$$host\" \"$${#body}\"\
+      \ \"$$body\" >&3\n  else\n    printf 'GET %s HTTP/1.1\\r\\nHost: %s\\r\\nConnection:\
+      \ close\\r\\n\\r\\n' \"$$path\" \"$$host\" >&3\n  fi\n  IFS=$$'\\r' read -r\
+      \ status <&3 || status=\"\"\n  cat <&3 >/dev/null || true\n  exec 3<&-\n  exec\
+      \ 3>&-\n\n  case \"$$status\" in\n    HTTP/1.*\\ 2??*) return 0 ;;\n    *) return\
+      \ 1 ;;\n  esac\n}\n\necho \"[immich-bootstrap] waiting for postgres\"\nattempt=0\n\
+      until pg_isready -h database -U \"$$DB_USERNAME\" -d \"$$DB_DATABASE_NAME\"\
+      \ >/dev/null 2>&1; do\n  attempt=$$((attempt + 1))\n  if [ \"$$attempt\" -ge\
+      \ 300 ]; then\n    echo \"[immich-bootstrap] timed out waiting for postgres\"\
+      \ >&2\n    exit 1\n  fi\n  sleep 2\ndone\n\necho \"[immich-bootstrap] waiting\
+      \ for immich server\"\nattempt=0\nuntil http_request GET \"$$API_BASE/server/ping\"\
+      ; do\n  attempt=$$((attempt + 1))\n  if [ \"$$attempt\" -ge 300 ]; then\n  \
+      \  echo \"[immich-bootstrap] timed out waiting for immich server\" >&2\n   \
+      \ exit 1\n  fi\n  sleep 2\ndone\n\necho \"[immich-bootstrap] waiting for migrations\"\
+      \nattempt=0\nuntil [ \"$$(psql_immich -At <<'SQL'\nSELECT to_regclass('public.\"\
+      user\"') IS NOT NULL\n    AND to_regclass('public.api_key') IS NOT NULL;\nSQL\n\
+      )\" = \"t\" ]; do\n  attempt=$$((attempt + 1))\n  if [ \"$$attempt\" -ge 300\
+      \ ]; then\n    echo \"[immich-bootstrap] timed out waiting for migrations\"\
+      \ >&2\n    exit 1\n  fi\n  sleep 2\ndone\n\nif [ \"$$(psql_immich -v admin_email=\"\
       $$ADMIN_EMAIL\" -At <<'SQL'\nSELECT EXISTS (SELECT 1 FROM \"user\" WHERE email\
       \ = :'admin_email');\nSQL\n)\" != \"t\" ]; then\n  echo \"[immich-bootstrap]\
       \ creating admin user $$ADMIN_EMAIL\"\n  payload=$$(printf '{\"email\":\"%s\"\
