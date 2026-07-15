@@ -32,13 +32,13 @@ services:
       - seccomp:unconfined
     volumes:
       - /DATA/.config/xiaobao/backend/config.yaml:/opt/xiaobao-server/config.yaml:ro
-      - /DATA/AppData/LCFC_APP/data/xiaobao/backend:/opt/xiaobao-server
+      - /DATA/AppData/LCFC_APP/data/xiaobao/backend:/opt/xiaobao-server/data
       - /DATA/AppData/AI_MODELS/xiaobao:/opt/xiaobao-server/models:ro
     environment:
       TZ: Asia/Shanghai
       CREDIT_API_BASE: http://127.0.0.1:20100
 
-  xiaobao:
+  xiaobao-client:
     image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/xiaobao-client:v1.0.1
     container_name: xiaobao-client
     restart: unless-stopped
@@ -50,7 +50,7 @@ services:
     tty: true
     stdin_open: true
     privileged: true
-    user: "$PUID:$PGID"
+    user: "${PUID:-1000}:${PGID:-1000}"
     network_mode: host
     devices:
       - /dev/snd:/dev/snd
