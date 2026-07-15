@@ -39,7 +39,7 @@ services:
     shm_size: "134217728"
 
   immich-init:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-server:v1.0.0
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-server:v1.0.1
     build:
       context: /DATA
       dockerfile: server/Dockerfile.dev
@@ -109,7 +109,7 @@ services:
         reservations: {}
 
   immich-server:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-server:v1.0.0
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-server:v1.0.1
     build:
       context: /DATA
       dockerfile: server/Dockerfile.dev
@@ -192,7 +192,7 @@ services:
       - /tmp
 
   immich-web:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-web:v1.0.0
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-web:v1.0.1
     build:
       context: /DATA
       dockerfile: server/Dockerfile.dev
