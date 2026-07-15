@@ -29,6 +29,13 @@ services:
       UPLOAD_LOCATION: /DATA/AppData/LCFC_APP/data/smart_album/library
     networks:
       default: null
+    healthcheck:
+      test:
+          - CMD-SHELL
+          - pg_isready --host=127.0.0.1 --dbname="$${POSTGRES_DB}" --username="$${POSTGRES_USER}" || exit 1
+      timeout: 5s
+      interval: 2s
+      retries: 300
     command: []
     cpu_shares: 90
     deploy:
@@ -77,7 +84,7 @@ services:
     restart: unless-stopped
     depends_on:
       database:
-        condition: service_started
+        condition: service_healthy
         required: true
     ports:
       - mode: ingress
@@ -118,13 +125,13 @@ services:
     restart: unless-stopped
     depends_on:
       database:
-        condition: service_started
+        condition: service_healthy
         required: true
       immich-init:
         condition: service_healthy
         required: true
       redis:
-        condition: service_started
+        condition: service_healthy
         required: true
     ports:
       - mode: ingress
@@ -245,6 +252,9 @@ services:
       test:
         - CMD-SHELL
         - redis-cli ping || exit 1
+      timeout: 3s
+      interval: 2s
+      retries: 30
     command: []
     cpu_shares: 90
     deploy:
@@ -259,7 +269,7 @@ services:
     restart: "no"
     depends_on:
       database:
-        condition: service_started
+        condition: service_healthy
         required: true
       immich-server:
         condition: service_started
@@ -308,39 +318,66 @@ services:
           local host="$${target%%/*}"
           local path="/$${target#*/}"
           local port=80
+          local status
 
           if [ "$$host" != "$${host%:*}" ]; then
             port="$${host##*:}"
             host="$${host%:*}"
           fi
 
-          exec 3<>"/dev/tcp/$$host/$$port" || return 1
+          if ! { exec 3<>"/dev/tcp/$$host/$$port"; } 2>/dev/null; then
+            return 1
+          fi
           if [ "$$method" = "POST" ]; then
             printf 'POST %s HTTP/1.1\r\nHost: %s\r\nContent-Type: application/json\r\nContent-Length: %s\r\nConnection: close\r\n\r\n%s' "$$path" "$$host" "$${#body}" "$$body" >&3
           else
             printf 'GET %s HTTP/1.1\r\nHost: %s\r\nConnection: close\r\n\r\n' "$$path" "$$host" >&3
           fi
+          IFS=$$'\r' read -r status <&3 || status=""
           cat <&3 >/dev/null || true
           exec 3<&-
           exec 3>&-
+
+          case "$$status" in
+            HTTP/1.*\ 2??*) return 0 ;;
+            *) return 1 ;;
+          esac
         }
 
         echo "[immich-bootstrap] waiting for postgres"
+        attempt=0
         until pg_isready -h database -U "$$DB_USERNAME" -d "$$DB_DATABASE_NAME" >/dev/null 2>&1; do
+          attempt=$$((attempt + 1))
+          if [ "$$attempt" -ge 300 ]; then
+            echo "[immich-bootstrap] timed out waiting for postgres" >&2
+            exit 1
+          fi
           sleep 2
         done
 
         echo "[immich-bootstrap] waiting for immich server"
+        attempt=0
         until http_request GET "$$API_BASE/server/ping"; do
+          attempt=$$((attempt + 1))
+          if [ "$$attempt" -ge 300 ]; then
+            echo "[immich-bootstrap] timed out waiting for immich server" >&2
+            exit 1
+          fi
           sleep 2
         done
 
         echo "[immich-bootstrap] waiting for migrations"
+        attempt=0
         until [ "$$(psql_immich -At <<'SQL'
         SELECT to_regclass('public."user"') IS NOT NULL
             AND to_regclass('public.api_key') IS NOT NULL;
         SQL
         )" = "t" ]; do
+          attempt=$$((attempt + 1))
+          if [ "$$attempt" -ge 300 ]; then
+            echo "[immich-bootstrap] timed out waiting for migrations" >&2
+            exit 1
+          fi
           sleep 2
         done
 
