@@ -40,47 +40,46 @@ services:
         bind:
           create_host_path: true
     environment:
-      API_SERVER_CORS_ORIGINS: '*'
+      HERMES_RUNTIME_MODE: container_per_user
+      HERMES_ADAPTER_IMAGE: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-adapter:v1.0.2
+      HERMES_BASE_IMAGE: nousresearch/hermes-agent:v2026.7.7.2
+      HERMES_USER_SCENARIO: zimaos
+      HERMES_ADAPTER_HOME: /opt/data/hermes-adapter
+      HERMES_ADAPTER_HOST: 0.0.0.0
+      HERMES_ADAPTER_PORT: "8787"
+      HERMES_ADAPTER_HOST_PORT: "8787"
+      HERMES_ADAPTER_LOG_LEVEL: INFO
+      HERMES_ADAPTER_CORS_ORIGINS: '*'
+      HERMES_ADAPTER_CORS_ALLOW_CREDENTIALS: "false"
+      HERMES_MAX_USERS: "10"
+      HERMES_CONFIG_BACKUP_MAX_SNAPSHOTS: "3"
+      AI_API_HOST: host.docker.internal
+      HERMES_ADAPTER_TLS_ENABLED: "true"
+      HERMES_ADAPTER_TLS_AUTO_SELF_SIGNED: "true"
+      HERMES_ADAPTER_TLS_VALIDITY_DAYS: "3650"
+      ZIMAOS_API_BASE_URL: http://host.docker.internal
+      HERMES_USER_DATA_ROOT: /DATA/AppData/LCFC_APP/data/hermes-data
+      HERMES_HOST_RAG_PUBLIC_DIR: /DATA/Share,/DATA/AppData/LCFC_APP/data/smart_album/library/photos/upload
+      HERMES_SHARED_PATH_BLACKLIST: /bin,/sbin,/lib,/lib64,/usr,/etc,/proc,/sys,/dev,/run,/var,/tmp,/opt/data,/opt/hermes,/opt/hermes-defaults,/opt/custom-skills
+      HERMES_AGENT_IMAGE: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-agent-custom:v1.0.2
+      HERMES_AGENT_COMMAND: gateway run
+      HERMES_DOCKER_NETWORK: hermes-adapter-docker_hermes-net
+      HERMES_CONTAINER_PREFIX: hermes-agent-
+      HERMES_AGENT_PORT: "8642"
+      HERMES_AGENT_HEALTH_PATH: /health
+      HERMES_AGENT_HEALTH_TIMEOUT: "60"
+      HERMES_AGENT_HEALTH_INTERVAL: "2"
+      HERMES_CONTAINER_HOME: /opt/data
+      HERMES_DOCKER_AUTO_REMOVE: "false"
       API_SERVER_ENABLED: "true"
       API_SERVER_HOST: 0.0.0.0
       API_SERVER_KEY: change-me-local-dev
-      AI_API_HOST: host.docker.internal
-      HERMES_ADAPTER_CORS_ALLOW_CREDENTIALS: "false"
-      HERMES_ADAPTER_CORS_ORIGINS: '*'
-      HERMES_ADAPTER_HOME: /opt/data/hermes-adapter
-      HERMES_ADAPTER_HOST: 0.0.0.0
-      HERMES_ADAPTER_HOST_PORT: "8787"
-      HERMES_ADAPTER_IMAGE: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-adapter:v1.0.2
-      HERMES_ADAPTER_LOG_LEVEL: INFO
-      HERMES_ADAPTER_PORT: "8787"
-      HERMES_ADAPTER_TLS_AUTO_SELF_SIGNED: "true"
-      HERMES_ADAPTER_TLS_ENABLED: "true"
-      HERMES_ADAPTER_TLS_VALIDITY_DAYS: "3650"
-      HERMES_AGENT_COMMAND: gateway run
-      HERMES_AGENT_CUSTOM_IMAGE: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-agent-custom:v1.0.2
-      HERMES_AGENT_HEALTH_INTERVAL: "2"
-      HERMES_AGENT_HEALTH_PATH: /health
-      HERMES_AGENT_HEALTH_TIMEOUT: "60"
-      HERMES_AGENT_IMAGE: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-agent-custom:v1.0.2
-      HERMES_AGENT_PORT: "8642"
-      HERMES_BASE_IMAGE: nousresearch/hermes-agent:v2026.7.7.2
-      HERMES_BIN: hermes
-      HERMES_CONFIG_BACKUP_MAX_SNAPSHOTS: "3"
-      HERMES_CONTAINER_HOME: /opt/data
-      HERMES_CONTAINER_PREFIX: hermes-agent-
-      HERMES_DOCKER_AUTO_REMOVE: "false"
-      HERMES_DOCKER_NETWORK: hermes-adapter-docker_hermes-net
-      HERMES_HOST_RAG_PUBLIC_DIR: /DATA/Share,/DATA/AppData/LCFC_APP/data/smart_album/library/photos/upload
-      HERMES_MAX_USERS: "10"
-      HERMES_PROFILE_CREATE_TIMEOUT: "90"
-      HERMES_PROFILE_PREFIX: hp_
-      HERMES_RUNTIME_MODE: container_per_user
+      API_SERVER_CORS_ORIGINS: '*'
       HERMES_SHARED_HOME: /opt/data/hermes
-      HERMES_SHARED_PATH_BLACKLIST: /bin,/sbin,/lib,/lib64,/usr,/etc,/proc,/sys,/dev,/run,/var,/tmp,/opt/data,/opt/hermes,/opt/hermes-defaults,/opt/custom-skills
+      HERMES_BIN: hermes
       HERMES_UPSTREAM: http://hermes-agent:8642
-      HERMES_USER_DATA_ROOT: /DATA/AppData/LCFC_APP/data/hermes-data
-      HERMES_USER_SCENARIO: zimaos
-      ZIMAOS_API_BASE_URL: http://host.docker.internal
+      HERMES_PROFILE_PREFIX: hp_
+      HERMES_PROFILE_CREATE_TIMEOUT: "90"
     extra_hosts:
       - "host.docker.internal:host-gateway"
     networks:
