@@ -31,7 +31,7 @@ services:
           create_host_path: true
       - type: bind
         source: /DATA/AppData/LCFC_APP/data/hermes-data
-        target: /DATA/AppData/hermes-data
+        target: /DATA/AppData/LCFC_APP/data/hermes-data
         bind:
           create_host_path: true
       - type: bind
@@ -63,7 +63,7 @@ services:
       HERMES_AGENT_HEALTH_TIMEOUT: "60"
       HERMES_AGENT_IMAGE: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-agent-custom:v1.0.2
       HERMES_AGENT_PORT: "8642"
-      HERMES_BASE_IMAGE: nousresearch/hermes-agent:latest
+      HERMES_BASE_IMAGE: nousresearch/hermes-agent:v2026.7.7.2
       HERMES_BIN: hermes
       HERMES_CONFIG_BACKUP_MAX_SNAPSHOTS: "3"
       HERMES_CONTAINER_HOME: /opt/data
@@ -71,7 +71,6 @@ services:
       HERMES_DOCKER_AUTO_REMOVE: "false"
       HERMES_DOCKER_NETWORK: hermes-adapter-docker_hermes-net
       HERMES_HOST_RAG_PUBLIC_DIR: /DATA/Share,/DATA/AppData/LCFC_APP/data/smart_album/library/photos/upload
-      HERMES_EXTRA_VOLUMES: /DATA/AppData/LCFC_APP/data/ragdata:/DATA/AppData/LCFC_APP/data/ragdata:ro
       HERMES_MAX_USERS: "10"
       HERMES_PROFILE_CREATE_TIMEOUT: "90"
       HERMES_PROFILE_PREFIX: hp_
@@ -79,7 +78,7 @@ services:
       HERMES_SHARED_HOME: /opt/data/hermes
       HERMES_SHARED_PATH_BLACKLIST: /bin,/sbin,/lib,/lib64,/usr,/etc,/proc,/sys,/dev,/run,/var,/tmp,/opt/data,/opt/hermes,/opt/hermes-defaults,/opt/custom-skills
       HERMES_UPSTREAM: http://hermes-agent:8642
-      HERMES_USER_DATA_ROOT: /DATA/AppData/LCFC_APP/data/hermes-data/
+      HERMES_USER_DATA_ROOT: /DATA/AppData/LCFC_APP/data/hermes-data
       HERMES_USER_SCENARIO: zimaos
       ZIMAOS_API_BASE_URL: http://host.docker.internal
     extra_hosts:
@@ -142,10 +141,12 @@ x-casaos:
   category: AI
   architectures:
     - amd64
-  version: "1.0.2"
-  update_at: "2026-07-15"
+  version: "1.0.3"
+  update_at: "2026-07-16"
   release_notes:
     en_US: |-
       - First release
+      - Bugfix
     zh_CN: |-
       - 首次上线
+      - 修复Bug
