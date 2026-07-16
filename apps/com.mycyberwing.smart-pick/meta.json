@@ -9,7 +9,7 @@
   "tips": {},
   "author": "LCFC",
   "developer": "dk",
-  "category": "Cyberwing",
+  "category": "Media",
   "architectures": [
     "amd64"
   ],
@@ -20,7 +20,7 @@
   "id": "com.mycyberwing.smart-pick",
   "version": "1.0.2",
   "categories": [
-    "cyberwing"
+    "media"
   ],
   "min_memory": 0,
   "min_image_size": {

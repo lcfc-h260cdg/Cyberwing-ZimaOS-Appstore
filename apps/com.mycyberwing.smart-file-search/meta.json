@@ -5,7 +5,7 @@
   "tips": {},
   "author": "LCFC",
   "developer": "nmh",
-  "category": "Cyberwing",
+  "category": "AI",
   "architectures": [
     "amd64"
   ],
@@ -16,7 +16,7 @@
   "id": "com.mycyberwing.smart-file-search",
   "version": "1.0.1",
   "categories": [
-    "cyberwing"
+    "ai"
   ],
   "min_memory": 2147483648,
   "min_image_size": {
