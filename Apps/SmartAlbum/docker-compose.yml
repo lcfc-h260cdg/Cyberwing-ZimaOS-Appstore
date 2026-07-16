@@ -31,8 +31,8 @@ services:
       default: null
     healthcheck:
       test:
-          - CMD-SHELL
-          - pg_isready --host=127.0.0.1 --dbname="$${POSTGRES_DB}" --username="$${POSTGRES_USER}" || exit 1
+        - CMD-SHELL
+        - pg_isready --host=127.0.0.1 --dbname=immich --username=postgres || exit 1
       timeout: 5s
       interval: 2s
       retries: 300
@@ -288,143 +288,103 @@ services:
       IMMICH_VERSION: v2.7.5
       UPLOAD_LOCATION: /DATA/AppData/LCFC_APP/data/smart_album/library
     entrypoint:
-      - /usr/bin/bash
-      - -ec
-      - |
-        set -u
+        - /usr/bin/bash
+        - -ec
+        - |
+          set -u
 
-        API_BASE="$${IMMICH_BOOTSTRAP_API_BASE:-http://immich-server:2283/api}"
-        ADMIN_EMAIL="$${IMMICH_BOOTSTRAP_ADMIN_EMAIL:-admin@lcfc.com}"
-        ADMIN_PASSWORD="$${IMMICH_BOOTSTRAP_ADMIN_PASSWORD:-admin}"
-        ADMIN_NAME="$${IMMICH_BOOTSTRAP_ADMIN_NAME:-admin}"
-        API_KEY_NAME="$${IMMICH_BOOTSTRAP_API_KEY_NAME:-API Key}"
-        API_KEY_HASH="$${IMMICH_BOOTSTRAP_API_KEY_HASH:-ee178b51124472060e7dd848034f6bc5dbd14e02667ad6609f52420c6328bb4e}"
+          server_ready() {
+            if ! { exec 3<>/dev/tcp/immich-server/2283; } 2>/dev/null; then
+              return 1
+            fi
 
-        : "$${DB_USERNAME:?DB_USERNAME is required}"
-        : "$${DB_PASSWORD:?DB_PASSWORD is required}"
-        : "$${DB_DATABASE_NAME:?DB_DATABASE_NAME is required}"
+            printf 'GET /api/server/ping HTTP/1.1\r\nHost: immich-server\r\nConnection: close\r\n\r\n' >&3
+            if head -n 1 <&3 | grep -q ' 200 '; then
+              exec 3<&-
+              exec 3>&-
+              return 0
+            fi
 
-        export PGPASSWORD="$$DB_PASSWORD"
-
-        psql_immich() {
-          psql -h database -U "$$DB_USERNAME" -d "$$DB_DATABASE_NAME" "$$@"
-        }
-
-        http_request() {
-          local method="$$1"
-          local url="$$2"
-          local body="$${3:-}"
-          local target="$${url#http://}"
-          local host="$${target%%/*}"
-          local path="/$${target#*/}"
-          local port=80
-          local status
-
-          if [ "$$host" != "$${host%:*}" ]; then
-            port="$${host##*:}"
-            host="$${host%:*}"
-          fi
-
-          if ! { exec 3<>"/dev/tcp/$$host/$$port"; } 2>/dev/null; then
+            exec 3<&-
+            exec 3>&-
             return 1
-          fi
-          if [ "$$method" = "POST" ]; then
-            printf 'POST %s HTTP/1.1\r\nHost: %s\r\nContent-Type: application/json\r\nContent-Length: %s\r\nConnection: close\r\n\r\n%s' "$$path" "$$host" "$${#body}" "$$body" >&3
-          else
-            printf 'GET %s HTTP/1.1\r\nHost: %s\r\nConnection: close\r\n\r\n' "$$path" "$$host" >&3
-          fi
-          IFS=$$'\r' read -r status <&3 || status=""
-          cat <&3 >/dev/null || true
-          exec 3<&-
-          exec 3>&-
+          }
 
-          case "$$status" in
-            HTTP/1.*\ 2??*) return 0 ;;
-            *) return 1 ;;
-          esac
-        }
+          admin_exists() {
+            PGPASSWORD=postgres psql -h database -U postgres -d immich -At <<'SQL' | grep -qx t
+          SELECT EXISTS (SELECT 1 FROM "user" WHERE email = 'admin@lcfc.com');
+          SQL
+          }
 
-        echo "[immich-bootstrap] waiting for postgres"
-        attempt=0
-        until pg_isready -h database -U "$$DB_USERNAME" -d "$$DB_DATABASE_NAME" >/dev/null 2>&1; do
-          attempt=$$((attempt + 1))
-          if [ "$$attempt" -ge 300 ]; then
+          create_admin() {
+            if ! { exec 3<>/dev/tcp/immich-server/2283; } 2>/dev/null; then
+              return 1
+            fi
+
+            printf 'POST /api/auth/admin-sign-up HTTP/1.1\r\nHost: immich-server\r\nContent-Type: application/json\r\nContent-Length: 60\r\nConnection: close\r\n\r\n{"email":"admin@lcfc.com","password":"admin","name":"admin"}' >&3
+            cat <&3 >/dev/null || true
+            exec 3<&-
+            exec 3>&-
+          }
+
+          echo "[immich-bootstrap] waiting for postgres"
+          for _ in {1..300}; do
+            if pg_isready -h database -U postgres -d immich >/dev/null 2>&1; then
+              break
+            fi
+            sleep 2
+          done
+          if ! pg_isready -h database -U postgres -d immich >/dev/null 2>&1; then
             echo "[immich-bootstrap] timed out waiting for postgres" >&2
             exit 1
           fi
-          sleep 2
-        done
 
-        echo "[immich-bootstrap] waiting for immich server"
-        attempt=0
-        until http_request GET "$$API_BASE/server/ping"; do
-          attempt=$$((attempt + 1))
-          if [ "$$attempt" -ge 300 ]; then
+          echo "[immich-bootstrap] waiting for immich server"
+          for _ in {1..300}; do
+            if server_ready; then
+              break
+            fi
+            sleep 2
+          done
+          if ! server_ready; then
             echo "[immich-bootstrap] timed out waiting for immich server" >&2
             exit 1
           fi
-          sleep 2
-        done
 
-        echo "[immich-bootstrap] waiting for migrations"
-        attempt=0
-        until [ "$$(psql_immich -At <<'SQL'
-        SELECT to_regclass('public."user"') IS NOT NULL
-            AND to_regclass('public.api_key') IS NOT NULL;
-        SQL
-        )" = "t" ]; do
-          attempt=$$((attempt + 1))
-          if [ "$$attempt" -ge 300 ]; then
-            echo "[immich-bootstrap] timed out waiting for migrations" >&2
+          if ! admin_exists; then
+            echo "[immich-bootstrap] creating admin user admin@lcfc.com"
+            create_admin || true
+          fi
+
+          echo "[immich-bootstrap] waiting for admin user"
+          for _ in {1..30}; do
+            if admin_exists; then
+              break
+            fi
+            sleep 2
+          done
+          if ! admin_exists; then
+            echo "[immich-bootstrap] admin user was not created: admin@lcfc.com" >&2
             exit 1
           fi
-          sleep 2
-        done
 
-        if [ "$$(psql_immich -v admin_email="$$ADMIN_EMAIL" -At <<'SQL'
-        SELECT EXISTS (SELECT 1 FROM "user" WHERE email = :'admin_email');
-        SQL
-        )" != "t" ]; then
-          echo "[immich-bootstrap] creating admin user $$ADMIN_EMAIL"
-          payload=$$(printf '{"email":"%s","password":"%s","name":"%s"}' "$$ADMIN_EMAIL" "$$ADMIN_PASSWORD" "$$ADMIN_NAME")
-          http_request POST "$$API_BASE/auth/admin-sign-up" "$$payload" || true
-        fi
+          echo "[immich-bootstrap] ensuring fixed api key"
+          PGPASSWORD=postgres psql -h database -U postgres -d immich -v ON_ERROR_STOP=1 <<'SQL'
+          INSERT INTO api_key ("userId", "name", "key", "permissions")
+          SELECT id,
+                 'API Key',
+                 decode('ee178b51124472060e7dd848034f6bc5dbd14e02667ad6609f52420c6328bb4e', 'hex'),
+                 ARRAY['all']::character varying[]
+          FROM "user"
+          WHERE email = 'admin@lcfc.com'
+            AND NOT EXISTS (
+              SELECT 1
+              FROM api_key
+              WHERE key = decode('ee178b51124472060e7dd848034f6bc5dbd14e02667ad6609f52420c6328bb4e', 'hex')
+            );
+          SQL
 
-        echo "[immich-bootstrap] waiting for admin user"
-        attempt=0
-        until [ "$$(psql_immich -v admin_email="$$ADMIN_EMAIL" -At <<'SQL'
-        SELECT EXISTS (SELECT 1 FROM "user" WHERE email = :'admin_email');
-        SQL
-        )" = "t" ]; do
-          attempt=$$((attempt + 1))
-          if [ "$$attempt" -ge 30 ]; then
-            echo "[immich-bootstrap] admin user was not created: $$ADMIN_EMAIL" >&2
-            exit 1
-          fi
-          sleep 2
-        done
-
-        echo "[immich-bootstrap] ensuring fixed api key"
-        psql_immich \
-          -v ON_ERROR_STOP=1 \
-          -v admin_email="$$ADMIN_EMAIL" \
-          -v api_key_name="$$API_KEY_NAME" \
-          -v api_key_hash="$$API_KEY_HASH" <<'SQL'
-        INSERT INTO api_key ("userId", "name", "key", "permissions")
-        SELECT id,
-                :'api_key_name',
-                decode(:'api_key_hash', 'hex'),
-                ARRAY['all']::character varying[]
-        FROM "user"
-        WHERE email = :'admin_email'
-          AND NOT EXISTS (
-            SELECT 1
-            FROM api_key
-            WHERE key = decode(:'api_key_hash', 'hex')
-          );
-        SQL
-
-        echo "[immich-bootstrap] done"
+          echo "[immich-bootstrap] done"
     command: []
 
 networks:
