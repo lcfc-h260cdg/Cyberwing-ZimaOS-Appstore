@@ -12,6 +12,6 @@ docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immi
 docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-web:v1.0.1 sha256:1bcd69f7168190c8d1a85d19af1037a26f1f663f75ca9c653668a7b6c2a0343d
 docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-pick/capture-score:v1.0.2 sha256:57fd0c690b13f0e9b623708fe21ca798233c09348014e16ae2190b8518ba931a
 docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/valkey/valkey:9 sha256:7a48ff82d4b41e6faa1de0e10a1343bcfef8f0a7a0cd5df4b5b360daf7ab0139
-docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/xiaobao-client:v1.0.1 sha256:5eb0f8f90ac74690ca4ceef650ef15c9ab1d91a92582e433f5e3279fe3950010
-docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/xiaobao-server:v1.0.0 sha256:9aa6edbcfb8a45530a7bcd9f35f64dbe00b3102f70d65a7b8a87af46dd936d27
+docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/xiaobao-client:v1.0.2 sha256:970a368e1c8e90af1f77637130a9d2293d842a76b378238a8b6c1d91de224494
+docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/xiaobao-server:v1.0.1 sha256:c8c522ce1c0e32a1cbe92a18a3c7b59f9570abf5665e4f7569b83f48f11fe592
 docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/xiaobao-voiceprint:v1.0.0 sha256:cd5cad491c9c6d9258caf552e54010d24cfbfce672228e063becce49d4dcdc5c

@@ -22,22 +22,21 @@ services:
       retries: 3
       start_period: 120s
   xiaobao-server:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/xiaobao-server:v1.0.0@sha256:9aa6edbcfb8a45530a7bcd9f35f64dbe00b3102f70d65a7b8a87af46dd936d27
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/xiaobao-server:v1.0.1@sha256:c8c522ce1c0e32a1cbe92a18a3c7b59f9570abf5665e4f7569b83f48f11fe592
     container_name: xiaobao-server
     restart: always
     init: true
     network_mode: host
     security_opt:
-    - seccomp:unconfined
+    - no-new-privileges:true
     volumes:
     - /DATA/.config/xiaobao/backend/config.yaml:/opt/xiaobao-server/config.yaml:ro
     - /DATA/AppData/LCFC_APP/data/xiaobao/backend:/opt/xiaobao-server/data
-    - /DATA/AppData/AI_MODELS/xiaobao:/opt/xiaobao-server/models:ro
     environment:
       TZ: Asia/Shanghai
       CREDIT_API_BASE: http://127.0.0.1:20100
   xiaobao-client:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/xiaobao-client:v1.0.1@sha256:5eb0f8f90ac74690ca4ceef650ef15c9ab1d91a92582e433f5e3279fe3950010
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/xiaobao-client:v1.0.2@sha256:970a368e1c8e90af1f77637130a9d2293d842a76b378238a8b6c1d91de224494
     container_name: xiaobao-client
     restart: unless-stopped
     depends_on:
@@ -79,7 +78,7 @@ services:
       - CMD
       - python
       - -c
-      - import urllib.request,socket; socket.setdefaulttimeout(5); urllib.request.urlopen('http://127.0.0.1:8060/musicpath',
+      - import urllib.request,socket; socket.setdefaulttimeout(5); urllib.request.urlopen('http://127.0.0.1:8060/health',
         timeout=3).read()
       interval: 30s
       timeout: 10s
@@ -91,4 +90,4 @@ x-casaos:
   title:
     en_US: Xiaobao Assistant
     zh_CN: 小宝语音助手
-  version: 1.0.0
+  version: 1.0.1
