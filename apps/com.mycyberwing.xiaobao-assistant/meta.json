@@ -11,7 +11,7 @@
   ],
   "update_at": "2026-07-16",
   "title": "Xiaobao Assistant",
-  "release_note": "- First release\n- Bugfix",
+  "release_note": "- First release\n- Bugfix\n- Improve voice interactions",
   "base_url": "https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages",
   "id": "com.mycyberwing.xiaobao-assistant",
   "version": "1.0.1",
@@ -20,6 +20,6 @@
   ],
   "min_memory": 0,
   "min_image_size": {
-    "amd64": 2417636898
+    "amd64": 1570001296
   }
 }
