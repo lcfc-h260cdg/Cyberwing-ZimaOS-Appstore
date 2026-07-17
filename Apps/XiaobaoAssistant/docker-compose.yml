@@ -38,9 +38,12 @@ services:
       CREDIT_API_BASE: http://127.0.0.1:20100
 
   xiaobao-client:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/xiaobao-client:v1.0.2
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/xiaobao-client:v1.0.3
     container_name: xiaobao-client
     restart: unless-stopped
+    dns:
+      - 223.5.5.5
+      - 8.8.8.8
     depends_on:
       voiceprint-api:
         condition: service_healthy
@@ -112,6 +115,8 @@ x-casaos:
     en_US: |-
       - First release
       - Bugfix
+      - Improve voice interactions
     zh_CN: |-
       - 首次上线
       - 修复Bug
+      - 优化语音交互效果
