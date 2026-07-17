@@ -82,7 +82,6 @@ normalize_base_url() {
 SOURCE_DIR="${SOURCE_DIR:-$ROOT_DIR}"
 OUTPUT_DIR="${OUTPUT_DIR:-$ROOT_DIR/dist}"
 CACHE_DIR="${CACHE_DIR:-$ROOT_DIR/.cache/build_appstore}"
-VENV_DIR="${VENV_DIR:-$CACHE_DIR/venv}"
 IMAGE_SIZE_CACHE_FILE="${IMAGE_SIZE_CACHE_FILE:-$CACHE_DIR/image-size-cache.json}"
 IMAGE_DIGEST_CACHE_FILE="${IMAGE_DIGEST_CACHE_FILE:-$CACHE_DIR/image-digest-cache.json}"
 BASE_URL="$(normalize_base_url "${BASE_URL:-}" "$SOURCE_DIR")"
@@ -105,14 +104,10 @@ fetch_remote_file() {
 fetch_remote_file "scripts/build_appstore.py" "$REMOTE_BUILD_DIR/build_appstore.py"
 fetch_remote_file "requirements.txt" "$REMOTE_BUILD_DIR/requirements.txt"
 
-if [[ ! -x "$VENV_DIR/bin/python" ]]; then
-  python3 -m venv "$VENV_DIR"
-fi
-
-"$VENV_DIR/bin/python" -m pip install -r "$REMOTE_BUILD_DIR/requirements.txt"
+python3 -m pip install -r "$REMOTE_BUILD_DIR/requirements.txt"
 
 CMD=(
-  "$VENV_DIR/bin/python"
+  python3
   "$REMOTE_BUILD_DIR/build_appstore.py"
   --source "$SOURCE_DIR"
   --output "$OUTPUT_DIR"
@@ -129,7 +124,6 @@ echo "  source: $SOURCE_DIR"
 echo "  output: $OUTPUT_DIR"
 echo "  action repo: $ACTION_REPO"
 echo "  action ref: $ACTION_REF"
-echo "  python venv: $VENV_DIR"
 if [[ -f "$ENV_FILE" ]]; then
   echo "  env file: $ENV_FILE"
 else
