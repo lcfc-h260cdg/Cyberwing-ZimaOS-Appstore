@@ -1,7 +1,7 @@
 {
   "id": "com.mycyberwing.smart-file-search",
   "title": "智能检索服务",
-  "tagline": "智能检索服务",
   "description": "智能检索服务",
+  "tagline": "智能检索服务",
   "release_note": "- 首次上线\n- 更新 ai-api 服务"
 }
