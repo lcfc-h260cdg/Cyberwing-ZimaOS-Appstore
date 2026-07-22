@@ -14,17 +14,17 @@
   "architectures": [
     "amd64"
   ],
-  "update_at": "2026-07-16",
+  "update_at": "2026-07-22",
   "title": "Xiaobao Agent",
-  "release_note": "- First release\n- Bugfix",
+  "release_note": "- \"2026-07-10 First release\"\n- \"2026-07-15 Bugfix\"\n- \"2026-07-22 Update Hermes Agent\"",
   "base_url": "https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages",
   "id": "com.mycyberwing.xiaobao-agent",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "categories": [
     "ai"
   ],
   "min_memory": 0,
   "min_image_size": {
-    "amd64": 1436142984
+    "amd64": 1437069507
   }
 }

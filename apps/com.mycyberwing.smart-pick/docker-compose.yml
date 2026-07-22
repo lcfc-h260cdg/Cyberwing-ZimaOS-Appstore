@@ -29,13 +29,6 @@ services:
       interval: 30s
       retries: 3
       start_period: 30s
-    command: []
-    cpu_shares: 90
-    deploy:
-      resources:
-        limits:
-          memory: '33115533312'
-        reservations: {}
     logging:
       driver: json-file
       options:
@@ -56,4 +49,4 @@ x-casaos:
   title:
     en_US: Smart Pick
     zh_CN: 智能选片
-  version: 1.0.2
+  version: 1.0.3

@@ -3,7 +3,7 @@ services:
   voiceprint-api:
     image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/xiaobao-voiceprint:v1.0.0@sha256:cd5cad491c9c6d9258caf552e54010d24cfbfce672228e063becce49d4dcdc5c
     container_name: xiaobao-voiceprint
-    restart: unless-stopped
+    restart: always
     network_mode: host
     security_opt:
     - seccomp:unconfined
@@ -36,7 +36,7 @@ services:
       TZ: Asia/Shanghai
       CREDIT_API_BASE: http://127.0.0.1:20100
   xiaobao-client:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/xiaobao-client:v1.0.3@sha256:7ff610f2aaf887115401dc7fbd768784ad51288206d42f6cfa7c68721bac8b28
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/xiaobao-client:v1.0.5@sha256:e56323e47d0ca085dce6acc9959af29b196e268d48f112e8de0b512ff33699ca
     container_name: xiaobao-client
     restart: unless-stopped
     dns:
@@ -50,6 +50,7 @@ services:
     tty: true
     stdin_open: true
     privileged: true
+    user: 0:0
     network_mode: host
     devices:
     - /dev/snd:/dev/snd
@@ -59,6 +60,7 @@ services:
     - DAC_OVERRIDE
     - SYS_RESOURCE
     volumes:
+    - /sys/class/dmi/id/product_uuid:/sys/class/dmi/id/product_uuid:ro
     - /DATA/Media/Music:/app/music
     - /DATA/AppData/LCFC_APP/data/xiaobao/frontend:/app/data
     environment:
@@ -93,4 +95,4 @@ x-casaos:
   title:
     en_US: Xiaobao Assistant
     zh_CN: 小宝语音助手
-  version: 1.0.1
+  version: 1.0.3

@@ -1,7 +1,7 @@
 name: xiaobao-agent
 services:
   hermes-agent-image-preload:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-agent-custom:v1.0.2@sha256:7a7ffeffeda3cb09f2fb133fa460af99303248e4e36874debde5ae3ea2c48957
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-agent-custom:v1.0.3@sha256:692135179de2000b9aa66ce4d258f82f44280976606149ca75d25308c4f7b188
     container_name: xiaobao-agent-image-preload
     restart: 'no'
     entrypoint:
@@ -9,7 +9,7 @@ services:
     - -c
     - 'true'
   xiaobao-agent:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-adapter:v1.0.2@sha256:9e569534d3f8d5e6aa28b40298e2be97f8ee71aa805a0b8183eb087a46d0fcde
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-adapter:v1.0.3@sha256:80f3edfed69c3cfa76e39ea000c33fa14f7b5275087e5694ef8816858bfa6515
     container_name: xiaobao-agent
     restart: unless-stopped
     depends_on:
@@ -39,8 +39,8 @@ services:
         create_host_path: true
     environment:
       HERMES_RUNTIME_MODE: container_per_user
-      HERMES_ADAPTER_IMAGE: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-adapter:v1.0.2
-      HERMES_BASE_IMAGE: nousresearch/hermes-agent:v2026.7.7.2
+      HERMES_ADAPTER_IMAGE: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-adapter:v1.0.3
+      HERMES_BASE_IMAGE: nousresearch/hermes-agent:v2026.7.20
       HERMES_USER_SCENARIO: zimaos
       HERMES_ADAPTER_HOME: /opt/data/hermes-adapter
       HERMES_ADAPTER_HOST: 0.0.0.0
@@ -49,7 +49,7 @@ services:
       HERMES_ADAPTER_LOG_LEVEL: INFO
       HERMES_ADAPTER_CORS_ORIGINS: '*'
       HERMES_ADAPTER_CORS_ALLOW_CREDENTIALS: 'false'
-      HERMES_MAX_USERS: '10'
+      HERMES_MAX_USERS: '9'
       HERMES_CONFIG_BACKUP_MAX_SNAPSHOTS: '3'
       AI_API_HOST: host.docker.internal
       HERMES_ADAPTER_TLS_ENABLED: 'true'
@@ -59,7 +59,7 @@ services:
       HERMES_USER_DATA_ROOT: /DATA/AppData/LCFC_APP/data/hermes-data
       HERMES_HOST_RAG_PUBLIC_DIR: /DATA/Share,/DATA/AppData/LCFC_APP/data/smart_album/library/photos/upload
       HERMES_SHARED_PATH_BLACKLIST: /bin,/sbin,/lib,/lib64,/usr,/etc,/proc,/sys,/dev,/run,/var,/tmp,/opt/data,/opt/hermes,/opt/hermes-defaults,/opt/custom-skills
-      HERMES_AGENT_IMAGE: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-agent-custom:v1.0.2
+      HERMES_AGENT_IMAGE: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-agent-custom:v1.0.3
       HERMES_AGENT_COMMAND: gateway run
       HERMES_DOCKER_NETWORK: hermes-adapter-docker_hermes-net
       HERMES_CONTAINER_PREFIX: hermes-agent-
@@ -80,15 +80,6 @@ services:
       HERMES_PROFILE_CREATE_TIMEOUT: '90'
     extra_hosts:
     - host.docker.internal:host-gateway
-    networks:
-      hermes-net: null
-    command: []
-    cpu_shares: 90
-    deploy:
-      resources:
-        limits:
-          memory: '33115533312'
-        reservations: {}
 networks:
   default:
     name: xiaobao-agent-docker_default
@@ -105,4 +96,4 @@ x-casaos:
   title:
     en_US: Xiaobao Agent
     zh_CN: 小宝智能体
-  version: 1.0.3
+  version: 1.0.4

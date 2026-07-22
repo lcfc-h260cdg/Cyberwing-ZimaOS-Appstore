@@ -26,8 +26,6 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
       UPLOAD_LOCATION: /DATA/AppData/LCFC_APP/data/smart_album/library
-    networks:
-      default: null
     healthcheck:
       test:
       - CMD-SHELL
@@ -35,13 +33,6 @@ services:
       timeout: 5s
       interval: 2s
       retries: 300
-    command: []
-    cpu_shares: 90
-    deploy:
-      resources:
-        limits:
-          memory: '33115533312'
-        reservations: {}
     shm_size: '134217728'
   immich-init:
     image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-server:v1.0.1@sha256:410e6e7c10cab043c61678ae4b57c91809e926e01f2f5d0eae3bf4b05c76fec0
@@ -51,8 +42,6 @@ services:
       target: dev
     container_name: immich_init
     restart: unless-stopped
-    networks:
-      default: null
     healthcheck:
       test:
       - CMD
@@ -69,12 +58,6 @@ services:
       exec tail -f /dev/null
 
       '
-    cpu_shares: 90
-    deploy:
-      resources:
-        limits:
-          memory: '33115533312'
-        reservations: {}
     tmpfs:
     - /tmp
   immich-machine-learning:
@@ -97,22 +80,13 @@ services:
       bind:
         create_host_path: true
     environment:
+      IMMICH_HOST: 0.0.0.0
       DB_DATA_LOCATION: /DATA/AppData/LCFC_APP/data/smart_album/db/postgres
       DB_DATABASE_NAME: immich
       DB_PASSWORD: postgres
       DB_USERNAME: postgres
       IMMICH_VERSION: v2.7.5
       UPLOAD_LOCATION: /DATA/AppData/LCFC_APP/data/smart_album/library
-    networks:
-      default: null
-    healthcheck: {}
-    command: []
-    cpu_shares: 90
-    deploy:
-      resources:
-        limits:
-          memory: '33115533312'
-        reservations: {}
   immich-server:
     image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-server:v1.0.1@sha256:410e6e7c10cab043c61678ae4b57c91809e926e01f2f5d0eae3bf4b05c76fec0
     build:
@@ -182,17 +156,18 @@ services:
       IMMICH_THIRD_PARTY_SUPPORT_URL: https://docs.immich.app/community-guides
       IMMICH_VERSION: v2.7.5
       UPLOAD_LOCATION: /DATA/AppData/LCFC_APP/data/smart_album/library
-    networks:
-      default: null
-    healthcheck: {}
+    healthcheck:
+      test:
+      - CMD
+      - node
+      - -e
+      - fetch('http://127.0.0.1:2283/api/server/ping').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))
+      timeout: 5s
+      interval: 2s
+      retries: 300
+      start_period: 30s
     command:
     - immich-dev
-    cpu_shares: 90
-    deploy:
-      resources:
-        limits:
-          memory: '33115533312'
-        reservations: {}
     tmpfs:
     - /tmp
   immich-web:
@@ -226,24 +201,14 @@ services:
       DB_USERNAME: postgres
       IMMICH_VERSION: v2.7.5
       UPLOAD_LOCATION: /DATA/AppData/LCFC_APP/data/smart_album/library
-    networks:
-      default: null
     command:
     - immich-web
-    cpu_shares: 90
-    deploy:
-      resources:
-        limits:
-          memory: '33115533312'
-        reservations: {}
     tmpfs:
     - /tmp
   redis:
     image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/valkey/valkey:9@sha256:7a48ff82d4b41e6faa1de0e10a1343bcfef8f0a7a0cd5df4b5b360daf7ab0139
     container_name: immich_redis
     restart: unless-stopped
-    networks:
-      default: null
     healthcheck:
       test:
       - CMD-SHELL
@@ -251,13 +216,6 @@ services:
       timeout: 3s
       interval: 2s
       retries: 30
-    command: []
-    cpu_shares: 90
-    deploy:
-      resources:
-        limits:
-          memory: '33115533312'
-        reservations: {}
   immich-bootstrap:
     image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0@sha256:928c580aa718930fd471442dde28cd91e20e8ddb067343605111db734400b394
     container_name: immich_bootstrap
@@ -317,7 +275,6 @@ services:
       \ = 'admin@lcfc.com'\n  AND NOT EXISTS (\n    SELECT 1\n    FROM api_key\n \
       \   WHERE key = decode('ee178b51124472060e7dd848034f6bc5dbd14e02667ad6609f52420c6328bb4e',\
       \ 'hex')\n  );\nSQL\n\necho \"[immich-bootstrap] done\"\n"
-    command: []
 networks:
   default:
     name: smart-album_default
@@ -331,4 +288,4 @@ x-casaos:
   title:
     en_US: Smart Album
     zh_CN: 智能相册
-  version: 1.0.1
+  version: 1.0.2

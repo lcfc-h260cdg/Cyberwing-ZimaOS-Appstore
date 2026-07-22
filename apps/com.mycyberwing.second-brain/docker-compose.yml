@@ -31,8 +31,6 @@ services:
       ADAPTER_API_KEY: change-me-local-dev
       HOST_DATA_ROOT: /DATA/AppData/LCFC_APP/data/hermes-data
       CONTAINER_DATA_ROOT: /wiki-root
-    networks:
-      default: null
     healthcheck:
       test:
       - CMD
@@ -44,13 +42,6 @@ services:
       timeout: 5s
       retries: 3
       start_period: 10s
-    command: []
-    cpu_shares: 90
-    deploy:
-      resources:
-        limits:
-          memory: '33115533312'
-        reservations: {}
 networks:
   default:
     name: second-brain_default
