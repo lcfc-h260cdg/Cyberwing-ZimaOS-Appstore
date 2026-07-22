@@ -2,7 +2,7 @@ name: xiaobao-agent
 
 services:
   hermes-agent-image-preload:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-agent-custom:v1.0.2
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-agent-custom:v1.0.3
     container_name: xiaobao-agent-image-preload
     restart: "no"
     entrypoint:
@@ -11,7 +11,7 @@ services:
       - "true"
 
   xiaobao-agent:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-adapter:v1.0.2
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-adapter:v1.0.3
     container_name: xiaobao-agent
     restart: unless-stopped
     depends_on:
@@ -41,8 +41,8 @@ services:
           create_host_path: true
     environment:
       HERMES_RUNTIME_MODE: container_per_user
-      HERMES_ADAPTER_IMAGE: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-adapter:v1.0.2
-      HERMES_BASE_IMAGE: nousresearch/hermes-agent:v2026.7.7.2
+      HERMES_ADAPTER_IMAGE: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-adapter:v1.0.3
+      HERMES_BASE_IMAGE: nousresearch/hermes-agent:v2026.7.20
       HERMES_USER_SCENARIO: zimaos
       HERMES_ADAPTER_HOME: /opt/data/hermes-adapter
       HERMES_ADAPTER_HOST: 0.0.0.0
@@ -51,7 +51,7 @@ services:
       HERMES_ADAPTER_LOG_LEVEL: INFO
       HERMES_ADAPTER_CORS_ORIGINS: '*'
       HERMES_ADAPTER_CORS_ALLOW_CREDENTIALS: "false"
-      HERMES_MAX_USERS: "10"
+      HERMES_MAX_USERS: "9"
       HERMES_CONFIG_BACKUP_MAX_SNAPSHOTS: "3"
       AI_API_HOST: host.docker.internal
       HERMES_ADAPTER_TLS_ENABLED: "true"
@@ -61,7 +61,7 @@ services:
       HERMES_USER_DATA_ROOT: /DATA/AppData/LCFC_APP/data/hermes-data
       HERMES_HOST_RAG_PUBLIC_DIR: /DATA/Share,/DATA/AppData/LCFC_APP/data/smart_album/library/photos/upload
       HERMES_SHARED_PATH_BLACKLIST: /bin,/sbin,/lib,/lib64,/usr,/etc,/proc,/sys,/dev,/run,/var,/tmp,/opt/data,/opt/hermes,/opt/hermes-defaults,/opt/custom-skills
-      HERMES_AGENT_IMAGE: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-agent-custom:v1.0.2
+      HERMES_AGENT_IMAGE: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-agent-custom:v1.0.3
       HERMES_AGENT_COMMAND: gateway run
       HERMES_DOCKER_NETWORK: hermes-adapter-docker_hermes-net
       HERMES_CONTAINER_PREFIX: hermes-agent-
@@ -82,15 +82,6 @@ services:
       HERMES_PROFILE_CREATE_TIMEOUT: "90"
     extra_hosts:
       - "host.docker.internal:host-gateway"
-    networks:
-      hermes-net: null
-    command: []
-    cpu_shares: 90
-    deploy:
-      resources:
-        limits:
-          memory: "33115533312"
-        reservations: {}
 
 networks:
   default:
@@ -140,12 +131,14 @@ x-casaos:
   category: AI
   architectures:
     - amd64
-  version: "1.0.3"
-  update_at: "2026-07-16"
+  version: "1.0.4"
+  update_at: "2026-07-22"
   release_notes:
     en_US: |-
-      - First release
-      - Bugfix
+      - "2026-07-10 First release"
+      - "2026-07-15 Bugfix"
+      - "2026-07-22 Update Hermes Agent"
     zh_CN: |-
-      - 首次上线
-      - 修复Bug
+      - "2026-07-10 首次上线"
+      - "2026-07-15 修复Bug"
+      - "2026-07-22 更新 Hermes 智能体版本"

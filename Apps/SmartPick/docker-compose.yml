@@ -30,13 +30,6 @@ services:
       interval: 30s
       retries: 3
       start_period: 30s
-    command: []
-    cpu_shares: 90
-    deploy:
-      resources:
-        limits:
-          memory: "33115533312"
-        reservations: {}
     logging:
       driver: json-file
       options:
@@ -97,12 +90,14 @@ x-casaos:
   category: Media
   architectures:
     - amd64
-  version: "1.0.2"
-  update_at: "2026-07-15"
+  version: "1.0.3"
+  update_at: "2026-07-22"
   release_notes:
     en_US: |-
-      - First release
-      - Limit the number and size of files uploaded at any one time
+      - "2026-07-10 First release"
+      - "2026-07-15 Limit the number and size of files uploaded at any one time"
+      - "2026-07-22 Update app deploy configs"
     zh_CN: |-
-      - 首次上线
-      - 限制每次同时上传的文件数量和大小
+      - "2026-07-10 首次上线"
+      - "2026-07-15 限制每次同时上传的文件数量和大小"
+      - "2026-07-22 更新应用部署配置"

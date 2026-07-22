@@ -2,7 +2,7 @@ name: smart-file-search
 
 services:
   llm_server:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/llm_server:2.1
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/llm_server:devel-20260720
     container_name: llm_server
     restart: unless-stopped
     volumes:
@@ -29,17 +29,10 @@ services:
     network_mode: host
     privileged: true
     command:
-      - python3
-      - launcher.py
+      - /app/llm_server
     entrypoint: []
     devices:
       - /dev/dri:/dev/dri
-    cpu_shares: 90
-    deploy:
-      resources:
-        limits:
-          memory: "33180065792"
-        reservations: {}
     logging:
       driver: json-file
       options:
@@ -138,7 +131,7 @@ services:
         compress: "true"
 
   asr-server:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/asr-server:v1.0.0_20260114
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/asr-server:devel-20260721
     container_name: asr-server
     restart: unless-stopped
     ports:
@@ -280,12 +273,14 @@ x-casaos:
   category: AI
   architectures:
     - amd64
-  version: "1.0.1"
-  update_at: "2026-07-15"
+  version: "1.0.2"
+  update_at: "2026-07-22"
   release_notes:
     en_US: |-
-      - First release
-      - Update ai-api service
+      - "2026-07-10 First release"
+      - "2026-07-15 Update ai-api service"
+      - "2026-07-22 Update RAG facial recognition"
     zh_CN: |-
-      - 首次上线
-      - 更新 ai-api 服务
+      - "2026-07-10 首次上线"
+      - "2026-07-15 更新 ai-api 服务"
+      - "2026-07-22 更新 RAG 人脸识别"

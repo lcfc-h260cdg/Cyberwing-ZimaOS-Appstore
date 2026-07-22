@@ -32,21 +32,12 @@ services:
       ADAPTER_API_KEY: change-me-local-dev
       HOST_DATA_ROOT: /DATA/AppData/LCFC_APP/data/hermes-data
       CONTAINER_DATA_ROOT: /wiki-root
-    networks:
-      default: null
     healthcheck:
       test: ["CMD", "wget", "-qO", "/dev/null", "http://127.0.0.1:3030/api/health"]
       interval: 30s
       timeout: 5s
       retries: 3
       start_period: 10s
-    command: []
-    cpu_shares: 90
-    deploy:
-      resources:
-        limits:
-          memory: "33115533312"
-        reservations: {}
 
 networks:
   default:
@@ -83,6 +74,6 @@ x-casaos:
   update_at: "2026-07-06"
   release_notes:
     en_US: |-
-      - First release
+      - "2026-07-06 First release"
     zh_CN: |-
-      - 首次上线
+      - "2026-07-06 首次上线"
