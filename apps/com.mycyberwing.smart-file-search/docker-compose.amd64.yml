@@ -161,7 +161,7 @@ services:
         max-file: '3'
         compress: 'true'
   ai-api:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/ai-api:devel-202607101551@sha256:d02a3285598c17d450dc6ed900ce92dd405c240ae265a81b68a1b11cfc230a9f
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/ai-api:devel-20260722@sha256:f7d4780f3197a9a1721f55effef18a0515acb895c5634fe86b9feee882de822f
     container_name: ai-api
     restart: unless-stopped
     depends_on:
