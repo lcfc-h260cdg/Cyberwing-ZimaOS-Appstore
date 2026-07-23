@@ -174,7 +174,7 @@ services:
         compress: "true"
 
   ai-api:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/ai-api:devel-202607101551
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/ai-api:devel-20260722
     container_name: ai-api
     restart: unless-stopped
     depends_on:
