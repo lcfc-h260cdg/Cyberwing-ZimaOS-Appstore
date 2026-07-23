@@ -80,6 +80,8 @@ services:
       HERMES_PROFILE_CREATE_TIMEOUT: '90'
     extra_hosts:
     - host.docker.internal:host-gateway
+    networks:
+      hermes-net: null
 networks:
   default:
     name: xiaobao-agent-docker_default
