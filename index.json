@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-07-23T09:28:43Z",
+  "updated_at": "2026-07-24T08:10:47Z",
   "app_count": 6,
   "base_url": "https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages",
   "apps": [
@@ -21,7 +21,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.second-brain/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.second-brain/meta.json",
-      "content_hash": "24735ea4",
+      "content_hash": "7ff381be",
       "version": "1.0.0"
     },
     {
@@ -41,7 +41,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.smart-album/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.smart-album/meta.json",
-      "content_hash": "90ae3895",
+      "content_hash": "1366d3f4",
       "version": "1.0.2"
     },
     {
@@ -61,8 +61,8 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.smart-file-search/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.smart-file-search/meta.json",
-      "content_hash": "cc171f00",
-      "version": "1.0.2"
+      "content_hash": "47fbda37",
+      "version": "1.0.3"
     },
     {
       "id": "com.mycyberwing.smart-pick",
@@ -81,7 +81,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.smart-pick/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.smart-pick/meta.json",
-      "content_hash": "99bb2361",
+      "content_hash": "3d12ba25",
       "version": "1.0.3"
     },
     {
@@ -101,7 +101,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.xiaobao-agent/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.xiaobao-agent/meta.json",
-      "content_hash": "1e242fc6",
+      "content_hash": "6e56aba2",
       "version": "1.0.4"
     },
     {
@@ -121,7 +121,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.xiaobao-assistant/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.xiaobao-assistant/meta.json",
-      "content_hash": "7e8fad0b",
+      "content_hash": "4152e474",
       "version": "1.0.3"
     }
   ]

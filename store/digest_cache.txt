@@ -4,7 +4,7 @@ docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/file-rag-nas:v2.
 docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-adapter:v1.0.3 sha256:80f3edfed69c3cfa76e39ea000c33fa14f7b5275087e5694ef8816858bfa6515
 docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-agent-custom:v1.0.3 sha256:692135179de2000b9aa66ce4d258f82f44280976606149ca75d25308c4f7b188
 docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0 sha256:928c580aa718930fd471442dde28cd91e20e8ddb067343605111db734400b394
-docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/llm_server:devel-20260720 sha256:09a2021ad26a9edf0102aaf01fa94c223c4edab7e4bbb95ade7f115cc859bd59
+docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/llm_server:v2.1.2 sha256:b0f925f598c0afbc0c3bd7b9d0ba8d24844ed9719f1b43af26b04376706e11a9
 docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/pgvector/pgvector:pg18-trixie sha256:de7e23dbfb8bec8c460c0b40888a6bd1a0302041aabffb19f7b9b9fd9837e104
 docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/second-brain:v1.0.0 sha256:cf443469be8fadf1f7346f3d4f307beee6887bd0f1927cadd5bcee24dc9e77db
 docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-machine-learning:v1.0.0 sha256:b1632bdf9f8bcea9d1c192541f5c44d7135c7d6791e978934fe3b1dea87f8894

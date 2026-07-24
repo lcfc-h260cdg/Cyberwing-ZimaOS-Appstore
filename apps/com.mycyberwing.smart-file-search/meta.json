@@ -9,17 +9,17 @@
   "architectures": [
     "amd64"
   ],
-  "update_at": "2026-07-22",
+  "update_at": "2026-07-24",
   "title": "RAG Service",
-  "release_note": "- \"2026-07-10 First release\"\n- \"2026-07-15 Update ai-api service\"\n- \"2026-07-22 Update RAG facial recognition\"",
+  "release_note": "- \"2026-07-10 First release\"\n- \"2026-07-15 Update ai-api service\"\n- \"2026-07-22 Update RAG facial recognition\"\n- \"2026-07-24 Update LLM Server\"",
   "base_url": "https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages",
   "id": "com.mycyberwing.smart-file-search",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "categories": [
     "ai"
   ],
   "min_memory": 2147483648,
   "min_image_size": {
-    "amd64": 21906975627
+    "amd64": 21906994711
   }
 }

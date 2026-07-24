@@ -1,7 +1,7 @@
 name: smart-file-search
 services:
   llm_server:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/llm_server:devel-20260720@sha256:09a2021ad26a9edf0102aaf01fa94c223c4edab7e4bbb95ade7f115cc859bd59
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/llm_server:v2.1.2@sha256:b0f925f598c0afbc0c3bd7b9d0ba8d24844ed9719f1b43af26b04376706e11a9
     container_name: llm_server
     restart: unless-stopped
     volumes:
@@ -235,4 +235,4 @@ x-casaos:
   title:
     en_US: RAG Service
     zh_CN: 智能检索服务
-  version: 1.0.2
+  version: 1.0.3
