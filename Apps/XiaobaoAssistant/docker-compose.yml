@@ -38,7 +38,7 @@ services:
       CREDIT_API_BASE: http://127.0.0.1:20100
 
   xiaobao-client:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/xiaobao-client:v1.0.5
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/xiaobao-client:v1.0.6
     container_name: xiaobao-client
     restart: unless-stopped
     dns:
@@ -111,16 +111,18 @@ x-casaos:
   category: AI
   architectures:
     - amd64
-  version: "1.0.3"
-  update_at: "2026-07-22"
+  version: "1.0.4"
+  update_at: "2026-07-27"
   release_notes:
     en_US: |-
       - "2026-07-10 First release"
       - "2026-07-15 Bugfix"
       - "2026-07-16 Improve voice interactions"
       - "2026-07-22 Optimize the default visitor mode"
+      - "2026-07-27 Supports muting the Xiaobao Assistant by long-pressing AI button"
     zh_CN: |-
       - "2026-07-10 首次上线"
       - "2026-07-15 修复Bug"
       - "2026-07-16 优化语音交互效果"
       - "2026-07-22 优化默认访客模式"
+      - "2026-07-27 支持通过长按 AI 按键静音小宝语音助手"
