@@ -36,7 +36,7 @@ services:
       TZ: Asia/Shanghai
       CREDIT_API_BASE: http://127.0.0.1:20100
   xiaobao-client:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/xiaobao-client:v1.0.5@sha256:e56323e47d0ca085dce6acc9959af29b196e268d48f112e8de0b512ff33699ca
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/xiaobao-client:v1.0.6@sha256:8de2f37dfeac2d540031d8881d5cdd276443c2ac346fc5dcae6bc936d2300eb1
     container_name: xiaobao-client
     restart: unless-stopped
     dns:
@@ -95,4 +95,4 @@ x-casaos:
   title:
     en_US: Xiaobao Assistant
     zh_CN: 小宝语音助手
-  version: 1.0.3
+  version: 1.0.4
