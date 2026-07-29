@@ -277,7 +277,8 @@ services:
       \ 'hex')\n  );\nSQL\n\necho \"[immich-bootstrap] done\"\n"
 networks:
   default:
-    name: smart-album_default
+    name: cyberwing_apps_default
+    external: true
 x-casaos:
   id: com.mycyberwing.smart-album
   main: immich-web
@@ -286,6 +287,6 @@ x-casaos:
   scheme: http
   icon: https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages/apps/com.mycyberwing.smart-album/assets/icon.png
   title:
-    en_US: Smart Album
     zh_CN: 智能相册
+    en_US: Smart Album
   version: 1.0.2

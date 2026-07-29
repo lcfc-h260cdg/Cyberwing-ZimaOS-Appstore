@@ -24,7 +24,6 @@ services:
       MODEL_ROOT: /data/models
       TOKENIZERS_PARALLELISM: 'false'
       TZ: Asia/Shanghai
-    network_mode: host
     privileged: true
     command:
     - /app/llm_server
@@ -94,7 +93,6 @@ services:
       CONFIG_DIR: /NAS_Route/config
       LOG_DIR: /NAS_Route/logs
       AUTO_INIT_CONFIG: 'true'
-    network_mode: host
     healthcheck:
       test:
       - CMD
@@ -202,7 +200,6 @@ services:
     environment:
       TZ: Asia/Shanghai
       FILE_WATCH_SETTINGS_PATH: /app/filewatchsettings.yaml
-    network_mode: host
     privileged: true
     healthcheck:
       test:
@@ -228,11 +225,12 @@ services:
         compress: 'true'
 networks:
   default:
-    name: smart-file-search_default
+    name: cyberwing_apps_default
+    external: true
 x-casaos:
   id: com.mycyberwing.smart-file-search
   icon: https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages/apps/com.mycyberwing.smart-file-search/assets/icon.svg
   title:
-    en_US: RAG Service
     zh_CN: 智能检索服务
+    en_US: RAG Service
   version: 1.0.3

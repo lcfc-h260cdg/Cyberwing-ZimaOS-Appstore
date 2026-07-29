@@ -61,7 +61,7 @@ services:
       HERMES_SHARED_PATH_BLACKLIST: /bin,/sbin,/lib,/lib64,/usr,/etc,/proc,/sys,/dev,/run,/var,/tmp,/opt/data,/opt/hermes,/opt/hermes-defaults,/opt/custom-skills
       HERMES_AGENT_IMAGE: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-agent-custom:v1.0.3
       HERMES_AGENT_COMMAND: gateway run
-      HERMES_DOCKER_NETWORK: hermes-adapter-docker_hermes-net
+      HERMES_DOCKER_NETWORK: cyberwing_apps_default
       HERMES_CONTAINER_PREFIX: hermes-agent-
       HERMES_AGENT_PORT: '8642'
       HERMES_AGENT_HEALTH_PATH: /health
@@ -80,14 +80,10 @@ services:
       HERMES_PROFILE_CREATE_TIMEOUT: '90'
     extra_hosts:
     - host.docker.internal:host-gateway
-    networks:
-      hermes-net: null
 networks:
   default:
-    name: xiaobao-agent-docker_default
-  hermes-net:
-    name: hermes-adapter-docker_hermes-net
-    driver: bridge
+    name: cyberwing_apps_default
+    external: true
 x-casaos:
   id: com.mycyberwing.xiaobao-agent
   main: xiaobao-agent
@@ -96,6 +92,6 @@ x-casaos:
   scheme: https
   icon: https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages/apps/com.mycyberwing.xiaobao-agent/assets/icon.png
   title:
-    en_US: Xiaobao Agent
     zh_CN: 小宝智能体
+    en_US: Xiaobao Agent
   version: 1.0.4

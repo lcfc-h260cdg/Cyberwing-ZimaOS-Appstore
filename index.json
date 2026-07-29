@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-07-27T09:28:27Z",
+  "updated_at": "2026-07-29T06:14:37Z",
   "app_count": 6,
   "base_url": "https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages",
   "apps": [
@@ -13,7 +13,7 @@
         "ai"
       ],
       "author": "LCFC",
-      "developer": "sven",
+      "developer": "jeffrey",
       "architectures": [
         "amd64"
       ],
@@ -21,7 +21,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.second-brain/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.second-brain/meta.json",
-      "content_hash": "9ecddfd4",
+      "content_hash": "d2375788",
       "version": "1.0.0"
     },
     {
@@ -41,7 +41,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.smart-album/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.smart-album/meta.json",
-      "content_hash": "abdd23ba",
+      "content_hash": "954c1a02",
       "version": "1.0.2"
     },
     {
@@ -61,7 +61,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.smart-file-search/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.smart-file-search/meta.json",
-      "content_hash": "50a9b7b0",
+      "content_hash": "db778c16",
       "version": "1.0.3"
     },
     {
@@ -81,7 +81,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.smart-pick/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.smart-pick/meta.json",
-      "content_hash": "672902c3",
+      "content_hash": "5669d211",
       "version": "1.0.3"
     },
     {
@@ -93,7 +93,7 @@
         "ai"
       ],
       "author": "LCFC",
-      "developer": "sven",
+      "developer": "sven,lgy",
       "architectures": [
         "amd64"
       ],
@@ -101,7 +101,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.xiaobao-agent/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.xiaobao-agent/meta.json",
-      "content_hash": "1a70e662",
+      "content_hash": "fcf8d896",
       "version": "1.0.4"
     },
     {
@@ -121,7 +121,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.xiaobao-assistant/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.xiaobao-assistant/meta.json",
-      "content_hash": "f7cc218f",
+      "content_hash": "7f8fc4d4",
       "version": "1.0.4"
     }
   ]

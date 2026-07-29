@@ -4,7 +4,6 @@ services:
     image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/xiaobao-voiceprint:v1.0.0@sha256:cd5cad491c9c6d9258caf552e54010d24cfbfce672228e063becce49d4dcdc5c
     container_name: xiaobao-voiceprint
     restart: always
-    network_mode: host
     security_opt:
     - seccomp:unconfined
     environment:
@@ -26,7 +25,6 @@ services:
     container_name: xiaobao-server
     restart: always
     init: true
-    network_mode: host
     security_opt:
     - no-new-privileges:true
     volumes:
@@ -51,7 +49,6 @@ services:
     stdin_open: true
     privileged: true
     user: 0:0
-    network_mode: host
     devices:
     - /dev/snd:/dev/snd
     group_add:
@@ -89,10 +86,14 @@ services:
       timeout: 10s
       retries: 3
       start_period: 180s
+networks:
+  default:
+    name: cyberwing_apps_default
+    external: true
 x-casaos:
   id: com.mycyberwing.xiaobao-assistant
   icon: https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages/apps/com.mycyberwing.xiaobao-assistant/assets/icon.svg
   title:
-    en_US: Xiaobao Assistant
     zh_CN: 小宝语音助手
+    en_US: Xiaobao Assistant
   version: 1.0.4

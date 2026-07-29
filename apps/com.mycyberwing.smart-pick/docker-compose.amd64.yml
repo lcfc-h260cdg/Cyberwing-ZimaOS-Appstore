@@ -34,11 +34,11 @@ services:
       options:
         max-file: '3'
         max-size: 10m
-    network_mode: host
     privileged: true
 networks:
   default:
-    name: smart-pick_default
+    name: cyberwing_apps_default
+    external: true
 x-casaos:
   id: com.mycyberwing.smart-pick
   main: capture-score
@@ -47,6 +47,6 @@ x-casaos:
   scheme: http
   icon: https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages/apps/com.mycyberwing.smart-pick/assets/icon.png
   title:
-    en_US: Smart Pick
     zh_CN: 智能选片
+    en_US: Smart Pick
   version: 1.0.3
