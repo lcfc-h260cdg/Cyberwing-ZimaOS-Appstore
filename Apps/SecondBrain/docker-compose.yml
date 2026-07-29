@@ -41,7 +41,8 @@ services:
 
 networks:
   default:
-    name: second-brain_default
+    name: cyberwing_apps_default
+    external: true
 
 x-casaos:
   app_id: com.mycyberwing.second-brain
@@ -52,21 +53,21 @@ x-casaos:
   scheme: http
   icon: https://zimaos-store.oss-cn-beijing.aliyuncs.com/SecondBrain/icon.png
   title:
+    zh_CN: "第二大脑"
     en_US: "Second Brain"
-    zh_CN: "第二大脑"
   tagline:
-    en_US: "Your Personal Memory Network"
     zh_CN: "第二大脑"
+    en_US: "Your Personal Memory Network"
   description:
-    en_US: "Your Personal Memory Network"
     zh_CN: "第二大脑"
+    en_US: "Your Personal Memory Network"
   screenshot_link:
     - "https://zimaos-store.oss-cn-beijing.aliyuncs.com/SecondBrain/screenshot-1.png"
     - "https://zimaos-store.oss-cn-beijing.aliyuncs.com/SecondBrain/screenshot-2.png"
     - "https://zimaos-store.oss-cn-beijing.aliyuncs.com/SecondBrain/screenshot-3.png"
   tips: {}
   author: LCFC
-  developer: sven
+  developer: jeffrey
   category: AI
   architectures:
     - amd64

@@ -342,7 +342,8 @@ services:
 
 networks:
   default:
-    name: smart-album_default
+    name: cyberwing_apps_default
+    external: true
 
 x-casaos:
   app_id: com.mycyberwing.smart-album
@@ -353,11 +354,11 @@ x-casaos:
   scheme: http
   icon: https://zimaos-store.oss-cn-beijing.aliyuncs.com/SmartAlbum/icon.png
   title:
-    en_US: "Smart Album"
     zh_CN: "智能相册"
+    en_US: "Smart Album"
   tagline:
-    en_US: "Photo & Video Management Platform"
     zh_CN: "照片与视频管理平台"
+    en_US: "Photo & Video Management Platform"
   description:
     en_US: |
       Smart Album is a photo and video management platform designed for personal and family use.

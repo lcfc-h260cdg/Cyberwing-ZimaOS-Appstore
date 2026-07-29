@@ -35,12 +35,12 @@ services:
       options:
         max-file: "3"
         max-size: 10m
-    network_mode: host
     privileged: true
 
 networks:
   default:
-    name: smart-pick_default
+    name: cyberwing_apps_default
+    external: true
 
 x-casaos:
   app_id: com.mycyberwing.smart-pick
@@ -51,11 +51,11 @@ x-casaos:
   scheme: http
   icon: https://zimaos-store.oss-cn-beijing.aliyuncs.com/SmartPick/icon.png
   title:
-    en_US: "Smart Pick"
     zh_CN: 智能选片
+    en_US: "Smart Pick"
   tagline:
-    en_US: "A desktop web-based tool designed for professional photo selection workflows"
     zh_CN: "面向摄影选片场景的电脑端 Web 工具"
+    en_US: "A desktop web-based tool designed for professional photo selection workflows"
   description:
     en_US: |
       Smart Pick is a desktop web-based tool designed for professional photo selection workflows. It helps photographers, retouchers, and photo culling operators batch-import portrait photos with single, front-facing subjects, enabling automated initial filtering, manual review, final selection, and album export.

@@ -63,7 +63,7 @@ services:
       HERMES_SHARED_PATH_BLACKLIST: /bin,/sbin,/lib,/lib64,/usr,/etc,/proc,/sys,/dev,/run,/var,/tmp,/opt/data,/opt/hermes,/opt/hermes-defaults,/opt/custom-skills
       HERMES_AGENT_IMAGE: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-agent-custom:v1.0.3
       HERMES_AGENT_COMMAND: gateway run
-      HERMES_DOCKER_NETWORK: hermes-adapter-docker_hermes-net
+      HERMES_DOCKER_NETWORK: cyberwing_apps_default
       HERMES_CONTAINER_PREFIX: hermes-agent-
       HERMES_AGENT_PORT: "8642"
       HERMES_AGENT_HEALTH_PATH: /health
@@ -82,15 +82,11 @@ services:
       HERMES_PROFILE_CREATE_TIMEOUT: "90"
     extra_hosts:
       - "host.docker.internal:host-gateway"
-    networks:
-      hermes-net: null
 
 networks:
   default:
-    name: xiaobao-agent-docker_default
-  hermes-net:
-    name: hermes-adapter-docker_hermes-net
-    driver: bridge
+    name: cyberwing_apps_default
+    external: true
 
 x-casaos:
   app_id: com.mycyberwing.xiaobao-agent
@@ -101,11 +97,11 @@ x-casaos:
   scheme: https
   icon: https://zimaos-store.oss-cn-beijing.aliyuncs.com/XiaobaoAgent/icon.png
   title:
-    en_US: "Xiaobao Agent"
     zh_CN: "小宝智能体"
+    en_US: "Xiaobao Agent"
   tagline:
-    en_US: "Xiaobao Agent, Your Personal AI Agent"
     zh_CN: "小宝智能体，你的专属智能体"
+    en_US: "Xiaobao Agent, Your Personal AI Agent"
   description:
     en_US: |
       Xiaobao Agent is an AI agent management platform designed for both individuals and enterprises. Through an intuitive web-based management interface, administrators can configure AI models, connect messaging channels, manage user memories, and create dedicated AI assistants for each user.
@@ -129,7 +125,7 @@ x-casaos:
     - "https://zimaos-store.oss-cn-beijing.aliyuncs.com/XiaobaoAgent/screenshot-3.png"
   tips: {}
   author: LCFC
-  developer: sven
+  developer: sven,lgy
   category: AI
   architectures:
     - amd64

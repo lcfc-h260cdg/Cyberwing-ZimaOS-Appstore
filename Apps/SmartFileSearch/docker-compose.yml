@@ -26,7 +26,6 @@ services:
       MODEL_ROOT: /data/models
       TOKENIZERS_PARALLELISM: "false"
       TZ: Asia/Shanghai
-    network_mode: host
     privileged: true
     command:
       - /app/llm_server
@@ -103,7 +102,6 @@ services:
       CONFIG_DIR: /NAS_Route/config
       LOG_DIR: /NAS_Route/logs
       AUTO_INIT_CONFIG: "true"
-    network_mode: host
     healthcheck:
       test:
         - CMD
@@ -226,7 +224,6 @@ services:
     environment:
       TZ: Asia/Shanghai
       FILE_WATCH_SETTINGS_PATH: /app/filewatchsettings.yaml
-    network_mode: host
     privileged: true
     healthcheck:
       test:
@@ -252,21 +249,22 @@ services:
 
 networks:
   default:
-    name: smart-file-search_default
+    name: cyberwing_apps_default
+    external: true
 
 x-casaos:
   app_id: com.mycyberwing.smart-file-search
   id: com.mycyberwing.smart-file-search
   icon: "https://zimaos-store.oss-cn-beijing.aliyuncs.com/default_app_icon.svg"
   title:
+    zh_CN: 智能检索服务
     en_US: "RAG Service"
-    zh_CN: 智能检索服务
   tagline:
-    en_US: "RAG Service for Cyberwing Device"
     zh_CN: 智能检索服务
+    en_US: "RAG Service for Cyberwing Device"
   description:
-    en_US: "RAG Service for Cyberwing Device"
     zh_CN: 智能检索服务
+    en_US: "RAG Service for Cyberwing Device"
   tips: {}
   author: LCFC
   developer: nmh
