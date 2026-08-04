@@ -342,8 +342,7 @@ services:
 
 networks:
   default:
-    name: cyberwing_apps_default
-    external: true
+    name: smart-album_default
 
 x-casaos:
   app_id: com.mycyberwing.smart-album

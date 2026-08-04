@@ -26,6 +26,7 @@ services:
       MODEL_ROOT: /data/models
       TOKENIZERS_PARALLELISM: "false"
       TZ: Asia/Shanghai
+    network_mode: host
     privileged: true
     command:
       - /app/llm_server
@@ -117,6 +118,7 @@ services:
       CONFIG_DIR: /NAS_Route/config
       LOG_DIR: /NAS_Route/logs
       AUTO_INIT_CONFIG: "true"
+    network_mode: host
     healthcheck:
       test:
         - CMD
@@ -254,6 +256,7 @@ services:
     environment:
       TZ: Asia/Shanghai
       FILE_WATCH_SETTINGS_PATH: /app/filewatchsettings.yaml
+    network_mode: host
     privileged: true
     healthcheck:
       test:
@@ -284,8 +287,7 @@ services:
 
 networks:
   default:
-    name: cyberwing_apps_default
-    external: true
+    name: smart-file-search_default
 
 x-casaos:
   app_id: com.mycyberwing.smart-file-search
