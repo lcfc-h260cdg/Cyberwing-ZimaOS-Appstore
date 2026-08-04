@@ -32,6 +32,16 @@ services:
     entrypoint: []
     devices:
       - /dev/dri:/dev/dri
+    # 实测高负载约 10.2 GiB，给 11 GiB 硬上限；原配置没有任何边界。
+    mem_limit: "13g"
+    mem_reservation: "10g"
+    memswap_limit: "13g"
+    deploy:
+      resources:
+        limits:
+          memory: "13g"
+        reservations:
+          memory: "10g"
     logging:
       driver: json-file
       options:
@@ -53,10 +63,15 @@ services:
       POSTGRES_DB: postgres
       PGDATA: /var/lib/postgresql/data/pgdata
       TZ: Asia/Shanghai
+    mem_limit: "1536m"
+    mem_reservation: "512m"
+    memswap_limit: "1536m"
     deploy:
       resources:
         limits:
-          memory: 4G
+          memory: "1536m"
+        reservations:
+          memory: "512m"
     logging:
       driver: json-file
       options:
@@ -116,11 +131,18 @@ services:
       - sh
       - -c
       - /start.sh
+    # 正常解析实测约 3.9 GiB；异常文件到 4.5 GiB 即在本容器内失败，
+    # 避免再次吞完宿主机内存和 Swap。
+    mem_limit: "4608m"
+    mem_reservation: "3g"
+    memswap_limit: "4608m"
     deploy:
       resources:
         limits:
           cpus: "4.0"
-          memory: 12G
+          memory: "4608m"
+        reservations:
+          memory: "3g"
     logging:
       driver: json-file
       options:
@@ -145,8 +167,11 @@ services:
       - /usr/share/zoneinfo/Asia/Shanghai:/usr/share/zoneinfo/Asia/Shanghai
       - /etc/timezone:/etc/timezone
     environment:
-      PYTHONUNBUFFERED: "1"
       PYTHONDONTWRITEBYTECODE: "1"
+      PYTHONUNBUFFERED: "1"
+      PYTHONUTF8: "1"
+      LANG: C.UTF-8
+      LC_ALL: C.UTF-8
       TZ: Asia/Shanghai
     healthcheck:
       test:
@@ -159,11 +184,16 @@ services:
       retries: 3
       start_period: 40s
     working_dir: /app/asr_src
+    mem_limit: "1536m"
+    mem_reservation: "768m"
+    memswap_limit: "1536m"
     deploy:
       resources:
         limits:
           cpus: "2.0"
-          memory: 2G
+          memory: "1536m"
+        reservations:
+          memory: "768m"
     logging:
       driver: json-file
       options:
@@ -233,13 +263,18 @@ services:
       timeout: 10s
       retries: 3
       start_period: 60s
+    # 运行期约 2.3 GiB；留出增长空间，但不再允许占满原来的 10 GiB。
+    mem_limit: "4608m"
+    mem_reservation: "3g"
+    # 等于 mem_limit 表示该容器不使用宿主机 Swap，超限时在容器内OOM
+    memswap_limit: "4608m"
     deploy:
       resources:
         limits:
-          cpus: "8.0"
-          memory: 10G
+          cpus: "10.0"
+          memory: "4608m"
         reservations:
-          memory: 2G
+          memory: "3g"
     logging:
       driver: json-file
       options:
@@ -255,15 +290,15 @@ networks:
 x-casaos:
   app_id: com.mycyberwing.smart-file-search
   id: com.mycyberwing.smart-file-search
-  icon: "https://zimaos-store.oss-cn-beijing.aliyuncs.com/default_app_icon.svg"
+  icon: "https://zimaos-store.oss-cn-beijing.aliyuncs.com/SmartFileSearch/icon.png"
   title:
-    zh_CN: 智能检索服务
-    en_US: "RAG Service"
+    zh_CN: 小宝检索服务
+    en_US: "Xiaobao RAG Service"
   tagline:
-    zh_CN: 智能检索服务
+    zh_CN: 小宝检索服务
     en_US: "RAG Service for Cyberwing Device"
   description:
-    zh_CN: 智能检索服务
+    zh_CN: 小宝检索服务
     en_US: "RAG Service for Cyberwing Device"
   tips: {}
   author: LCFC
@@ -271,16 +306,18 @@ x-casaos:
   category: AI
   architectures:
     - amd64
-  version: "1.0.3"
-  update_at: "2026-07-24"
+  version: "1.0.4"
+  update_at: "2026-08-04"
   release_notes:
     en_US: |-
       - "2026-07-10 First release"
       - "2026-07-15 Update ai-api service"
       - "2026-07-22 Update RAG facial recognition"
       - "2026-07-24 Update LLM Server"
+      - "2026-08-04 Optimize memory usage, increase memory limits, and add support for ASR Chinese path."
     zh_CN: |-
       - "2026-07-10 首次上线"
       - "2026-07-15 更新 ai-api 服务"
       - "2026-07-22 更新 RAG 人脸识别"
       - "2026-07-24 更新 LLM Server"
+      - "2026-08-04 优化内存占用，增加内存限制，增加 ASR 中文路径支持"

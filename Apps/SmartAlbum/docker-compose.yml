@@ -37,7 +37,7 @@ services:
     shm_size: "134217728"
 
   immich-init:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-server:v1.0.1
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-server:v1.0.2
     build:
       context: /DATA
       dockerfile: server/Dockerfile.dev
@@ -62,7 +62,7 @@ services:
       - /tmp
 
   immich-machine-learning:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-machine-learning:v1.0.0
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-machine-learning:v1.0.2
     container_name: immich_machine_learning
     restart: unless-stopped
     depends_on:
@@ -90,7 +90,7 @@ services:
       UPLOAD_LOCATION: /DATA/AppData/LCFC_APP/data/smart_album/library
 
   immich-server:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-server:v1.0.1
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-server:v1.0.2
     build:
       context: /DATA
       dockerfile: server/Dockerfile.dev
@@ -170,7 +170,7 @@ services:
       - /tmp
 
   immich-web:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-web:v1.0.1
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-web:v1.0.2
     build:
       context: /DATA
       dockerfile: server/Dockerfile.dev
@@ -384,14 +384,16 @@ x-casaos:
   category: Media
   architectures:
     - amd64
-  version: "1.0.2"
-  update_at: "2026-07-22"
+  version: "1.0.3"
+  update_at: "2026-08-04"
   release_notes:
     en_US: |-
       - "2026-07-10 First release"
       - "2026-07-15 Update album external dir to: `~/Gallery`"
       - "2026-07-22 Add container health check"
+      - "2026-08-04 User UI optimization and bug fixes"
     zh_CN: |-
       - "2026-07-10 首次上线"
       - "2026-07-15 更新相册外部库路径至：`~/Gallery`"
       - "2026-07-22 增加容器健康检查"
+      - "2026-08-04 用户 UI 优化和 Bug 修复"
