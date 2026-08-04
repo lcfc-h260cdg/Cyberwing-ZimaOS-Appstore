@@ -24,6 +24,8 @@ services:
       MPLCONFIGDIR: /tmp/matplotlib
       PYTHONUNBUFFERED: '1'
       TZ: Asia/Shanghai
+      CAPTURE_IMMICH_API_BASE: http://immich-server:2283/api
+      CAPTURE_IMMICH_WEB_BASE: http://127.0.0.1:3000
     healthcheck:
       test:
       - CMD
