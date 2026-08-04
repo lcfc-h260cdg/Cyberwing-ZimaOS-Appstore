@@ -35,7 +35,7 @@ services:
       retries: 300
     shm_size: '134217728'
   immich-init:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-server:v1.0.1@sha256:410e6e7c10cab043c61678ae4b57c91809e926e01f2f5d0eae3bf4b05c76fec0
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-server:v1.0.2@sha256:cd1f13f7c3079737b8e076a868a4f5294181da25c660191bf518b460cf0319d7
     build:
       context: /DATA
       dockerfile: server/Dockerfile.dev
@@ -61,7 +61,7 @@ services:
     tmpfs:
     - /tmp
   immich-machine-learning:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-machine-learning:v1.0.0@sha256:b1632bdf9f8bcea9d1c192541f5c44d7135c7d6791e978934fe3b1dea87f8894
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-machine-learning:v1.0.2@sha256:951617d0684e95c12ea5e5bc91ed28d0e2378c61fe6daa0e3cf0525ce620eab2
     container_name: immich_machine_learning
     restart: unless-stopped
     depends_on:
@@ -88,7 +88,7 @@ services:
       IMMICH_VERSION: v2.7.5
       UPLOAD_LOCATION: /DATA/AppData/LCFC_APP/data/smart_album/library
   immich-server:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-server:v1.0.1@sha256:410e6e7c10cab043c61678ae4b57c91809e926e01f2f5d0eae3bf4b05c76fec0
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-server:v1.0.2@sha256:cd1f13f7c3079737b8e076a868a4f5294181da25c660191bf518b460cf0319d7
     build:
       context: /DATA
       dockerfile: server/Dockerfile.dev
@@ -171,7 +171,7 @@ services:
     tmpfs:
     - /tmp
   immich-web:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-web:v1.0.1@sha256:1bcd69f7168190c8d1a85d19af1037a26f1f663f75ca9c653668a7b6c2a0343d
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-web:v1.0.2@sha256:86a5ddf022e7ecfc6bbf579d4c32e81a475e22f94fd59403d4084b5c03aa7166
     build:
       context: /DATA
       dockerfile: server/Dockerfile.dev
@@ -289,4 +289,4 @@ x-casaos:
   title:
     zh_CN: 智能相册
     en_US: Smart Album
-  version: 1.0.2
+  version: 1.0.3

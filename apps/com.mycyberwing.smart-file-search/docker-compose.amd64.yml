@@ -30,6 +30,15 @@ services:
     entrypoint: []
     devices:
     - /dev/dri:/dev/dri
+    mem_limit: 13g
+    mem_reservation: 10g
+    memswap_limit: 13g
+    deploy:
+      resources:
+        limits:
+          memory: 13g
+        reservations:
+          memory: 10g
     logging:
       driver: json-file
       options:
@@ -50,10 +59,15 @@ services:
       POSTGRES_DB: postgres
       PGDATA: /var/lib/postgresql/data/pgdata
       TZ: Asia/Shanghai
+    mem_limit: 1536m
+    mem_reservation: 512m
+    memswap_limit: 1536m
     deploy:
       resources:
         limits:
-          memory: 4G
+          memory: 1536m
+        reservations:
+          memory: 512m
     logging:
       driver: json-file
       options:
@@ -108,11 +122,16 @@ services:
     - sh
     - -c
     - /start.sh
+    mem_limit: 4608m
+    mem_reservation: 3g
+    memswap_limit: 4608m
     deploy:
       resources:
         limits:
           cpus: '4.0'
-          memory: 12G
+          memory: 4608m
+        reservations:
+          memory: 3g
     logging:
       driver: json-file
       options:
@@ -133,8 +152,11 @@ services:
     - /usr/share/zoneinfo/Asia/Shanghai:/usr/share/zoneinfo/Asia/Shanghai
     - /etc/timezone:/etc/timezone
     environment:
-      PYTHONUNBUFFERED: '1'
       PYTHONDONTWRITEBYTECODE: '1'
+      PYTHONUNBUFFERED: '1'
+      PYTHONUTF8: '1'
+      LANG: C.UTF-8
+      LC_ALL: C.UTF-8
       TZ: Asia/Shanghai
     healthcheck:
       test:
@@ -147,11 +169,16 @@ services:
       retries: 3
       start_period: 40s
     working_dir: /app/asr_src
+    mem_limit: 1536m
+    mem_reservation: 768m
+    memswap_limit: 1536m
     deploy:
       resources:
         limits:
           cpus: '2.0'
-          memory: 2G
+          memory: 1536m
+        reservations:
+          memory: 768m
     logging:
       driver: json-file
       options:
@@ -210,13 +237,16 @@ services:
       timeout: 10s
       retries: 3
       start_period: 60s
+    mem_limit: 4608m
+    mem_reservation: 3g
+    memswap_limit: 4608m
     deploy:
       resources:
         limits:
-          cpus: '8.0'
-          memory: 10G
+          cpus: '10.0'
+          memory: 4608m
         reservations:
-          memory: 2G
+          memory: 3g
     logging:
       driver: json-file
       options:
@@ -229,8 +259,8 @@ networks:
     external: true
 x-casaos:
   id: com.mycyberwing.smart-file-search
-  icon: https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages/apps/com.mycyberwing.smart-file-search/assets/icon.svg
+  icon: https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages/apps/com.mycyberwing.smart-file-search/assets/icon.png
   title:
-    zh_CN: 智能检索服务
-    en_US: RAG Service
-  version: 1.0.3
+    zh_CN: 小宝检索服务
+    en_US: Xiaobao RAG Service
+  version: 1.0.4

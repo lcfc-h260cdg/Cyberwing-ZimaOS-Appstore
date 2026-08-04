@@ -35,7 +35,7 @@ services:
       retries: 300
     shm_size: '134217728'
   immich-init:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-server:v1.0.1
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-server:v1.0.2
     build:
       context: /DATA
       dockerfile: server/Dockerfile.dev
@@ -61,7 +61,7 @@ services:
     tmpfs:
     - /tmp
   immich-machine-learning:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-machine-learning:v1.0.0
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-machine-learning:v1.0.2
     container_name: immich_machine_learning
     restart: unless-stopped
     depends_on:
@@ -88,7 +88,7 @@ services:
       IMMICH_VERSION: v2.7.5
       UPLOAD_LOCATION: /DATA/AppData/LCFC_APP/data/smart_album/library
   immich-server:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-server:v1.0.1
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-server:v1.0.2
     build:
       context: /DATA
       dockerfile: server/Dockerfile.dev
@@ -171,7 +171,7 @@ services:
     tmpfs:
     - /tmp
   immich-web:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-web:v1.0.1
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-web:v1.0.2
     build:
       context: /DATA
       dockerfile: server/Dockerfile.dev
@@ -289,4 +289,4 @@ x-casaos:
   title:
     zh_CN: 智能相册
     en_US: Smart Album
-  version: 1.0.2
+  version: 1.0.3

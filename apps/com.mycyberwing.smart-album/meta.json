@@ -13,17 +13,17 @@
   "architectures": [
     "amd64"
   ],
-  "update_at": "2026-07-22",
+  "update_at": "2026-08-04",
   "title": "Smart Album",
-  "release_note": "- \"2026-07-10 First release\"\n- \"2026-07-15 Update album external dir to: `~/Gallery`\"\n- \"2026-07-22 Add container health check\"",
+  "release_note": "- \"2026-07-10 First release\"\n- \"2026-07-15 Update album external dir to: `~/Gallery`\"\n- \"2026-07-22 Add container health check\"\n- \"2026-08-04 User UI optimization and bug fixes\"",
   "base_url": "https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages",
   "id": "com.mycyberwing.smart-album",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "categories": [
     "media"
   ],
   "min_memory": 0,
   "min_image_size": {
-    "amd64": 1691029458
+    "amd64": 1701217199
   }
 }

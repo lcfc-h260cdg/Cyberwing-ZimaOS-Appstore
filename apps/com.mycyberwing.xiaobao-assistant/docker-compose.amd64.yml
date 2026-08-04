@@ -92,7 +92,7 @@ networks:
     external: true
 x-casaos:
   id: com.mycyberwing.xiaobao-assistant
-  icon: https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages/apps/com.mycyberwing.xiaobao-assistant/assets/icon.svg
+  icon: https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages/apps/com.mycyberwing.xiaobao-assistant/assets/icon.png
   title:
     zh_CN: 小宝语音助手
     en_US: Xiaobao Assistant
