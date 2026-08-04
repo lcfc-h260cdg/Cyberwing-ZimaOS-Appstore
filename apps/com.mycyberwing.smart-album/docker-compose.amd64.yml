@@ -277,8 +277,7 @@ services:
       \ 'hex')\n  );\nSQL\n\necho \"[immich-bootstrap] done\"\n"
 networks:
   default:
-    name: cyberwing_apps_default
-    external: true
+    name: smart-album_default
 x-casaos:
   id: com.mycyberwing.smart-album
   main: immich-web

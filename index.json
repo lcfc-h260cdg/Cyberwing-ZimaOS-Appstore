@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-08-04T07:39:04Z",
+  "updated_at": "2026-08-04T08:01:14Z",
   "app_count": 6,
   "base_url": "https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages",
   "apps": [
@@ -21,7 +21,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.second-brain/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.second-brain/meta.json",
-      "content_hash": "b83fa94c",
+      "content_hash": "155247ee",
       "version": "1.0.0"
     },
     {
@@ -41,7 +41,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.smart-album/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.smart-album/meta.json",
-      "content_hash": "e1cc85fc",
+      "content_hash": "fdf37d7d",
       "version": "1.0.3"
     },
     {
@@ -61,7 +61,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.smart-file-search/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.smart-file-search/meta.json",
-      "content_hash": "daf89164",
+      "content_hash": "ea0313cf",
       "version": "1.0.4"
     },
     {
@@ -81,7 +81,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.smart-pick/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.smart-pick/meta.json",
-      "content_hash": "89a052a4",
+      "content_hash": "da461141",
       "version": "1.0.4"
     },
     {
@@ -101,7 +101,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.xiaobao-agent/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.xiaobao-agent/meta.json",
-      "content_hash": "cd592473",
+      "content_hash": "f26d94fe",
       "version": "1.0.5"
     },
     {
@@ -121,7 +121,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.xiaobao-assistant/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.xiaobao-assistant/meta.json",
-      "content_hash": "1652523a",
+      "content_hash": "a2bfae2c",
       "version": "1.0.4"
     }
   ]

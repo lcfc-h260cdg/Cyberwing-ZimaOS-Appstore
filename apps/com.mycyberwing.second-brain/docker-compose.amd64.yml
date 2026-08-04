@@ -44,8 +44,7 @@ services:
       start_period: 10s
 networks:
   default:
-    name: cyberwing_apps_default
-    external: true
+    name: second-brain_default
 x-casaos:
   id: com.mycyberwing.second-brain
   main: second-brain
