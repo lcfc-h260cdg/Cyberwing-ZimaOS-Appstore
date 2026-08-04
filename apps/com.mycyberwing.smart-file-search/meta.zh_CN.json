@@ -1,7 +1,7 @@
 {
   "id": "com.mycyberwing.smart-file-search",
   "title": "小宝检索服务",
-  "description": "小宝检索服务",
+  "tagline": "小宝检索服务",
   "release_note": "- \"2026-07-10 首次上线\"\n- \"2026-07-15 更新 ai-api 服务\"\n- \"2026-07-22 更新 RAG 人脸识别\"\n- \"2026-07-24 更新 LLM Server\"\n- \"2026-08-04 优化内存占用，增加内存限制，增加 ASR 中文路径支持\"",
-  "tagline": "小宝检索服务"
+  "description": "小宝检索服务"
 }
