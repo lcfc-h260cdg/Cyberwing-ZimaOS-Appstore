@@ -4,7 +4,7 @@ services:
   database:
     image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0
     container_name: immich_postgres
-    restart: unless-stopped
+    restart: always
     ports:
       - mode: ingress
         target: 5432
@@ -43,7 +43,7 @@ services:
       dockerfile: server/Dockerfile.dev
       target: dev
     container_name: immich_init
-    restart: unless-stopped
+    restart: always
     healthcheck:
       test:
         - CMD
@@ -64,7 +64,7 @@ services:
   immich-machine-learning:
     image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-machine-learning:v1.0.2
     container_name: immich_machine_learning
-    restart: unless-stopped
+    restart: always
     depends_on:
       database:
         condition: service_healthy
@@ -96,7 +96,7 @@ services:
       dockerfile: server/Dockerfile.dev
       target: dev
     container_name: immich_server
-    restart: unless-stopped
+    restart: always
     depends_on:
       database:
         condition: service_healthy
@@ -176,7 +176,7 @@ services:
       dockerfile: server/Dockerfile.dev
       target: dev
     container_name: immich_web
-    restart: unless-stopped
+    restart: always
     depends_on:
       immich-init:
         condition: service_healthy
@@ -208,7 +208,7 @@ services:
   redis:
     image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/valkey/valkey:9
     container_name: immich_redis
-    restart: unless-stopped
+    restart: always
     healthcheck:
       test:
         - CMD-SHELL
@@ -345,7 +345,6 @@ networks:
     name: smart-album_default
 
 x-casaos:
-  app_id: com.mycyberwing.smart-album
   id: com.mycyberwing.smart-album
   main: immich-web
   index: /

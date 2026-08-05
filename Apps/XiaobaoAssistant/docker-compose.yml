@@ -40,15 +40,13 @@ services:
   xiaobao-client:
     image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/xiaobao-client:v1.0.6
     container_name: xiaobao-client
-    restart: unless-stopped
+    restart: always
     dns:
       - 223.5.5.5
       - 8.8.8.8
     depends_on:
-      voiceprint-api:
-        condition: service_healthy
-      xiaobao-server:
-        condition: service_started
+      - voiceprint-api
+      - xiaobao-server
     tty: true
     stdin_open: true
     privileged: true
@@ -93,8 +91,8 @@ services:
       start_period: 180s
 
 x-casaos:
-  app_id: com.mycyberwing.xiaobao-assistant
   id: com.mycyberwing.xiaobao-assistant
+  main: xiaobao-client
   icon: "https://zimaos-store.oss-cn-beijing.aliyuncs.com/XiaobaoAssistant/icon.png"
   title:
     zh_CN: 小宝语音助手

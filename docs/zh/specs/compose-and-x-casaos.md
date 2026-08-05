@@ -37,7 +37,7 @@ services:
       - target: 8080
         published: "8080"
         protocol: tcp
-    restart: unless-stopped
+    restart: always
 x-casaos:
   id: com.example.myapp
   main: my-app

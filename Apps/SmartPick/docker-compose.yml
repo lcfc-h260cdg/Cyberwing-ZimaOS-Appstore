@@ -4,7 +4,7 @@ services:
   capture-score:
     image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-pick/capture-score:v1.0.3
     container_name: capture-score
-    restart: unless-stopped
+    restart: always
     ports:
       - mode: ingress
         target: 3500
@@ -48,7 +48,6 @@ networks:
     name: smart-pick_default
 
 x-casaos:
-  app_id: com.mycyberwing.smart-pick
   id: com.mycyberwing.smart-pick
   main: capture-score
   index: /

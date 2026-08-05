@@ -44,7 +44,7 @@
 
 | 字段 | 类型/格式 | 含义 |
 |---|---|---|
-| `app_id` | string，必填 | 应用源 ID，要求反向域名风格，如 `org.icewhale.teable`；构建时会转小写。 |
+| `id` | string，必填 | 应用源 ID，要求反向域名风格，如 `org.icewhale.teable`；构建时会转小写。 |
 | `main` | string | 主服务名，也就是提供 Web UI 的 compose service。多服务应用里应指向前端/主应用服务。 |
 | `index` | string | Web UI 入口路径，常见为 `/`。 |
 | `port_map` | string | Web UI 对外端口，必须写成字符串，如 `"3200"`。 |

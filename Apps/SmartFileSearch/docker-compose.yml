@@ -4,7 +4,7 @@ services:
   llm_server:
     image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/llm_server:v2.1.2
     container_name: llm_server
-    restart: unless-stopped
+    restart: always
     volumes:
       - /DATA:/DATA:rslave
       - /media:/media:rslave
@@ -53,7 +53,7 @@ services:
   pgvector-nas:
     image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/pgvector/pgvector:pg18-trixie
     container_name: pgvector-nas
-    restart: unless-stopped
+    restart: always
     ports:
       - "5434:5432"
     volumes:
@@ -83,7 +83,7 @@ services:
   file-search-service:
     image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/file-rag-nas:v2.0.0_20260706
     container_name: file-search-service
-    restart: unless-stopped
+    restart: always
     volumes:
       # User file roots. Keep original host paths inside the container.
       - /DATA:/DATA:rslave
@@ -155,7 +155,7 @@ services:
   asr-server:
     image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/asr-server:devel-20260721
     container_name: asr-server
-    restart: unless-stopped
+    restart: always
     ports:
       - "20105:8000"
     volumes:
@@ -206,7 +206,7 @@ services:
   ai-api:
     image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/ai-api:devel-20260803
     container_name: ai-api
-    restart: unless-stopped
+    restart: always
     depends_on:
       - llm_server
       - pgvector-nas
@@ -290,8 +290,8 @@ networks:
     name: smart-file-search_default
 
 x-casaos:
-  app_id: com.mycyberwing.smart-file-search
   id: com.mycyberwing.smart-file-search
+  main: ai-api
   icon: "https://zimaos-store.oss-cn-beijing.aliyuncs.com/SmartFileSearch/icon.png"
   title:
     zh_CN: 小宝检索服务
