@@ -1,21 +1,9 @@
 name: xiaobao-agent
 services:
-  hermes-agent-image-preload:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-agent-custom:v1.0.4@sha256:04247f3a7217aec6509061cb8fdc279c4f71ac689a95e0f53d6e64eb8faec32a
-    container_name: xiaobao-agent-image-preload
-    restart: 'no'
-    entrypoint:
-    - /bin/sh
-    - -c
-    - 'true'
   xiaobao-agent:
     image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-adapter:v1.0.4@sha256:70145608f45e78af47eef576cb4c6db0e280cf14c2d210cbb6e36fa8f3be082e
     container_name: xiaobao-agent
-    restart: unless-stopped
-    depends_on:
-      hermes-agent-image-preload:
-        condition: service_completed_successfully
-        required: true
+    restart: always
     ports:
     - mode: ingress
       target: 8787
@@ -83,6 +71,14 @@ services:
     - host.docker.internal:host-gateway
     networks:
       hermes-net: null
+  hermes-agent-image-preload:
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-agent-custom:v1.0.4@sha256:04247f3a7217aec6509061cb8fdc279c4f71ac689a95e0f53d6e64eb8faec32a
+    container_name: xiaobao-agent-image-preload
+    restart: 'no'
+    entrypoint:
+    - /bin/sh
+    - -c
+    - 'true'
 networks:
   default:
     name: xiaobao-agent-docker_default

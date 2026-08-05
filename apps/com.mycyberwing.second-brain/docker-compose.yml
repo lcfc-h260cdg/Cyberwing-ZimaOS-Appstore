@@ -3,7 +3,7 @@ services:
   second-brain:
     image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/second-brain:v1.0.0
     container_name: second-brain
-    restart: unless-stopped
+    restart: always
     ports:
     - mode: ingress
       target: 3030

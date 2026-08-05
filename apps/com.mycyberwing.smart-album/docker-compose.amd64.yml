@@ -3,7 +3,7 @@ services:
   database:
     image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0@sha256:928c580aa718930fd471442dde28cd91e20e8ddb067343605111db734400b394
     container_name: immich_postgres
-    restart: unless-stopped
+    restart: always
     ports:
     - mode: ingress
       target: 5432
@@ -41,7 +41,7 @@ services:
       dockerfile: server/Dockerfile.dev
       target: dev
     container_name: immich_init
-    restart: unless-stopped
+    restart: always
     healthcheck:
       test:
       - CMD
@@ -63,7 +63,7 @@ services:
   immich-machine-learning:
     image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-machine-learning:v1.0.2@sha256:951617d0684e95c12ea5e5bc91ed28d0e2378c61fe6daa0e3cf0525ce620eab2
     container_name: immich_machine_learning
-    restart: unless-stopped
+    restart: always
     depends_on:
       database:
         condition: service_healthy
@@ -94,7 +94,7 @@ services:
       dockerfile: server/Dockerfile.dev
       target: dev
     container_name: immich_server
-    restart: unless-stopped
+    restart: always
     depends_on:
       database:
         condition: service_healthy
@@ -177,7 +177,7 @@ services:
       dockerfile: server/Dockerfile.dev
       target: dev
     container_name: immich_web
-    restart: unless-stopped
+    restart: always
     depends_on:
       immich-init:
         condition: service_healthy
@@ -208,7 +208,7 @@ services:
   redis:
     image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/valkey/valkey:9@sha256:7a48ff82d4b41e6faa1de0e10a1343bcfef8f0a7a0cd5df4b5b360daf7ab0139
     container_name: immich_redis
-    restart: unless-stopped
+    restart: always
     healthcheck:
       test:
       - CMD-SHELL
