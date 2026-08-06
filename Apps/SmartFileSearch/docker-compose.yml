@@ -204,7 +204,7 @@ services:
         compress: "true"
 
   ai-api:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/ai-api:devel-20260803
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/ai-api:devel-20260805
     container_name: ai-api
     restart: always
     depends_on:
@@ -254,23 +254,29 @@ services:
       - /opt:/opt
       - /tmp:/tmp
     environment:
-      TZ: Asia/Shanghai
       FILE_WATCH_SETTINGS_PATH: /app/filewatchsettings.yaml
+      MILVUS_WATCHDOG_ENABLED: "true"
+      MILVUS_WATCHDOG_START_DELAY_SECONDS: "60"
+      MILVUS_WATCHDOG_INTERVAL_SECONDS: "20"
+      MILVUS_WATCHDOG_FAILURE_THRESHOLD: "3"
+      MILVUS_WATCHDOG_HTTP_TIMEOUT_SECONDS: "10"
+      MILVUS_HEALTH_TIMEOUT_SECONDS: "5"
+      TZ: Asia/Shanghai
     network_mode: host
     privileged: true
     healthcheck:
       test:
         - CMD-SHELL
-        - curl -f http://localhost:20100/docs && curl -f http://localhost:20190/docs || exit 1
-      interval: 30s
+        - curl -fsS --max-time 10 http://localhost:20100/health/milvus && curl -fsS --max-time 10 http://localhost:20190/docs || exit 1
       timeout: 10s
+      interval: 30s
       retries: 3
-      start_period: 60s
-    # 运行期约 2.3 GiB；留出增长空间，但不再允许占满原来的 10 GiB。
-    mem_limit: "4608m"
-    mem_reservation: "3g"
-    # 等于 mem_limit 表示该容器不使用宿主机 Swap，超限时在容器内OOM
-    memswap_limit: "4608m"
+      start_period: 2m0s
+    # Milvus Lite 与主服务共享内存；4.5 GiB 已实测触发 OOM，保留稳定运行余量。
+    mem_limit: "8g"
+    mem_reservation: "4g"
+    # 允许最多 2 GiB 应急 Swap，吸收短时峰值，持续异常仍由内存上限保护宿主机。
+    memswap_limit: "10g"
     deploy:
       resources:
         limits:
@@ -308,18 +314,20 @@ x-casaos:
   category: AI
   architectures:
     - amd64
-  version: "1.0.4"
-  update_at: "2026-08-04"
+  version: "1.0.5"
+  update_at: "2026-08-06"
   release_notes:
     en_US: |-
       - "2026-07-10 First release"
       - "2026-07-15 Update ai-api service"
       - "2026-07-22 Update RAG facial recognition"
       - "2026-07-24 Update LLM Server"
-      - "2026-08-04 Optimize memory usage, increase memory limits, and add support for ASR Chinese path."
+      - "2026-08-04 Optimize memory usage, increase memory limits, and add support for ASR Chinese path"
+      - "2026-08-06 Fix multi-user mode bug"
     zh_CN: |-
       - "2026-07-10 首次上线"
       - "2026-07-15 更新 ai-api 服务"
       - "2026-07-22 更新 RAG 人脸识别"
       - "2026-07-24 更新 LLM Server"
       - "2026-08-04 优化内存占用，增加内存限制，增加 ASR 中文路径支持"
+      - "2026-08-06 修复多用户模式 BUG"
