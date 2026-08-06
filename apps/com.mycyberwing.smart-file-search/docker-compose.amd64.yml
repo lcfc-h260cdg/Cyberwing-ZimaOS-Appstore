@@ -188,7 +188,7 @@ services:
         max-file: '3'
         compress: 'true'
   ai-api:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/ai-api:devel-20260803@sha256:3ed1125835b0ad3c7b9624d25f10128070778c2bc706e4a0e4b6a1c3a9a59374
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/ai-api:devel-20260805@sha256:3dc0adcb505db595f0d44654b83e42caaa8b7f6035892abf7513896dc311ff87
     container_name: ai-api
     restart: always
     depends_on:
@@ -227,22 +227,28 @@ services:
     - /opt:/opt
     - /tmp:/tmp
     environment:
-      TZ: Asia/Shanghai
       FILE_WATCH_SETTINGS_PATH: /app/filewatchsettings.yaml
+      MILVUS_WATCHDOG_ENABLED: 'true'
+      MILVUS_WATCHDOG_START_DELAY_SECONDS: '60'
+      MILVUS_WATCHDOG_INTERVAL_SECONDS: '20'
+      MILVUS_WATCHDOG_FAILURE_THRESHOLD: '3'
+      MILVUS_WATCHDOG_HTTP_TIMEOUT_SECONDS: '10'
+      MILVUS_HEALTH_TIMEOUT_SECONDS: '5'
+      TZ: Asia/Shanghai
     network_mode: host
     privileged: true
     healthcheck:
       test:
       - CMD-SHELL
-      - curl -f http://localhost:20100/docs && curl -f http://localhost:20190/docs
-        || exit 1
-      interval: 30s
+      - curl -fsS --max-time 10 http://localhost:20100/health/milvus && curl -fsS
+        --max-time 10 http://localhost:20190/docs || exit 1
       timeout: 10s
+      interval: 30s
       retries: 3
-      start_period: 60s
-    mem_limit: 4608m
-    mem_reservation: 3g
-    memswap_limit: 4608m
+      start_period: 2m0s
+    mem_limit: 8g
+    mem_reservation: 4g
+    memswap_limit: 10g
     deploy:
       resources:
         limits:
@@ -266,4 +272,4 @@ x-casaos:
   title:
     zh_CN: 小宝检索服务
     en_US: Xiaobao RAG Service
-  version: 1.0.4
+  version: 1.0.5

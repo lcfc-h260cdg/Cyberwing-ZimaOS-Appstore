@@ -13,17 +13,17 @@
   "architectures": [
     "amd64"
   ],
-  "update_at": "2026-08-04",
+  "update_at": "2026-08-06",
   "title": "Xiaobao Agent",
-  "release_note": "- \"2026-07-10 First release\"\n- \"2026-07-15 Bugfix\"\n- \"2026-07-22 Update Hermes Agent\"\n- \"2026-08-04 Optimize voiceprint & RAG, fix bugs\"",
+  "release_note": "- \"2026-07-10 First release\"\n- \"2026-07-15 Bugfix\"\n- \"2026-07-22 Update Hermes Agent\"\n- \"2026-08-04 Optimize voiceprint & RAG, fix bugs\"\n- \"2026-08-06 Fix agent docker container crashes when connecting to Lark and DingTalk message channels\"",
   "base_url": "https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages",
   "id": "com.mycyberwing.xiaobao-agent",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "categories": [
     "ai"
   ],
   "min_memory": 0,
   "min_image_size": {
-    "amd64": 1442141070
+    "amd64": 1469797941
   }
 }

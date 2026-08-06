@@ -1,7 +1,7 @@
 name: xiaobao-agent
 services:
   xiaobao-agent:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-adapter:v1.0.4@sha256:70145608f45e78af47eef576cb4c6db0e280cf14c2d210cbb6e36fa8f3be082e
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-adapter:v1.0.4-hotfix1@sha256:d4ebeaa78972555dc1de028ea5dd7b4d060a2e326a903b448cfacd1f5f1e4b8d
     container_name: xiaobao-agent
     restart: always
     ports:
@@ -27,7 +27,7 @@ services:
         create_host_path: true
     environment:
       HERMES_RUNTIME_MODE: container_per_user
-      HERMES_ADAPTER_IMAGE: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-adapter:v1.0.4
+      HERMES_ADAPTER_IMAGE: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-adapter:v1.0.4-hotfix1
       HERMES_BASE_IMAGE: nousresearch/hermes-agent:v2026.7.20
       HERMES_USER_SCENARIO: zimaos
       HERMES_ADAPTER_HOME: /opt/data/hermes-adapter
@@ -47,7 +47,7 @@ services:
       HERMES_USER_DATA_ROOT: /DATA/AppData/LCFC_APP/data/hermes-data
       HERMES_HOST_RAG_PUBLIC_DIR: /DATA/Share,/DATA/AppData/LCFC_APP/data/smart_album/library/photos/upload
       HERMES_SHARED_PATH_BLACKLIST: /bin,/sbin,/lib,/lib64,/usr,/etc,/proc,/sys,/dev,/run,/var,/tmp,/opt/data,/opt/hermes,/opt/hermes-defaults,/opt/custom-skills
-      HERMES_AGENT_IMAGE: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-agent-custom:v1.0.4
+      HERMES_AGENT_IMAGE: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-agent-custom:v1.0.4-hotfix1
       HERMES_AGENT_COMMAND: gateway run
       HERMES_TAVILY_API_KEYS: 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,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,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,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,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,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,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
       HERMES_DOCKER_NETWORK: hermes-adapter-docker_hermes-net
@@ -69,10 +69,16 @@ services:
       HERMES_PROFILE_CREATE_TIMEOUT: '90'
     extra_hosts:
     - host.docker.internal:host-gateway
+    healthcheck:
+      test:
+      - CMD
+      - python
+      - -c
+      - import socket; s=socket.create_connection(('127.0.0.1', 8787), 5); s.close()
     networks:
       hermes-net: null
   hermes-agent-image-preload:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-agent-custom:v1.0.4@sha256:04247f3a7217aec6509061cb8fdc279c4f71ac689a95e0f53d6e64eb8faec32a
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-agent-custom:v1.0.4-hotfix1@sha256:72a50a8ddf31003db57031580d9da73c0f7e8822f1599fbd3c6bb9fc6193939a
     container_name: xiaobao-agent-image-preload
     restart: 'no'
     entrypoint:
@@ -95,4 +101,4 @@ x-casaos:
   title:
     zh_CN: 小宝智能体
     en_US: Xiaobao Agent
-  version: 1.0.5
+  version: 1.0.6
