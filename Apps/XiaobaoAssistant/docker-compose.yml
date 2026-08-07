@@ -2,14 +2,12 @@ name: xiaobao-assistant
 
 services:
   voiceprint-api:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/xiaobao-voiceprint:v1.0.1
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/xiaobao-voiceprint:v1.0.0
     container_name: xiaobao-voiceprint
     restart: always
     network_mode: host
     security_opt:
       - seccomp:unconfined
-    volumes:
-      - /DATA/AppData/LCFC_APP/data/xiaobao/voiceprint/data:/app/data
     environment:
       TZ: Asia/Shanghai
       VOICEPRINT_MODEL_PATH: /app/data/models/3dspeaker_speech_campplus_sv_zh-cn_16k-common.onnx
@@ -18,14 +16,14 @@ services:
         - CMD
         - python
         - -c
-        - import urllib.request; urllib.request.urlopen('http://127.0.0.1:8015/voiceprint/health', timeout=20)
+        - import urllib.request; urllib.request.urlopen('http://127.0.0.1:8015/voiceprint/health', timeout=5)
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 120s
 
   xiaobao-server:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/xiaobao-server:v1.0.2
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/xiaobao-server:v1.0.1
     container_name: xiaobao-server
     restart: always
     init: true
@@ -34,7 +32,6 @@ services:
       - no-new-privileges:true
     volumes:
       - /DATA/.config/xiaobao/backend/config.yaml:/opt/xiaobao-server/config.yaml:ro
-      - /DATA/.config/xiaobao/backend/prompts:/opt/xiaobao-server/prompts:ro
       - /DATA/AppData/LCFC_APP/data/xiaobao/backend:/opt/xiaobao-server/data
     environment:
       TZ: Asia/Shanghai
@@ -112,8 +109,8 @@ x-casaos:
   category: AI
   architectures:
     - amd64
-  version: "1.0.5"
-  update_at: "2026-08-06"
+  version: "1.0.4"
+  update_at: "2026-07-27"
   release_notes:
     en_US: |-
       - "2026-07-10 First release"
@@ -121,10 +118,9 @@ x-casaos:
       - "2026-07-16 Improve voice interactions"
       - "2026-07-22 Optimize the default visitor mode"
       - "2026-07-27 Supports muting the Xiaobao Assistant by long-pressing AI button"
-      - "2026-08-06 Optimize model prompts, improve voiceprint recognition accuracy"
     zh_CN: |-
       - "2026-07-10 首次上线"
       - "2026-07-15 修复Bug"
       - "2026-07-16 优化语音交互效果"
       - "2026-07-22 优化默认访客模式"
-      - "2026-08-06 优化模型提示词，优化声纹识别准确率"
+      - "2026-07-27 支持通过长按 AI 按键静音小宝语音助手"
