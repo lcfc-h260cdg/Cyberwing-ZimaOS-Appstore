@@ -1,14 +1,12 @@
 name: xiaobao-assistant
 services:
   voiceprint-api:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/xiaobao-voiceprint:v1.0.1@sha256:16ce4e8916477302910e956710e0a98561a61b6bf05c88329f930905971b80a9
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/xiaobao-voiceprint:v1.0.0@sha256:cd5cad491c9c6d9258caf552e54010d24cfbfce672228e063becce49d4dcdc5c
     container_name: xiaobao-voiceprint
     restart: always
     network_mode: host
     security_opt:
     - seccomp:unconfined
-    volumes:
-    - /DATA/AppData/LCFC_APP/data/xiaobao/voiceprint/data:/app/data
     environment:
       TZ: Asia/Shanghai
       VOICEPRINT_MODEL_PATH: /app/data/models/3dspeaker_speech_campplus_sv_zh-cn_16k-common.onnx
@@ -18,13 +16,13 @@ services:
       - python
       - -c
       - import urllib.request; urllib.request.urlopen('http://127.0.0.1:8015/voiceprint/health',
-        timeout=20)
+        timeout=5)
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 120s
   xiaobao-server:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/xiaobao-server:v1.0.2@sha256:0ec5f7e2de51f3370b040ca65603345777ed143ca7a45c7374b23033ecd60f0a
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/xiaobao-server:v1.0.1@sha256:c8c522ce1c0e32a1cbe92a18a3c7b59f9570abf5665e4f7569b83f48f11fe592
     container_name: xiaobao-server
     restart: always
     init: true
@@ -33,7 +31,6 @@ services:
     - no-new-privileges:true
     volumes:
     - /DATA/.config/xiaobao/backend/config.yaml:/opt/xiaobao-server/config.yaml:ro
-    - /DATA/.config/xiaobao/backend/prompts:/opt/xiaobao-server/prompts:ro
     - /DATA/AppData/LCFC_APP/data/xiaobao/backend:/opt/xiaobao-server/data
     environment:
       TZ: Asia/Shanghai
@@ -97,4 +94,4 @@ x-casaos:
   title:
     zh_CN: 小宝语音助手
     en_US: Xiaobao Assistant
-  version: 1.0.5
+  version: 1.0.4
