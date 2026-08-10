@@ -188,7 +188,7 @@ services:
         max-file: '3'
         compress: 'true'
   ai-api:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/ai-api:devel-20260805
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/ai-api:devel-20260807
     container_name: ai-api
     restart: always
     depends_on:
@@ -268,8 +268,11 @@ networks:
 x-casaos:
   id: com.mycyberwing.smart-file-search
   main: ai-api
+  index: /processingDashboard
+  port_map: '20100'
+  scheme: http
   icon: https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages/apps/com.mycyberwing.smart-file-search/assets/icon.png
   title:
     zh_CN: 小宝检索服务
     en_US: Xiaobao RAG Service
-  version: 1.0.5
+  version: 1.0.6
