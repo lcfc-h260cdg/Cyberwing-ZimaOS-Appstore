@@ -1,7 +1,7 @@
 name: smart-pick
 services:
   capture-score:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-pick/capture-score:v1.0.3
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-pick/capture-score:v1.0.4
     container_name: capture-score
     restart: always
     ports:
@@ -54,4 +54,4 @@ x-casaos:
   title:
     zh_CN: 智能选片
     en_US: Smart Pick
-  version: 1.0.4
+  version: 1.0.5

@@ -22,7 +22,7 @@ services:
       retries: 3
       start_period: 120s
   xiaobao-server:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/xiaobao-server:v1.0.1
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/xiaobao-server:v1.0.3
     container_name: xiaobao-server
     restart: always
     init: true
@@ -31,12 +31,13 @@ services:
     - no-new-privileges:true
     volumes:
     - /DATA/.config/xiaobao/backend/config.yaml:/opt/xiaobao-server/config.yaml:ro
+    - /DATA/.config/xiaobao/backend/prompts:/opt/xiaobao-server/prompts:ro
     - /DATA/AppData/LCFC_APP/data/xiaobao/backend:/opt/xiaobao-server/data
     environment:
       TZ: Asia/Shanghai
       CREDIT_API_BASE: http://127.0.0.1:20100
   xiaobao-client:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/xiaobao-client:v1.0.6
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/xiaobao-client:v1.0.7
     container_name: xiaobao-client
     restart: always
     dns:
@@ -71,6 +72,7 @@ services:
       VOICEPRINT_BASE_URL: http://127.0.0.1:8015/voiceprint
       ELEVOC_DEFAULT_SINK: soft_echoCancelsink
       ELEVOC_DEFAULT_SOURCE: noiseReduceSource
+      ELEVOC_PCM_VOLUMN_PCT: 80
       ALSA_CARD: '0'
       PULSE_ALSA_PROFILE: output:analog-stereo+input:analog-stereo
       XDG_RUNTIME_DIR: /tmp/pulse-runtime-1000
@@ -94,4 +96,4 @@ x-casaos:
   title:
     zh_CN: 小宝语音助手
     en_US: Xiaobao Assistant
-  version: 1.0.4
+  version: 1.0.6
