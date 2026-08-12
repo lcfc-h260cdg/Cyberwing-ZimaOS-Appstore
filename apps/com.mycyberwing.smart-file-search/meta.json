@@ -8,17 +8,17 @@
   "architectures": [
     "amd64"
   ],
-  "update_at": "2026-08-10",
+  "update_at": "2026-08-12",
   "title": "Xiaobao RAG Service",
-  "release_note": "- \"2026-07-10 First release\"\n- \"2026-07-15 Update ai-api service\"\n- \"2026-07-22 Update RAG facial recognition\"\n- \"2026-07-24 Update LLM Server\"\n- \"2026-08-04 Optimize memory usage, increase memory limits, and add support for ASR Chinese path\"\n- \"2026-08-06 Add RAG Dashboard\"",
+  "release_note": "- \"2026-07-10 First release\"\n- \"2026-07-15 Update ai-api service\"\n- \"2026-07-22 Update RAG facial recognition\"\n- \"2026-07-24 Update LLM Server\"\n- \"2026-08-04 Optimize memory usage, increase memory limits, and add support for ASR Chinese path\"\n- \"2026-08-06 Add RAG Dashboard\"\n- \"2026-08-12 Fix vector database write error\"",
   "base_url": "https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages",
   "id": "com.mycyberwing.smart-file-search",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "categories": [
     "ai"
   ],
   "min_memory": 18522046464,
   "min_image_size": {
-    "amd64": 21923645627
+    "amd64": 21924602880
   }
 }

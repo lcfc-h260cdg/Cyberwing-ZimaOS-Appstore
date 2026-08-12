@@ -188,7 +188,7 @@ services:
         max-file: '3'
         compress: 'true'
   ai-api:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/ai-api:devel-20260807
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/ai-api:devel-20260812
     container_name: ai-api
     restart: always
     depends_on:
@@ -203,18 +203,6 @@ services:
     - /DATA/AppData/LCFC_APP/data/ai_api_data/logs/ai-api:/app/data/logs
     - /DATA/AppData/LCFC_APP/data/ai_api_data/configs:/app/data/configs
     - /DATA/.config/secrets:/app/data/secrets
-    - type: bind
-      source: /DATA/.config/rag/filewatchsettings.yaml
-      target: /app/filewatchsettings.yaml
-      read_only: true
-      bind:
-        create_host_path: false
-    - type: bind
-      source: /DATA/.config/rag/filewatchsettings.yaml
-      target: /filewatchsettings.yaml
-      read_only: true
-      bind:
-        create_host_path: false
     - /DATA/AppData/AI_MODELS/llm-server:/data/models
     - /DATA:/DATA:rslave
     - /media:/media:rslave
@@ -227,13 +215,29 @@ services:
     - /opt:/opt
     - /tmp:/tmp
     environment:
+      DOCUMENT_EXTERNAL_PARSE_MAX_TIMEOUT_SECONDS: '600'
+      DOCUMENT_INDEX_RECONCILE_BATCH_SIZE: '1'
+      DOCUMENT_INDEX_RECONCILE_SECONDS: '300'
+      DOCUMENT_INDEX_STATE_DB: /app/data/data_base/document_index_state.sqlite3
+      DOCUMENT_PDF_IMAGE_OCR_ENABLED: 'true'
+      DOCUMENT_PDF_OCR_LANG: chi_sim+eng
+      DOCUMENT_PDF_OCR_MAX_DIMENSION: '1600'
+      DOCUMENT_PDF_OCR_MAX_PAGES: '10'
+      DOCUMENT_PDF_OCR_PAGE_TIMEOUT_SECONDS: '90'
+      DOCUMENT_PDF_OCR_TOTAL_TIMEOUT_SECONDS: '300'
+      DOCUMENT_PPT_IMAGE_OCR_ENABLED: 'false'
+      DOCUMENT_PPT_OCR_MAX_IMAGES: '6'
+      DOCUMENT_RECONCILE_MAX_EXTERNAL_BYTES: '33554432'
+      DOCUMENT_RECONCILE_MAX_LIGHTWEIGHT_BYTES: '268435456'
+      FILE_SEARCH_POSTGRES_DSN: postgresql://lcfc:lcfc@127.0.0.1:5434/postgres
+      FILE_SEARCH_POSTGRES_TABLE: files_search_table2
       FILE_WATCH_SETTINGS_PATH: /app/filewatchsettings.yaml
+      MILVUS_HEALTH_TIMEOUT_SECONDS: '5'
       MILVUS_WATCHDOG_ENABLED: 'true'
-      MILVUS_WATCHDOG_START_DELAY_SECONDS: '60'
-      MILVUS_WATCHDOG_INTERVAL_SECONDS: '20'
       MILVUS_WATCHDOG_FAILURE_THRESHOLD: '3'
       MILVUS_WATCHDOG_HTTP_TIMEOUT_SECONDS: '10'
-      MILVUS_HEALTH_TIMEOUT_SECONDS: '5'
+      MILVUS_WATCHDOG_INTERVAL_SECONDS: '20'
+      MILVUS_WATCHDOG_START_DELAY_SECONDS: '60'
       TZ: Asia/Shanghai
     network_mode: host
     privileged: true
@@ -275,4 +279,4 @@ x-casaos:
   title:
     zh_CN: 小宝检索服务
     en_US: Xiaobao RAG Service
-  version: 1.0.6
+  version: 1.0.7
