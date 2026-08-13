@@ -2,7 +2,7 @@ name: xiaobao-agent
 
 services:
   xiaobao-agent:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-adapter:v1.0.5
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-adapter:v1.0.6
     container_name: xiaobao-agent
     restart: always
     # depends_on:
@@ -32,7 +32,7 @@ services:
           create_host_path: true
     environment:
       HERMES_RUNTIME_MODE: container_per_user
-      HERMES_ADAPTER_IMAGE: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-adapter:v1.0.5
+      HERMES_ADAPTER_IMAGE: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-adapter:v1.0.6
       HERMES_BASE_IMAGE: nousresearch/hermes-agent:v2026.7.20
       HERMES_USER_SCENARIO: zimaos
       HERMES_ADAPTER_HOME: /opt/data/hermes-adapter
@@ -52,7 +52,7 @@ services:
       HERMES_USER_DATA_ROOT: /DATA/AppData/LCFC_APP/data/hermes-data
       HERMES_HOST_RAG_PUBLIC_DIR: /DATA/Share,/DATA/AppData/LCFC_APP/data/smart_album/library/photos/upload
       HERMES_SHARED_PATH_BLACKLIST: /bin,/sbin,/lib,/lib64,/usr,/etc,/proc,/sys,/dev,/run,/var,/tmp,/opt/data,/opt/hermes,/opt/hermes-defaults,/opt/custom-skills
-      HERMES_AGENT_IMAGE: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-agent-custom:v1.0.5
+      HERMES_AGENT_IMAGE: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-agent-custom:v1.0.6
       HERMES_AGENT_COMMAND: gateway run
       HERMES_TAVILY_API_KEYS: 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,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,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,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,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,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,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
       HERMES_DOCKER_NETWORK: hermes-adapter-docker_hermes-net
@@ -72,6 +72,8 @@ services:
       HERMES_UPSTREAM: http://hermes-agent:8642
       HERMES_PROFILE_PREFIX: hp_
       HERMES_PROFILE_CREATE_TIMEOUT: "90"
+      HERMES_AGENT_MEMORY_LIMIT: 4g
+      HERMES_AGENT_CPU_LIMIT: 2
     extra_hosts:
       - "host.docker.internal:host-gateway"
     healthcheck:
@@ -84,7 +86,7 @@ services:
       hermes-net: null
 
   hermes-agent-image-preload:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-agent-custom:v1.0.5
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-agent-custom:v1.0.6
     container_name: xiaobao-agent-image-preload
     restart: "no"
     entrypoint:
@@ -139,8 +141,8 @@ x-casaos:
   category: AI
   architectures:
     - amd64
-  version: "1.0.8"
-  update_at: "2026-08-11"
+  version: "1.0.9"
+  update_at: "2026-08-13"
   release_notes:
     en_US: |-
       - "2026-07-10 First release"
@@ -149,7 +151,8 @@ x-casaos:
       - "2026-08-04 Optimize voiceprint & RAG, fix bugs"
       - "2026-08-06 Fix agent docker container crashes when connecting to Lark and DingTalk message channels"
       - "2026-08-07 Fix the bug of Xiaobao Assistant calling the agent responding too slowly"
-      - "2026-08-11 Fix "
+      - "2026-08-11 Optimize user profile management and RAG retrieval"
+      - "2026-08-12 Fix UI display issues"
     zh_CN: |-
       - "2026-07-10 首次上线"
       - "2026-07-15 修复Bug"
@@ -157,4 +160,5 @@ x-casaos:
       - "2026-08-04 优化声纹、RAG功能，修复软件错误"
       - "2026-08-06 修复连接飞书、钉钉消息通道时，智能体容器崩溃的问题"
       - "2026-08-07 修复小宝语音助手调用智能体回复过慢的问题"
-      - "2026-08-11 修复"
+      - "2026-08-11 优化用户画像管理和RAG检索"
+      - "2026-08-12 修复UI界面显示问题"
