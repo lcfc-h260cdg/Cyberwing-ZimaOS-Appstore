@@ -100,24 +100,24 @@ services:
       - /DATA/AppData/LCFC_APP/data/ai_api_data/logs/file-search-service/nas_retrieval:/Nas_Retrieval_Final_031/logs
       - /DATA/AppData/LCFC_APP/data/ai_api_data/logs/file-search-service/nas_route:/NAS_Route/logs
     environment:
-      PYTHONUNBUFFERED: "1"
-      LC_ALL: C.UTF-8
-      LANG: C.UTF-8
-      FLASK_ENV: production
+      AUTO_INIT_CONFIG: "true"
+      CONFIG_DIR: /NAS_Route/config
       FLASK_DEBUG: "false"
+      FLASK_ENV: production
+      GENERATION_TEMPERATURE: "0.7"
       HOST: 0.0.0.0
-      PORT: "20194"
-      TZ: Asia/Shanghai
+      LANG: C.UTF-8
+      LC_ALL: C.UTF-8
+      LOG_DIR: /NAS_Route/logs
+      MODEL_NAME: OpenAI
+      NAS_ROUTE_PORT: "20191"
       OPENAI_API_KEY: sk-abcdefg0123456789abcdefg
       OPENAI_BASE_URL: https://dashscope.aliyuncs.com/compatible-mode/v1
       OPENAI_MODEL: qwen-plus
+      PORT: "20194"
+      PYTHONUNBUFFERED: "1"
       RAG_TEMPERATURE: "0"
-      GENERATION_TEMPERATURE: "0.7"
-      MODEL_NAME: OpenAI
-      NAS_ROUTE_PORT: "20191"
-      CONFIG_DIR: /NAS_Route/config
-      LOG_DIR: /NAS_Route/logs
-      AUTO_INIT_CONFIG: "true"
+      TZ: Asia/Shanghai
     network_mode: host
     healthcheck:
       test:
@@ -166,14 +166,17 @@ services:
       # ASR model and logs.
       - /DATA/AppData/AI_MODELS/asr-server/funasr_models:/app/funasr_models
       - /DATA/AppData/LCFC_APP/data/ai_api_data/asr-server/logs:/app/logs
+      - /DATA/AppData/LCFC_APP/data/ai_api_data/asr-server/state:/app/data
       - /usr/share/zoneinfo/Asia/Shanghai:/usr/share/zoneinfo/Asia/Shanghai
       - /etc/timezone:/etc/timezone
     environment:
+      ASR_DEVICE_ID: 10.159.219.128
+      ASR_IDEMPOTENCY_DB_PATH: /app/data/asr_jobs.sqlite3
+      LANG: C.UTF-8
+      LC_ALL: C.UTF-8
       PYTHONDONTWRITEBYTECODE: "1"
       PYTHONUNBUFFERED: "1"
       PYTHONUTF8: "1"
-      LANG: C.UTF-8
-      LC_ALL: C.UTF-8
       TZ: Asia/Shanghai
     healthcheck:
       test:
@@ -204,7 +207,8 @@ services:
         compress: "true"
 
   ai-api:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/ai-api:devel-20260812
+    # v2.0.6
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/ai-api:devel-20260817
     container_name: ai-api
     restart: always
     depends_on:
@@ -320,8 +324,8 @@ x-casaos:
   category: AI
   architectures:
     - amd64
-  version: "1.0.7"
-  update_at: "2026-08-12"
+  version: "1.0.8"
+  update_at: "2026-08-17"
   release_notes:
     en_US: |-
       - "2026-07-10 First release"
@@ -331,6 +335,7 @@ x-casaos:
       - "2026-08-04 Optimize memory usage, increase memory limits, and add support for ASR Chinese path"
       - "2026-08-06 Add RAG Dashboard"
       - "2026-08-12 Fix vector database write error"
+      - "2026-08-17 Change API Key"
     zh_CN: |-
       - "2026-07-10 首次上线"
       - "2026-07-15 更新 ai-api 服务"
@@ -340,3 +345,4 @@ x-casaos:
       - "2026-08-06 修复多用户模式 BUG"
       - "2026-08-10 新增 RAG Dashboard"
       - "2026-08-12 修复向量数据库写入错误"
+      - "2026-08-17 更换 API Key"
