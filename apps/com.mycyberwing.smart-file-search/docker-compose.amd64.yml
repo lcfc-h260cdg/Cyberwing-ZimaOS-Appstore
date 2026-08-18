@@ -1,282 +1,311 @@
 name: smart-file-search
+
 services:
   llm_server:
     image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/llm_server:v2.1.2@sha256:b0f925f598c0afbc0c3bd7b9d0ba8d24844ed9719f1b43af26b04376706e11a9
     container_name: llm_server
     restart: always
     volumes:
-    - /DATA:/DATA:rslave
-    - /media:/media:rslave
-    - type: bind
-      source: /DATA/AppData/AI_MODELS/llm-server
-      target: /data/models
-      bind:
-        create_host_path: true
-    - type: bind
-      source: /tmp
-      target: /tmp
-      bind:
-        create_host_path: true
+      - /DATA:/DATA:rslave
+      - /media:/media:rslave
+
+      - type: bind
+        source: /DATA/AppData/AI_MODELS/llm-server
+        target: /data/models
+        bind:
+          create_host_path: true
+      - type: bind
+        source: /tmp
+        target: /tmp
+        bind:
+          create_host_path: true
     environment:
-      LLM_CPU_PINNING: 'true'
-      LLM_CPU_THREADS: '4'
-      LLM_OV_NUM_STREAMS: '1'
+      LLM_CPU_PINNING: "true"
+      LLM_CPU_THREADS: "4"
+      LLM_OV_NUM_STREAMS: "1"
       MODEL_ROOT: /data/models
-      TOKENIZERS_PARALLELISM: 'false'
+      TOKENIZERS_PARALLELISM: "false"
       TZ: Asia/Shanghai
     network_mode: host
     privileged: true
     command:
-    - /app/llm_server
+      - /app/llm_server
     entrypoint: []
     devices:
-    - /dev/dri:/dev/dri
-    mem_limit: 13g
-    mem_reservation: 10g
-    memswap_limit: 13g
+      - /dev/dri:/dev/dri
+    # 实测高负载约 10.2 GiB，给 11 GiB 硬上限；原配置没有任何边界。
+    mem_limit: "13g"
+    mem_reservation: "10g"
+    memswap_limit: "13g"
     deploy:
       resources:
         limits:
-          memory: 13g
+          memory: "13g"
         reservations:
-          memory: 10g
+          memory: "10g"
     logging:
       driver: json-file
       options:
         max-size: 50m
-        max-file: '3'
-        compress: 'true'
+        max-file: "3"
+        compress: "true"
+
   pgvector-nas:
     image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/pgvector/pgvector:pg18-trixie@sha256:de7e23dbfb8bec8c460c0b40888a6bd1a0302041aabffb19f7b9b9fd9837e104
     container_name: pgvector-nas
     restart: always
     ports:
-    - 5434:5432
+      - "5434:5432"
     volumes:
-    - /DATA/AppData/LCFC_APP/data/ai_api_data/pgvector_nas_data:/var/lib/postgresql/data
+      - /DATA/AppData/LCFC_APP/data/ai_api_data/pgvector_nas_data:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: lcfc
       POSTGRES_PASSWORD: lcfc
       POSTGRES_DB: postgres
       PGDATA: /var/lib/postgresql/data/pgdata
       TZ: Asia/Shanghai
-    mem_limit: 1536m
-    mem_reservation: 512m
-    memswap_limit: 1536m
+    mem_limit: "1536m"
+    mem_reservation: "512m"
+    memswap_limit: "1536m"
     deploy:
       resources:
         limits:
-          memory: 1536m
+          memory: "1536m"
         reservations:
-          memory: 512m
+          memory: "512m"
     logging:
       driver: json-file
       options:
         max-size: 50m
-        max-file: '3'
-        compress: 'true'
+        max-file: "3"
+        compress: "true"
+
   file-search-service:
     image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/file-rag-nas:v2.0.0_20260706@sha256:151ffe3e5ce943227c224455037c352858f7b219b26bb93dab5523420bc33e0e
     container_name: file-search-service
     restart: always
-    volumes:
-    - /DATA:/DATA:rslave
-    - /media:/media:rslave
-    - /DATA/AppData/LCFC_APP/data/ai_api_data/file-search-service/parsing_service:/data/ai-core/parsing_service
-    - /DATA/AppData/LCFC_APP/data/ai_api_data/file-search-service/config:/NAS_Route/config
-    - /DATA/AppData/LCFC_APP/data/ai_api_data/logs/file-search-service/parsing_service:/RagBaseHaystack_svn/parsing_log
-    - /DATA/AppData/LCFC_APP/data/ai_api_data/logs/file-search-service/document_analysis:/RagBaseHaystack_svn/data_loader/RagDocumentAnalysis/log
-    - /DATA/AppData/LCFC_APP/data/ai_api_data/logs/file-search-service/nas_query:/data/ai-core/nas_query/logs
-    - /DATA/AppData/LCFC_APP/data/ai_api_data/logs/file-search-service/nas_retrieval:/Nas_Retrieval_Final_031/logs
-    - /DATA/AppData/LCFC_APP/data/ai_api_data/logs/file-search-service/nas_route:/NAS_Route/logs
+    volumes:   -
+        /DATA:/DATA:rslave
+      - /media:/media:rslave
+
+      # Service state and config.
+      - /DATA/AppData/LCFC_APP/data/ai_api_data/file-search-service/parsing_service:/data/ai-core/parsing_service
+      - /DATA/AppData/LCFC_APP/data/ai_api_data/file-search-service/config:/NAS_Route/config
+
+      # Service logs.
+      - /DATA/AppData/LCFC_APP/data/ai_api_data/logs/file-search-service/parsing_service:/RagBaseHaystack_svn/parsing_log
+      - /DATA/AppData/LCFC_APP/data/ai_api_data/logs/file-search-service/document_analysis:/RagBaseHaystack_svn/data_loader/RagDocumentAnalysis/log
+      - /DATA/AppData/LCFC_APP/data/ai_api_data/logs/file-search-service/nas_query:/data/ai-core/nas_query/logs
+      - /DATA/AppData/LCFC_APP/data/ai_api_data/logs/file-search-service/nas_retrieval:/Nas_Retrieval_Final_031/logs
+      - /DATA/AppData/LCFC_APP/data/ai_api_data/logs/file-search-service/nas_route:/NAS_Route/logs
     environment:
-      PYTHONUNBUFFERED: '1'
-      LC_ALL: C.UTF-8
-      LANG: C.UTF-8
+      AUTO_INIT_CONFIG: "true"
+      CONFIG_DIR: /NAS_Route/config
+      FLASK_DEBUG: "false"
       FLASK_ENV: production
-      FLASK_DEBUG: 'false'
+      GENERATION_TEMPERATURE: "0.7"
       HOST: 0.0.0.0
-      PORT: '20194'
-      TZ: Asia/Shanghai
+      LANG: C.UTF-8
+      LC_ALL: C.UTF-8
+      LOG_DIR: /NAS_Route/logs
+      MODEL_NAME: OpenAI
+      NAS_ROUTE_PORT: "20191"
       OPENAI_API_KEY: sk-abcdefg0123456789abcdefg
       OPENAI_BASE_URL: https://dashscope.aliyuncs.com/compatible-mode/v1
       OPENAI_MODEL: qwen-plus
-      RAG_TEMPERATURE: '0'
-      GENERATION_TEMPERATURE: '0.7'
-      MODEL_NAME: OpenAI
-      NAS_ROUTE_PORT: '20191'
-      CONFIG_DIR: /NAS_Route/config
-      LOG_DIR: /NAS_Route/logs
-      AUTO_INIT_CONFIG: 'true'
+      PORT: "20194"
+      PYTHONUNBUFFERED: "1"
+      RAG_TEMPERATURE: "0"
+      TZ: Asia/Shanghai
     network_mode: host
     healthcheck:
       test:
-      - CMD
-      - sh
-      - -c
-      - curl -f http://localhost:20194/health && curl -f http://localhost:20193/health
-        && curl -f http://localhost:20192/docs && curl -f http://localhost:20191/health
+        - CMD
+        - sh
+        - -c
+        - curl -f http://localhost:20194/health && curl -f http://localhost:20193/health && curl -f http://localhost:20192/docs && curl -f http://localhost:20191/health
       interval: 60s
       timeout: 15s
       retries: 5
       start_period: 120s
     command:
-    - sh
-    - -c
-    - /start.sh
-    mem_limit: 4608m
-    mem_reservation: 3g
-    memswap_limit: 4608m
+      - sh
+      - -c
+      - /start.sh
+    # 正常解析实测约 3.9 GiB；异常文件到 4.5 GiB 即在本容器内失败，
+    # 避免再次吞完宿主机内存和 Swap。
+    mem_limit: "4608m"
+    mem_reservation: "3g"
+    memswap_limit: "4608m"
     deploy:
       resources:
         limits:
-          cpus: '4.0'
-          memory: 4608m
+          cpus: "4.0"
+          memory: "4608m"
         reservations:
-          memory: 3g
+          memory: "3g"
     logging:
       driver: json-file
       options:
         max-size: 50m
-        max-file: '3'
-        compress: 'true'
+        max-file: "3"
+        compress: "true"
+
   asr-server:
     image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/asr-server:devel-20260721@sha256:4bb8c01ee2a46bcb87f61e4eb62b8622e0734db22703940884111ebee46ab67c
     container_name: asr-server
     restart: always
     ports:
-    - 20105:8000
-    volumes:
-    - /DATA:/DATA:rslave
-    - /media:/media:rslave
-    - /DATA/AppData/AI_MODELS/asr-server/funasr_models:/app/funasr_models
-    - /DATA/AppData/LCFC_APP/data/ai_api_data/asr-server/logs:/app/logs
-    - /usr/share/zoneinfo/Asia/Shanghai:/usr/share/zoneinfo/Asia/Shanghai
-    - /etc/timezone:/etc/timezone
+      - "20105:8000"
+    volumes:   -
+        /DATA:/DATA:rslave
+      - /media:/media:rslave
+
+      # ASR model and logs.
+      - /DATA/AppData/AI_MODELS/asr-server/funasr_models:/app/funasr_models
+      - /DATA/AppData/LCFC_APP/data/ai_api_data/asr-server/logs:/app/logs
+      - /DATA/AppData/LCFC_APP/data/ai_api_data/asr-server/state:/app/data
+      - /usr/share/zoneinfo/Asia/Shanghai:/usr/share/zoneinfo/Asia/Shanghai
+      - /etc/timezone:/etc/timezone
     environment:
-      PYTHONDONTWRITEBYTECODE: '1'
-      PYTHONUNBUFFERED: '1'
-      PYTHONUTF8: '1'
+      ASR_DEVICE_ID: 10.159.219.128
+      ASR_IDEMPOTENCY_DB_PATH: /app/data/asr_jobs.sqlite3
       LANG: C.UTF-8
       LC_ALL: C.UTF-8
+      PYTHONDONTWRITEBYTECODE: "1"
+      PYTHONUNBUFFERED: "1"
+      PYTHONUTF8: "1"
       TZ: Asia/Shanghai
     healthcheck:
       test:
-      - CMD
-      - curl
-      - -f
-      - http://localhost:8000/health
+        - CMD
+        - curl
+        - -f
+        - http://localhost:8000/health
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 40s
     working_dir: /app/asr_src
-    mem_limit: 1536m
-    mem_reservation: 768m
-    memswap_limit: 1536m
+    mem_limit: "1536m"
+    mem_reservation: "768m"
+    memswap_limit: "1536m"
     deploy:
       resources:
         limits:
-          cpus: '2.0'
-          memory: 1536m
+          cpus: "2.0"
+          memory: "1536m"
         reservations:
-          memory: 768m
+          memory: "768m"
     logging:
       driver: json-file
       options:
         max-size: 50m
-        max-file: '3'
-        compress: 'true'
+        max-file: "3"
+        compress: "true"
+
   ai-api:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/ai-api:devel-20260812@sha256:9393da3d8eec7a176bb2ad54e3c9baa322e21c95c62f5257e2eec9f16f09a86b
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/ai-api:devel-20260817@sha256:4c4727e903f4099e2a043bc4b17a8ed3b506900bc68bff1ee089bbdfff0f1e09
     container_name: ai-api
     restart: always
     depends_on:
-    - llm_server
-    - pgvector-nas
-    - asr-server
-    - file-search-service
-    volumes:
-    - /DATA/AppData/LCFC_APP/data/ai_api_data/data_base:/app/data/data_base
-    - /DATA/AppData/LCFC_APP/data/ai_api_data/vector_db:/app/data/vector_db
-    - /DATA/AppData/LCFC_APP/data/ai_api_data/vector_cache:/app/data/vector_cache
-    - /DATA/AppData/LCFC_APP/data/ai_api_data/logs/ai-api:/app/data/logs
-    - /DATA/AppData/LCFC_APP/data/ai_api_data/configs:/app/data/configs
-    - /DATA/.config/secrets:/app/data/secrets
-    - /DATA/AppData/AI_MODELS/llm-server:/data/models
-    - /DATA:/DATA:rslave
-    - /media:/media:rslave
-    - /DATA/AppData/LCFC_APP/data/ai_api_data/ilab_data_base:/app/ilab/data/data_base
-    - /DATA/AppData/LCFC_APP/data/ai_api_data/ilab_vector_db:/app/ilab/data/vector_db
-    - /DATA/AppData/LCFC_APP/data/ai_api_data/ilab_milvus_data:/app/ilab/data/milvus_data
-    - /DATA/AppData/LCFC_APP/data/ai_api_data/ilab_logs:/app/ilab/data/logs
-    - /DATA/AppData/LCFC_APP/data/ai_api_data/ilab_config:/app/ilab/data/configs
-    - /sys/class/dmi/id:/sys/class/dmi/id:ro
-    - /opt:/opt
-    - /tmp:/tmp
+      - llm_server
+      - pgvector-nas
+      - asr-server
+      - file-search-service
+    volumes:   -
+        /DATA/AppData/LCFC_APP/data/ai_api_data/data_base:/app/data/data_base
+      - /DATA/AppData/LCFC_APP/data/ai_api_data/vector_db:/app/data/vector_db
+      - /DATA/AppData/LCFC_APP/data/ai_api_data/vector_cache:/app/data/vector_cache
+      - /DATA/AppData/LCFC_APP/data/ai_api_data/logs/ai-api:/app/data/logs
+      - /DATA/AppData/LCFC_APP/data/ai_api_data/configs:/app/data/configs
+
+      - /DATA/.config/secrets:/app/data/secrets
+
+      # Shared model root.
+      - /DATA/AppData/AI_MODELS/llm-server:/data/models
+
+      # User file roots. Keep original host paths inside the container.
+      - /DATA:/DATA:rslave
+      - /media:/media:rslave
+
+      # ILAB data.
+      - /DATA/AppData/LCFC_APP/data/ai_api_data/ilab_data_base:/app/ilab/data/data_base
+      - /DATA/AppData/LCFC_APP/data/ai_api_data/ilab_vector_db:/app/ilab/data/vector_db
+      - /DATA/AppData/LCFC_APP/data/ai_api_data/ilab_milvus_data:/app/ilab/data/milvus_data
+      - /DATA/AppData/LCFC_APP/data/ai_api_data/ilab_logs:/app/ilab/data/logs
+      - /DATA/AppData/LCFC_APP/data/ai_api_data/ilab_config:/app/ilab/data/configs
+
+      # Host system info required by the API.
+      - /sys/class/dmi/id:/sys/class/dmi/id:ro
+      - /opt:/opt
+      - /tmp:/tmp
     environment:
-      DOCUMENT_EXTERNAL_PARSE_MAX_TIMEOUT_SECONDS: '600'
-      DOCUMENT_INDEX_RECONCILE_BATCH_SIZE: '1'
-      DOCUMENT_INDEX_RECONCILE_SECONDS: '300'
+      DOCUMENT_EXTERNAL_PARSE_MAX_TIMEOUT_SECONDS: "600"
+      DOCUMENT_INDEX_RECONCILE_BATCH_SIZE: "1"
+      DOCUMENT_INDEX_RECONCILE_SECONDS: "300"
       DOCUMENT_INDEX_STATE_DB: /app/data/data_base/document_index_state.sqlite3
-      DOCUMENT_PDF_IMAGE_OCR_ENABLED: 'true'
+      DOCUMENT_PDF_IMAGE_OCR_ENABLED: "true"
       DOCUMENT_PDF_OCR_LANG: chi_sim+eng
-      DOCUMENT_PDF_OCR_MAX_DIMENSION: '1600'
-      DOCUMENT_PDF_OCR_MAX_PAGES: '10'
-      DOCUMENT_PDF_OCR_PAGE_TIMEOUT_SECONDS: '90'
-      DOCUMENT_PDF_OCR_TOTAL_TIMEOUT_SECONDS: '300'
-      DOCUMENT_PPT_IMAGE_OCR_ENABLED: 'false'
-      DOCUMENT_PPT_OCR_MAX_IMAGES: '6'
-      DOCUMENT_RECONCILE_MAX_EXTERNAL_BYTES: '33554432'
-      DOCUMENT_RECONCILE_MAX_LIGHTWEIGHT_BYTES: '268435456'
+      DOCUMENT_PDF_OCR_MAX_DIMENSION: "1600"
+      DOCUMENT_PDF_OCR_MAX_PAGES: "10"
+      DOCUMENT_PDF_OCR_PAGE_TIMEOUT_SECONDS: "90"
+      DOCUMENT_PDF_OCR_TOTAL_TIMEOUT_SECONDS: "300"
+      DOCUMENT_PPT_IMAGE_OCR_ENABLED: "false"
+      DOCUMENT_PPT_OCR_MAX_IMAGES: "6"
+      DOCUMENT_RECONCILE_MAX_EXTERNAL_BYTES: "33554432"
+      DOCUMENT_RECONCILE_MAX_LIGHTWEIGHT_BYTES: "268435456"
       FILE_SEARCH_POSTGRES_DSN: postgresql://lcfc:lcfc@127.0.0.1:5434/postgres
       FILE_SEARCH_POSTGRES_TABLE: files_search_table2
       FILE_WATCH_SETTINGS_PATH: /app/filewatchsettings.yaml
-      MILVUS_HEALTH_TIMEOUT_SECONDS: '5'
-      MILVUS_WATCHDOG_ENABLED: 'true'
-      MILVUS_WATCHDOG_FAILURE_THRESHOLD: '3'
-      MILVUS_WATCHDOG_HTTP_TIMEOUT_SECONDS: '10'
-      MILVUS_WATCHDOG_INTERVAL_SECONDS: '20'
-      MILVUS_WATCHDOG_START_DELAY_SECONDS: '60'
+      MILVUS_HEALTH_TIMEOUT_SECONDS: "5"
+      MILVUS_WATCHDOG_ENABLED: "true"
+      MILVUS_WATCHDOG_FAILURE_THRESHOLD: "3"
+      MILVUS_WATCHDOG_HTTP_TIMEOUT_SECONDS: "10"
+      MILVUS_WATCHDOG_INTERVAL_SECONDS: "20"
+      MILVUS_WATCHDOG_START_DELAY_SECONDS: "60"
       TZ: Asia/Shanghai
     network_mode: host
     privileged: true
     healthcheck:
       test:
-      - CMD-SHELL
-      - curl -fsS --max-time 10 http://localhost:20100/health/milvus && curl -fsS
-        --max-time 10 http://localhost:20190/docs || exit 1
+        - CMD-SHELL
+        - curl -fsS --max-time 10 http://localhost:20100/health/milvus && curl -fsS --max-time 10 http://localhost:20190/docs || exit 1
       timeout: 10s
       interval: 30s
       retries: 3
       start_period: 2m0s
-    mem_limit: 8g
-    mem_reservation: 4g
-    memswap_limit: 10g
+    # Milvus Lite 与主服务共享内存；4.5 GiB 已实测触发 OOM，保留稳定运行余量。
+    mem_limit: "8g"
+    mem_reservation: "4g"
+    # 允许最多 2 GiB 应急 Swap，吸收短时峰值，持续异常仍由内存上限保护宿主机。
+    memswap_limit: "10g"
     deploy:
       resources:
         limits:
-          cpus: '10.0'
-          memory: 4608m
+          cpus: "10.0"
+          memory: "4608m"
         reservations:
-          memory: 3g
+          memory: "3g"
     logging:
       driver: json-file
       options:
         max-size: 50m
-        max-file: '3'
-        compress: 'true'
+        max-file: "3"
+        compress: "true"
+
 networks:
   default:
     name: smart-file-search_default
+
 x-casaos:
   id: com.mycyberwing.smart-file-search
   main: ai-api
   index: /processingDashboard
-  port_map: '20100'
+  port_map: "20100"
   scheme: http
   icon: https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages/apps/com.mycyberwing.smart-file-search/assets/icon.png
   title:
     zh_CN: 小宝检索服务
-    en_US: Xiaobao RAG Service
-  version: 1.0.7
+    en_US: "Xiaobao RAG Service"
+  version: "1.0.8"

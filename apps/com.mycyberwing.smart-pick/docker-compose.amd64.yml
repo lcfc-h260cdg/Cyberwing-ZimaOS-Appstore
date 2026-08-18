@@ -1,35 +1,36 @@
 name: smart-pick
+
 services:
   capture-score:
     image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-pick/capture-score:v1.0.4@sha256:037aebd394f8ed838c99c65c36674d3bc5eddcdb36a70c16b1650d6db0322296
     container_name: capture-score
     restart: always
     ports:
-    - mode: ingress
-      target: 3500
-      published: '3500'
-      protocol: tcp
+      - mode: ingress
+        target: 3500
+        published: "3500"
+        protocol: tcp
     volumes:
-    - type: bind
-      source: /DATA/AppData/LCFC_APP/data/capture-score
-      target: /app/backend/data
-      bind:
-        create_host_path: true
-    - type: bind
-      source: /DATA/AppData/LCFC_APP/data/capture-score-mount
-      target: /app/immich
-      bind:
-        create_host_path: true
+      - type: bind
+        source: /DATA/AppData/LCFC_APP/data/capture-score
+        target: /app/backend/data
+        bind:
+          create_host_path: true
+      - type: bind
+        source: /DATA/AppData/LCFC_APP/data/capture-score-mount
+        target: /app/immich
+        bind:
+          create_host_path: true
     environment:
       MPLCONFIGDIR: /tmp/matplotlib
-      PYTHONUNBUFFERED: '1'
+      PYTHONUNBUFFERED: "1"
       TZ: Asia/Shanghai
     healthcheck:
       test:
-      - CMD
-      - python
-      - -c
-      - import socket; s=socket.create_connection(('127.0.0.1', 3500), 5); s.close()
+        - CMD
+        - python
+        - -c
+        - import socket; s=socket.create_connection(('127.0.0.1', 3500), 5); s.close()
       timeout: 5s
       interval: 30s
       retries: 3
@@ -37,21 +38,23 @@ services:
     logging:
       driver: json-file
       options:
-        max-file: '3'
+        max-file: "3"
         max-size: 10m
     network_mode: host
     privileged: true
+
 networks:
   default:
     name: smart-pick_default
+
 x-casaos:
   id: com.mycyberwing.smart-pick
   main: capture-score
   index: /
-  port_map: '3500'
+  port_map: "3500"
   scheme: http
   icon: https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages/apps/com.mycyberwing.smart-pick/assets/icon.png
   title:
     zh_CN: 智能选片
-    en_US: Smart Pick
-  version: 1.0.5
+    en_US: "Smart Pick"
+  version: "1.0.5"

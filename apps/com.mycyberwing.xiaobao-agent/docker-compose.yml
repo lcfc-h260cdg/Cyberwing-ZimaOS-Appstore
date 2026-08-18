@@ -1,30 +1,35 @@
 name: xiaobao-agent
+
 services:
   xiaobao-agent:
     image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-adapter:v1.0.6
     container_name: xiaobao-agent
     restart: always
+    # depends_on:
+    #   hermes-agent-image-preload:
+    #     condition: service_completed_successfully
+    #     required: true
     ports:
-    - mode: ingress
-      target: 8787
-      published: '8787'
-      protocol: tcp
+      - mode: ingress
+        target: 8787
+        published: "8787"
+        protocol: tcp
     volumes:
-    - type: bind
-      source: /var/run/docker.sock
-      target: /var/run/docker.sock
-      bind:
-        create_host_path: true
-    - type: bind
-      source: /DATA/AppData/LCFC_APP/data/hermes-data
-      target: /DATA/AppData/LCFC_APP/data/hermes-data
-      bind:
-        create_host_path: true
-    - type: bind
-      source: /DATA/AppData/LCFC_APP/data/hermes-adapter
-      target: /opt/data/hermes-adapter
-      bind:
-        create_host_path: true
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+        bind:
+          create_host_path: true
+      - type: bind
+        source: /DATA/AppData/LCFC_APP/data/hermes-data
+        target: /DATA/AppData/LCFC_APP/data/hermes-data
+        bind:
+          create_host_path: true
+      - type: bind
+        source: /DATA/AppData/LCFC_APP/data/hermes-adapter
+        target: /opt/data/hermes-adapter
+        bind:
+          create_host_path: true
     environment:
       HERMES_RUNTIME_MODE: container_per_user
       HERMES_ADAPTER_IMAGE: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-adapter:v1.0.6
@@ -32,17 +37,17 @@ services:
       HERMES_USER_SCENARIO: zimaos
       HERMES_ADAPTER_HOME: /opt/data/hermes-adapter
       HERMES_ADAPTER_HOST: 0.0.0.0
-      HERMES_ADAPTER_PORT: '8787'
-      HERMES_ADAPTER_HOST_PORT: '8787'
+      HERMES_ADAPTER_PORT: "8787"
+      HERMES_ADAPTER_HOST_PORT: "8787"
       HERMES_ADAPTER_LOG_LEVEL: INFO
       HERMES_ADAPTER_CORS_ORIGINS: '*'
-      HERMES_ADAPTER_CORS_ALLOW_CREDENTIALS: 'false'
-      HERMES_MAX_USERS: '9'
-      HERMES_CONFIG_BACKUP_MAX_SNAPSHOTS: '3'
+      HERMES_ADAPTER_CORS_ALLOW_CREDENTIALS: "false"
+      HERMES_MAX_USERS: "9"
+      HERMES_CONFIG_BACKUP_MAX_SNAPSHOTS: "3"
       AI_API_HOST: host.docker.internal
-      HERMES_ADAPTER_TLS_ENABLED: 'true'
-      HERMES_ADAPTER_TLS_AUTO_SELF_SIGNED: 'true'
-      HERMES_ADAPTER_TLS_VALIDITY_DAYS: '3650'
+      HERMES_ADAPTER_TLS_ENABLED: "true"
+      HERMES_ADAPTER_TLS_AUTO_SELF_SIGNED: "true"
+      HERMES_ADAPTER_TLS_VALIDITY_DAYS: "3650"
       ZIMAOS_API_BASE_URL: http://host.docker.internal
       HERMES_USER_DATA_ROOT: /DATA/AppData/LCFC_APP/data/hermes-data
       HERMES_HOST_RAG_PUBLIC_DIR: /DATA/Share,/DATA/AppData/LCFC_APP/data/smart_album/library/photos/upload
@@ -52,13 +57,13 @@ services:
       HERMES_TAVILY_API_KEYS: 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,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,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,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,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,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,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
       HERMES_DOCKER_NETWORK: hermes-adapter-docker_hermes-net
       HERMES_CONTAINER_PREFIX: hermes-agent-
-      HERMES_AGENT_PORT: '8642'
+      HERMES_AGENT_PORT: "8642"
       HERMES_AGENT_HEALTH_PATH: /health
-      HERMES_AGENT_HEALTH_TIMEOUT: '60'
-      HERMES_AGENT_HEALTH_INTERVAL: '2'
+      HERMES_AGENT_HEALTH_TIMEOUT: "60"
+      HERMES_AGENT_HEALTH_INTERVAL: "2"
       HERMES_CONTAINER_HOME: /opt/data
-      HERMES_DOCKER_AUTO_REMOVE: 'false'
-      API_SERVER_ENABLED: 'true'
+      HERMES_DOCKER_AUTO_REMOVE: "false"
+      API_SERVER_ENABLED: "true"
       API_SERVER_HOST: 0.0.0.0
       API_SERVER_KEY: change-me-local-dev
       API_SERVER_CORS_ORIGINS: '*'
@@ -66,41 +71,44 @@ services:
       HERMES_BIN: hermes
       HERMES_UPSTREAM: http://hermes-agent:8642
       HERMES_PROFILE_PREFIX: hp_
-      HERMES_PROFILE_CREATE_TIMEOUT: '90'
+      HERMES_PROFILE_CREATE_TIMEOUT: "90"
       HERMES_AGENT_MEMORY_LIMIT: 4g
       HERMES_AGENT_CPU_LIMIT: 2
     extra_hosts:
-    - host.docker.internal:host-gateway
+      - "host.docker.internal:host-gateway"
     healthcheck:
       test:
-      - CMD
-      - python
-      - -c
-      - import socket; s=socket.create_connection(('127.0.0.1', 8787), 5); s.close()
+        - CMD
+        - python
+        - -c
+        - import socket; s=socket.create_connection(('127.0.0.1', 8787), 5); s.close()
     networks:
-      hermes-net: null
+      hermes-net:
+
   hermes-agent-image-preload:
     image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-agent-custom:v1.0.6
     container_name: xiaobao-agent-image-preload
-    restart: 'no'
+    restart: "no"
     entrypoint:
-    - /bin/sh
-    - -c
-    - 'true'
+      - /bin/sh
+      - -c
+      - "true"
+
 networks:
   default:
     name: xiaobao-agent-docker_default
   hermes-net:
     name: hermes-adapter-docker_hermes-net
     driver: bridge
+
 x-casaos:
   id: com.mycyberwing.xiaobao-agent
   main: xiaobao-agent
   index: /users.html
-  port_map: '8787'
+  port_map: "8787"
   scheme: https
   icon: https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages/apps/com.mycyberwing.xiaobao-agent/assets/icon.png
   title:
-    zh_CN: 小宝智能体
-    en_US: Xiaobao Agent
-  version: 1.0.9
+    zh_CN: "小宝智能体"
+    en_US: "Xiaobao Agent"
+  version: "1.0.9"

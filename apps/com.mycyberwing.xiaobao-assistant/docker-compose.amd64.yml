@@ -1,4 +1,5 @@
 name: xiaobao-assistant
+
 services:
   voiceprint-api:
     image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/xiaobao-voiceprint:v1.0.0@sha256:cd5cad491c9c6d9258caf552e54010d24cfbfce672228e063becce49d4dcdc5c
@@ -6,21 +7,21 @@ services:
     restart: always
     network_mode: host
     security_opt:
-    - seccomp:unconfined
+      - seccomp:unconfined
     environment:
       TZ: Asia/Shanghai
       VOICEPRINT_MODEL_PATH: /app/data/models/3dspeaker_speech_campplus_sv_zh-cn_16k-common.onnx
     healthcheck:
       test:
-      - CMD
-      - python
-      - -c
-      - import urllib.request; urllib.request.urlopen('http://127.0.0.1:8015/voiceprint/health',
-        timeout=5)
+        - CMD
+        - python
+        - -c
+        - import urllib.request; urllib.request.urlopen('http://127.0.0.1:8015/voiceprint/health', timeout=5)
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 120s
+
   xiaobao-server:
     image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/xiaobao-server:v1.0.4@sha256:916102848cab63564be7f90c05e403ddbce65e079e4a12398cc3c4b8df9a1a3a
     container_name: xiaobao-server
@@ -28,72 +29,74 @@ services:
     init: true
     network_mode: host
     security_opt:
-    - no-new-privileges:true
+      - no-new-privileges:true
     volumes:
-    - /DATA/.config/xiaobao/backend/config.yaml:/opt/xiaobao-server/config.yaml:ro
-    - /DATA/.config/xiaobao/backend/prompts:/opt/xiaobao-server/prompts:ro
-    - /DATA/AppData/LCFC_APP/data/xiaobao/backend:/opt/xiaobao-server/data
+      - /DATA/.config/xiaobao/backend/config.yaml:/opt/xiaobao-server/config.yaml:ro
+      - /DATA/.config/xiaobao/backend/prompts:/opt/xiaobao-server/prompts:ro
+      - /DATA/AppData/LCFC_APP/data/xiaobao/backend:/opt/xiaobao-server/data
     environment:
       TZ: Asia/Shanghai
       CREDIT_API_BASE: http://127.0.0.1:20100
+
   xiaobao-client:
     image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/xiaobao-client:v1.0.7-hotfix1@sha256:6b6eab821401d917c61f8c84ddc6d0c24f29eb763c5537bb8f1aa45062ae0ad8
     container_name: xiaobao-client
     restart: always
     dns:
-    - 223.5.5.5
-    - 8.8.8.8
+      - 223.5.5.5
+      - 8.8.8.8
     depends_on:
-    - voiceprint-api
-    - xiaobao-server
+      - voiceprint-api
+      - xiaobao-server
     tty: true
     stdin_open: true
     privileged: true
-    user: 0:0
+    # user: "${PUID:-1000}:${PGID:-1000}"
+    user: "0:0"
     network_mode: host
     devices:
-    - /dev/snd:/dev/snd
+      - /dev/snd:/dev/snd
     group_add:
-    - audio
+      - audio
     cap_add:
-    - DAC_OVERRIDE
-    - SYS_RESOURCE
+      - DAC_OVERRIDE
+      - SYS_RESOURCE
     volumes:
-    - /sys/class/dmi/id/product_uuid:/sys/class/dmi/id/product_uuid:ro
-    - /DATA/Media/Music:/app/music
-    - /DATA/AppData/LCFC_APP/data/xiaobao/frontend:/app/data
+      - /sys/class/dmi/id/product_uuid:/sys/class/dmi/id/product_uuid:ro
+      - /DATA/Media/Music:/app/music
+      - /DATA/AppData/LCFC_APP/data/xiaobao/frontend:/app/data
     environment:
       TZ: Asia/Shanghai
       HOME: /home/xiaobao
       XIAOZHI_DATA_DIR: /app/data
       XIAOBAO_MODE: headless
       XIAOBAO_PROTOCOL: websocket
-      XIAOBAO_SKIP_ACTIVATION: 'false'
+      XIAOBAO_SKIP_ACTIVATION: "false"
       VOICEPRINT_BASE_URL: http://127.0.0.1:8015/voiceprint
       ELEVOC_DEFAULT_SINK: soft_echoCancelsink
       ELEVOC_DEFAULT_SOURCE: noiseReduceSource
       ELEVOC_PCM_VOLUMN_PCT: 80
-      ALSA_CARD: '0'
+      ALSA_CARD: "0"
       PULSE_ALSA_PROFILE: output:analog-stereo+input:analog-stereo
       XDG_RUNTIME_DIR: /tmp/pulse-runtime-1000
       PULSE_SERVER: unix:/tmp/pulse-runtime-1000/pulse/native
       VOLUME_BACKEND: auto
     healthcheck:
       test:
-      - CMD
-      - python
-      - -c
-      - import urllib.request,socket; socket.setdefaulttimeout(5); urllib.request.urlopen('http://127.0.0.1:8060/health',
-        timeout=3).read()
+        - CMD
+        - python
+        - -c
+        - import urllib.request,socket; socket.setdefaulttimeout(5); urllib.request.urlopen('http://127.0.0.1:8060/health', timeout=3).read()
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 180s
+
 x-casaos:
   id: com.mycyberwing.xiaobao-assistant
   main: xiaobao-client
   icon: https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages/apps/com.mycyberwing.xiaobao-assistant/assets/icon.png
   title:
     zh_CN: 小宝语音助手
-    en_US: Xiaobao Assistant
-  version: 1.0.7
+    en_US: "Xiaobao Assistant"
+  version: "1.0.7"
