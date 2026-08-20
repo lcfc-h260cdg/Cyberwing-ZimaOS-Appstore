@@ -1,6 +1,11 @@
 {
   "apps": [
     {
+      "id": "com.mycyberwing.config-manager",
+      "title": "小宝配置管家",
+      "tagline": "管理设备应用配置"
+    },
+    {
       "id": "com.mycyberwing.smart-album",
       "title": "智能相册",
       "tagline": "照片与视频管理平台"

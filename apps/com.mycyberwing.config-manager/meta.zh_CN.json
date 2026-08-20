@@ -1,0 +1,7 @@
+{
+  "id": "com.mycyberwing.config-manager",
+  "title": "小宝配置管家",
+  "description": "管理和更新设备上的应用配置文件",
+  "tagline": "管理设备应用配置",
+  "release_note": "- \"首个版本：支持安装和更新内置配置包\""
+}

@@ -1,0 +1,23 @@
+{
+  "tagline": "Manage device application configs",
+  "description": "Manage and update application configuration files on the device",
+  "author": "LCFC",
+  "developer": "Cyberwing",
+  "category": "Others",
+  "architectures": [
+    "amd64"
+  ],
+  "update_at": "2026-08-18",
+  "title": "Cyberwing Config Manager",
+  "release_note": "- \"First release: install and update the embedded config package\"",
+  "base_url": "https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages",
+  "id": "com.mycyberwing.config-manager",
+  "version": "1.0.0",
+  "categories": [
+    "others"
+  ],
+  "min_memory": 0,
+  "min_image_size": {
+    "amd64": 6617446
+  }
+}

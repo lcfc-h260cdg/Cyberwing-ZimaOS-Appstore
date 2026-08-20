@@ -100,24 +100,24 @@ services:
       - /DATA/AppData/LCFC_APP/data/ai_api_data/logs/file-search-service/nas_retrieval:/Nas_Retrieval_Final_031/logs
       - /DATA/AppData/LCFC_APP/data/ai_api_data/logs/file-search-service/nas_route:/NAS_Route/logs
     environment:
-      AUTO_INIT_CONFIG: "true"
-      CONFIG_DIR: /NAS_Route/config
-      FLASK_DEBUG: "false"
-      FLASK_ENV: production
-      GENERATION_TEMPERATURE: "0.7"
-      HOST: 0.0.0.0
-      LANG: C.UTF-8
+      PYTHONUNBUFFERED: "1"
       LC_ALL: C.UTF-8
-      LOG_DIR: /NAS_Route/logs
-      MODEL_NAME: OpenAI
-      NAS_ROUTE_PORT: "20191"
+      LANG: C.UTF-8
+      FLASK_ENV: production
+      FLASK_DEBUG: "false"
+      HOST: 0.0.0.0
+      PORT: "20194"
+      TZ: Asia/Shanghai
       OPENAI_API_KEY: sk-abcdefg0123456789abcdefg
       OPENAI_BASE_URL: https://dashscope.aliyuncs.com/compatible-mode/v1
       OPENAI_MODEL: qwen-plus
-      PORT: "20194"
-      PYTHONUNBUFFERED: "1"
       RAG_TEMPERATURE: "0"
-      TZ: Asia/Shanghai
+      GENERATION_TEMPERATURE: "0.7"
+      MODEL_NAME: OpenAI
+      NAS_ROUTE_PORT: "20191"
+      CONFIG_DIR: /NAS_Route/config
+      LOG_DIR: /NAS_Route/logs
+      AUTO_INIT_CONFIG: "true"
     network_mode: host
     healthcheck:
       test:
@@ -166,17 +166,14 @@ services:
       # ASR model and logs.
       - /DATA/AppData/AI_MODELS/asr-server/funasr_models:/app/funasr_models
       - /DATA/AppData/LCFC_APP/data/ai_api_data/asr-server/logs:/app/logs
-      - /DATA/AppData/LCFC_APP/data/ai_api_data/asr-server/state:/app/data
       - /usr/share/zoneinfo/Asia/Shanghai:/usr/share/zoneinfo/Asia/Shanghai
       - /etc/timezone:/etc/timezone
     environment:
-      ASR_DEVICE_ID: 10.159.219.128
-      ASR_IDEMPOTENCY_DB_PATH: /app/data/asr_jobs.sqlite3
-      LANG: C.UTF-8
-      LC_ALL: C.UTF-8
       PYTHONDONTWRITEBYTECODE: "1"
       PYTHONUNBUFFERED: "1"
       PYTHONUTF8: "1"
+      LANG: C.UTF-8
+      LC_ALL: C.UTF-8
       TZ: Asia/Shanghai
     healthcheck:
       test:
@@ -207,8 +204,7 @@ services:
         compress: "true"
 
   ai-api:
-    # v2.0.6
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/ai-api:devel-20260817
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/ai-api:devel-20260812
     container_name: ai-api
     restart: always
     depends_on:
@@ -312,4 +308,4 @@ x-casaos:
   title:
     zh_CN: 小宝检索服务
     en_US: "Xiaobao RAG Service"
-  version: "1.0.8"
+  version: "1.0.7"

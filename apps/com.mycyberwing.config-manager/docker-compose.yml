@@ -1,0 +1,40 @@
+name: cyberwing-config-manager
+
+services:
+  config-manager:
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/config-manager:v1.0.0
+    container_name: cyberwing-config-manager
+    restart: always
+    ports:
+      - "20200:20200"
+    volumes:
+      - /DATA/.config:/host-config
+      - /DATA/AppData/LCFC_APP/data/config-manager:/data
+    environment:
+      CONFIG_TARGET: /host-config
+      STATE_DIR: /data
+      LISTEN_ADDR: :20200
+    healthcheck:
+      test:
+        - CMD
+        - wget
+        - -q
+        - -O
+        - /dev/null
+        - http://127.0.0.1:20200/healthz
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+
+x-casaos:
+  id: com.mycyberwing.config-manager
+  main: config-manager
+  index: /
+  port_map: "20200"
+  scheme: http
+  icon: https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages/apps/com.mycyberwing.config-manager/assets/icon.svg
+  title:
+    zh_CN: 小宝配置管家
+    en_US: Cyberwing Config Manager
+  version: "1.0.0"

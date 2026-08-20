@@ -1,9 +1,29 @@
 {
   "version": 2,
-  "updated_at": "2026-08-18T04:52:52Z",
-  "app_count": 5,
+  "updated_at": "2026-08-20T07:27:24Z",
+  "app_count": 6,
   "base_url": "https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages",
   "apps": [
+    {
+      "id": "com.mycyberwing.config-manager",
+      "title": "Cyberwing Config Manager",
+      "tagline": "Manage device application configs",
+      "category": "Others",
+      "categories": [
+        "others"
+      ],
+      "author": "LCFC",
+      "developer": "Cyberwing",
+      "architectures": [
+        "amd64"
+      ],
+      "icon": "/apps/com.mycyberwing.config-manager/assets/icon.svg",
+      "thumbnail": "",
+      "compose_url": "/apps/com.mycyberwing.config-manager/docker-compose.yml",
+      "meta_url": "/apps/com.mycyberwing.config-manager/meta.json",
+      "content_hash": "d26ed6db",
+      "version": "1.0.0"
+    },
     {
       "id": "com.mycyberwing.smart-album",
       "title": "Smart Album",
@@ -41,8 +61,8 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.smart-file-search/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.smart-file-search/meta.json",
-      "content_hash": "3880e813",
-      "version": "1.0.8"
+      "content_hash": "e18e033b",
+      "version": "1.0.7"
     },
     {
       "id": "com.mycyberwing.smart-pick",
