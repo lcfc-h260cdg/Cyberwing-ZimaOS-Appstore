@@ -1,0 +1,57 @@
+name: cyberwing-config-manager
+
+services:
+  config-manager:
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/config-manager:v1.0.0
+    container_name: cyberwing-config-manager
+    restart: always
+    ports:
+      - "20200:20200"
+    volumes:
+      - /DATA/.config:/host-config
+      - /DATA/AppData/LCFC_APP/data/config-manager:/data
+    environment:
+      CONFIG_TARGET: /host-config
+      STATE_DIR: /data
+      LISTEN_ADDR: :20200
+    healthcheck:
+      test:
+        - CMD
+        - wget
+        - -q
+        - -O
+        - /dev/null
+        - http://127.0.0.1:20200/healthz
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+
+x-casaos:
+  id: com.mycyberwing.config-manager
+  main: config-manager
+  index: /
+  port_map: "20200"
+  scheme: http
+  icon: "https://zimaos-store.oss-cn-beijing.aliyuncs.com/default_app_icon.svg"
+  title:
+    zh_CN: 小宝配置管家
+    en_US: Cyberwing Config Manager
+  tagline:
+    zh_CN: 管理设备应用配置
+    en_US: Manage device application configs
+  description:
+    zh_CN: 管理和更新设备上的应用配置文件
+    en_US: Manage and update application configuration files on the device
+  author: LCFC
+  developer: Cyberwing
+  category: Others
+  architectures:
+    - amd64
+  version: "1.0.0"
+  update_at: "2026-08-18"
+  release_notes:
+    zh_CN: |-
+      - "首个版本：支持安装和更新内置配置包"
+    en_US: |-
+      - "First release: install and update the embedded config package"
