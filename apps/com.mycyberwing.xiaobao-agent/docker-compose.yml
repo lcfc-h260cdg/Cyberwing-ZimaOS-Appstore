@@ -50,7 +50,7 @@ services:
       HERMES_ADAPTER_TLS_VALIDITY_DAYS: "3650"
       ZIMAOS_API_BASE_URL: http://host.docker.internal
       HERMES_USER_DATA_ROOT: /DATA/AppData/LCFC_APP/data/hermes-data
-      HERMES_HOST_RAG_PUBLIC_DIR: /DATA/Share,/DATA/AppData/LCFC_APP/data/smart_album/library/photos/upload
+      HERMES_HOST_RAG_PUBLIC_DIR: /DATA/Share,/DATA/AppData/LCFC_APP/data/smart_album/library/photos/upload,/DATA/Gallery
       HERMES_SHARED_PATH_BLACKLIST: /bin,/sbin,/lib,/lib64,/usr,/etc,/proc,/sys,/dev,/run,/var,/tmp,/opt/data,/opt/hermes,/opt/hermes-defaults,/opt/custom-skills
       HERMES_AGENT_IMAGE: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-agent-custom:v1.0.6
       HERMES_AGENT_COMMAND: gateway run

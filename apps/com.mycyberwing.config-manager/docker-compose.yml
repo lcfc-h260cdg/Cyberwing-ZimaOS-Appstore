@@ -33,7 +33,7 @@ x-casaos:
   index: /
   port_map: "20200"
   scheme: http
-  icon: https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages/apps/com.mycyberwing.config-manager/assets/icon.svg
+  icon: https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages/apps/com.mycyberwing.config-manager/assets/icon.png
   title:
     zh_CN: 小宝配置管家
     en_US: Cyberwing Config Manager
