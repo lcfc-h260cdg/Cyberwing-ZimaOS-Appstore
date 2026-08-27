@@ -7,17 +7,17 @@
   "architectures": [
     "amd64"
   ],
-  "update_at": "2026-08-18",
+  "update_at": "2026-08-27",
   "title": "Cyberwing Config Manager",
-  "release_note": "- \"First release: install and update the embedded config package\"",
+  "release_note": "- \"2026-08-18 First release: install and update the embedded config package\"\n- \"2026-08-27 Update Xiaobao Assistant backend configs\"",
   "base_url": "https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages",
   "id": "com.mycyberwing.config-manager",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "categories": [
     "others"
   ],
   "min_memory": 0,
   "min_image_size": {
-    "amd64": 6617446
+    "amd64": 6618152
   }
 }

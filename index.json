@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-08-21T02:55:24Z",
+  "updated_at": "2026-08-27T06:21:06Z",
   "app_count": 6,
   "base_url": "https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages",
   "apps": [
@@ -21,8 +21,8 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.config-manager/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.config-manager/meta.json",
-      "content_hash": "ab7c0fdb",
-      "version": "1.0.0"
+      "content_hash": "59c66e73",
+      "version": "1.0.1"
     },
     {
       "id": "com.mycyberwing.smart-album",
@@ -41,7 +41,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.smart-album/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.smart-album/meta.json",
-      "content_hash": "590d84b8",
+      "content_hash": "fd0d2e2d",
       "version": "1.0.3"
     },
     {
@@ -61,8 +61,8 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.smart-file-search/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.smart-file-search/meta.json",
-      "content_hash": "e18e033b",
-      "version": "1.0.7"
+      "content_hash": "5a61f993",
+      "version": "1.1.0"
     },
     {
       "id": "com.mycyberwing.smart-pick",
@@ -81,7 +81,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.smart-pick/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.smart-pick/meta.json",
-      "content_hash": "5b83011e",
+      "content_hash": "c71188fa",
       "version": "1.0.5"
     },
     {
@@ -101,7 +101,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.xiaobao-agent/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.xiaobao-agent/meta.json",
-      "content_hash": "c38d95cf",
+      "content_hash": "2885d59e",
       "version": "1.0.9"
     },
     {
@@ -121,8 +121,8 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.xiaobao-assistant/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.xiaobao-assistant/meta.json",
-      "content_hash": "d53055aa",
-      "version": "1.0.7"
+      "content_hash": "c708898a",
+      "version": "1.0.8"
     }
   ]
 }

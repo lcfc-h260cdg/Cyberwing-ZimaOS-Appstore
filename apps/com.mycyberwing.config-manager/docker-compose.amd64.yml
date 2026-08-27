@@ -2,7 +2,7 @@ name: cyberwing-config-manager
 
 services:
   config-manager:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/config-manager:v1.0.0@sha256:94e2f59188f66af6f5fce90690f00f4b0b0df46dc6815f5677c98b4c34a37071
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/config-manager:v1.0.1@sha256:48b71fbbe6a9fe17df14ff265265cd7b9e9aa4ef2083ebaae30cd5f38b5653a4
     container_name: cyberwing-config-manager
     restart: always
     ports:
@@ -37,4 +37,4 @@ x-casaos:
   title:
     zh_CN: 小宝配置管家
     en_US: Cyberwing Config Manager
-  version: "1.0.0"
+  version: "1.0.1"

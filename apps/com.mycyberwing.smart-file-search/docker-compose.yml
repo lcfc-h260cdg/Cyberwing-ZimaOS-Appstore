@@ -33,16 +33,13 @@ services:
     entrypoint: []
     devices:
       - /dev/dri:/dev/dri
-    # 实测高负载约 10.2 GiB，给 11 GiB 硬上限；原配置没有任何边界。
-    mem_limit: "13g"
+    # Image/audio semantic search loads chat, dense, sparse, CLIP and rerank
+    # models in the same cgroup. 17 GiB is below the observed peak and causes
+    # the launcher to kill every model process after two ordinary searches.
+    mem_limit: "22g"
     mem_reservation: "10g"
-    memswap_limit: "13g"
-    deploy:
-      resources:
-        limits:
-          memory: "13g"
-        reservations:
-          memory: "10g"
+    # Equal memory/swap limits prevent model pages from filling host swap.
+    memswap_limit: "22g"
     logging:
       driver: json-file
       options:
@@ -67,12 +64,6 @@ services:
     mem_limit: "1536m"
     mem_reservation: "512m"
     memswap_limit: "1536m"
-    deploy:
-      resources:
-        limits:
-          memory: "1536m"
-        reservations:
-          memory: "512m"
     logging:
       driver: json-file
       options:
@@ -100,24 +91,24 @@ services:
       - /DATA/AppData/LCFC_APP/data/ai_api_data/logs/file-search-service/nas_retrieval:/Nas_Retrieval_Final_031/logs
       - /DATA/AppData/LCFC_APP/data/ai_api_data/logs/file-search-service/nas_route:/NAS_Route/logs
     environment:
-      PYTHONUNBUFFERED: "1"
-      LC_ALL: C.UTF-8
-      LANG: C.UTF-8
-      FLASK_ENV: production
+      AUTO_INIT_CONFIG: "true"
+      CONFIG_DIR: /NAS_Route/config
       FLASK_DEBUG: "false"
+      FLASK_ENV: production
+      GENERATION_TEMPERATURE: "0.7"
       HOST: 0.0.0.0
-      PORT: "20194"
-      TZ: Asia/Shanghai
+      LANG: C.UTF-8
+      LC_ALL: C.UTF-8
+      LOG_DIR: /NAS_Route/logs
+      MODEL_NAME: OpenAI
+      NAS_ROUTE_PORT: "20191"
       OPENAI_API_KEY: sk-abcdefg0123456789abcdefg
       OPENAI_BASE_URL: https://dashscope.aliyuncs.com/compatible-mode/v1
       OPENAI_MODEL: qwen-plus
+      PORT: "20194"
+      PYTHONUNBUFFERED: "1"
       RAG_TEMPERATURE: "0"
-      GENERATION_TEMPERATURE: "0.7"
-      MODEL_NAME: OpenAI
-      NAS_ROUTE_PORT: "20191"
-      CONFIG_DIR: /NAS_Route/config
-      LOG_DIR: /NAS_Route/logs
-      AUTO_INIT_CONFIG: "true"
+      TZ: Asia/Shanghai
     network_mode: host
     healthcheck:
       test:
@@ -133,69 +124,10 @@ services:
       - sh
       - -c
       - /start.sh
-    # 正常解析实测约 3.9 GiB；异常文件到 4.5 GiB 即在本容器内失败，
-    # 避免再次吞完宿主机内存和 Swap。
     mem_limit: "4608m"
     mem_reservation: "3g"
     memswap_limit: "4608m"
-    deploy:
-      resources:
-        limits:
-          cpus: "4.0"
-          memory: "4608m"
-        reservations:
-          memory: "3g"
-    logging:
-      driver: json-file
-      options:
-        max-size: 50m
-        max-file: "3"
-        compress: "true"
-
-  asr-server:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/asr-server:devel-20260721
-    container_name: asr-server
-    restart: always
-    ports:
-      - "20105:8000"
-    volumes:
-      # ASR needs to read media files.
-      - /DATA:/DATA:rslave
-      - /media:/media:rslave
-
-      # ASR model and logs.
-      - /DATA/AppData/AI_MODELS/asr-server/funasr_models:/app/funasr_models
-      - /DATA/AppData/LCFC_APP/data/ai_api_data/asr-server/logs:/app/logs
-      - /usr/share/zoneinfo/Asia/Shanghai:/usr/share/zoneinfo/Asia/Shanghai
-      - /etc/timezone:/etc/timezone
-    environment:
-      PYTHONDONTWRITEBYTECODE: "1"
-      PYTHONUNBUFFERED: "1"
-      PYTHONUTF8: "1"
-      LANG: C.UTF-8
-      LC_ALL: C.UTF-8
-      TZ: Asia/Shanghai
-    healthcheck:
-      test:
-        - CMD
-        - curl
-        - -f
-        - http://localhost:8000/health
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
-    working_dir: /app/asr_src
-    mem_limit: "1536m"
-    mem_reservation: "768m"
-    memswap_limit: "1536m"
-    deploy:
-      resources:
-        limits:
-          cpus: "2.0"
-          memory: "1536m"
-        reservations:
-          memory: "768m"
+    cpus: "4.0"
     logging:
       driver: json-file
       options:
@@ -204,23 +136,22 @@ services:
         compress: "true"
 
   ai-api:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/ai-api:devel-20260812
+    # v2.1.0
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/ai-api:devel-20260827
     container_name: ai-api
     restart: always
     depends_on:
       - llm_server
       - pgvector-nas
-      - asr-server
       - file-search-service
     volumes:
       # API service data.
       - /DATA/AppData/LCFC_APP/data/ai_api_data/data_base:/app/data/data_base
       - /DATA/AppData/LCFC_APP/data/ai_api_data/vector_db:/app/data/vector_db
       - /DATA/AppData/LCFC_APP/data/ai_api_data/vector_cache:/app/data/vector_cache
+      - /DATA/AppData/LCFC_APP/data/ai_api_data/content_analysis_cache:/app/data/content_analysis_cache
       - /DATA/AppData/LCFC_APP/data/ai_api_data/logs/ai-api:/app/data/logs
       - /DATA/AppData/LCFC_APP/data/ai_api_data/configs:/app/data/configs
-
-      - /DATA/.config/secrets:/app/data/secrets
 
       # Shared model root.
       - /DATA/AppData/AI_MODELS/llm-server:/data/models
@@ -235,36 +166,95 @@ services:
       - /DATA/AppData/LCFC_APP/data/ai_api_data/ilab_milvus_data:/app/ilab/data/milvus_data
       - /DATA/AppData/LCFC_APP/data/ai_api_data/ilab_logs:/app/ilab/data/logs
       - /DATA/AppData/LCFC_APP/data/ai_api_data/ilab_config:/app/ilab/data/configs
+      - /DATA/AppData/LCFC_APP/data/ai_api_data/ilab_content_analysis_cache:/app/ilab/data/content_analysis_cache
 
       # Host system info required by the API.
       - /sys/class/dmi/id:/sys/class/dmi/id:ro
       - /opt:/opt
       - /tmp:/tmp
     environment:
-      DOCUMENT_EXTERNAL_PARSE_MAX_TIMEOUT_SECONDS: "600"
-      DOCUMENT_INDEX_RECONCILE_BATCH_SIZE: "1"
-      DOCUMENT_INDEX_RECONCILE_SECONDS: "300"
-      DOCUMENT_INDEX_STATE_DB: /app/data/data_base/document_index_state.sqlite3
-      DOCUMENT_PDF_IMAGE_OCR_ENABLED: "true"
-      DOCUMENT_PDF_OCR_LANG: chi_sim+eng
-      DOCUMENT_PDF_OCR_MAX_DIMENSION: "1600"
-      DOCUMENT_PDF_OCR_MAX_PAGES: "10"
-      DOCUMENT_PDF_OCR_PAGE_TIMEOUT_SECONDS: "90"
-      DOCUMENT_PDF_OCR_TOTAL_TIMEOUT_SECONDS: "300"
-      DOCUMENT_PPT_IMAGE_OCR_ENABLED: "false"
-      DOCUMENT_PPT_OCR_MAX_IMAGES: "6"
-      DOCUMENT_RECONCILE_MAX_EXTERNAL_BYTES: "33554432"
-      DOCUMENT_RECONCILE_MAX_LIGHTWEIGHT_BYTES: "268435456"
-      FILE_SEARCH_POSTGRES_DSN: postgresql://lcfc:lcfc@127.0.0.1:5434/postgres
-      FILE_SEARCH_POSTGRES_TABLE: files_search_table2
-      FILE_WATCH_SETTINGS_PATH: /app/filewatchsettings.yaml
-      MILVUS_HEALTH_TIMEOUT_SECONDS: "5"
-      MILVUS_WATCHDOG_ENABLED: "true"
-      MILVUS_WATCHDOG_FAILURE_THRESHOLD: "3"
-      MILVUS_WATCHDOG_HTTP_TIMEOUT_SECONDS: "10"
-      MILVUS_WATCHDOG_INTERVAL_SECONDS: "20"
-      MILVUS_WATCHDOG_START_DELAY_SECONDS: "60"
       TZ: Asia/Shanghai
+      ENABLE_NAS_NOTIFY: "${ENABLE_NAS_NOTIFY:-false}"
+      # xiaobao-asr runs locally on the host; ai-api uses host networking.
+      LLM_ASR_URL: "${LLM_ASR_URL:-http://127.0.0.1:5001}"
+      ASR_POLL_INTERVAL: "${ASR_POLL_INTERVAL:-2}"
+      FILE_WATCH_SETTINGS_PATH: /app/filewatchsettings.yaml
+      DOCUMENT_INDEX_STATE_DB: /app/data/data_base/document_index_state.sqlite3
+      DOCUMENT_INDEX_RECONCILE_SECONDS: "${DOCUMENT_INDEX_RECONCILE_SECONDS:-300}"
+      DOCUMENT_INDEX_RECONCILE_BATCH_SIZE: "${DOCUMENT_INDEX_RECONCILE_BATCH_SIZE:-1}"
+      DOCUMENT_RECONCILE_MAX_EXTERNAL_BYTES: "${DOCUMENT_RECONCILE_MAX_EXTERNAL_BYTES:-33554432}"
+      DOCUMENT_RECONCILE_MAX_LIGHTWEIGHT_BYTES: "${DOCUMENT_RECONCILE_MAX_LIGHTWEIGHT_BYTES:-268435456}"
+      DOCUMENT_PDF_IMAGE_OCR_ENABLED: "${DOCUMENT_PDF_IMAGE_OCR_ENABLED:-true}"
+      DOCUMENT_PDF_OCR_MAX_PAGES: "${DOCUMENT_PDF_OCR_MAX_PAGES:-10}"
+      DOCUMENT_PDF_OCR_MAX_DIMENSION: "${DOCUMENT_PDF_OCR_MAX_DIMENSION:-1600}"
+      DOCUMENT_PDF_OCR_PAGE_TIMEOUT_SECONDS: "${DOCUMENT_PDF_OCR_PAGE_TIMEOUT_SECONDS:-90}"
+      DOCUMENT_PDF_OCR_TOTAL_TIMEOUT_SECONDS: "${DOCUMENT_PDF_OCR_TOTAL_TIMEOUT_SECONDS:-300}"
+      DOCUMENT_PDF_OCR_LANG: "${DOCUMENT_PDF_OCR_LANG:-chi_sim+eng}"
+      DOCUMENT_EXTERNAL_PARSE_MAX_TIMEOUT_SECONDS: "${DOCUMENT_EXTERNAL_PARSE_MAX_TIMEOUT_SECONDS:-600}"
+      DOCUMENT_PPT_IMAGE_OCR_ENABLED: "${DOCUMENT_PPT_IMAGE_OCR_ENABLED:-false}"
+      DOCUMENT_PPT_OCR_MAX_IMAGES: "${DOCUMENT_PPT_OCR_MAX_IMAGES:-6}"
+      DOCUMENT_PPT_OCR_MAX_DIMENSION: "${DOCUMENT_PPT_OCR_MAX_DIMENSION:-1600}"
+      DOCUMENT_PPT_OCR_IMAGE_TIMEOUT_SECONDS: "${DOCUMENT_PPT_OCR_IMAGE_TIMEOUT_SECONDS:-90}"
+      DOCUMENT_PPT_OCR_TOTAL_TIMEOUT_SECONDS: "${DOCUMENT_PPT_OCR_TOTAL_TIMEOUT_SECONDS:-120}"
+      FILE_SEARCH_POSTGRES_DSN: "${FILE_SEARCH_POSTGRES_DSN:-postgresql://lcfc:lcfc@127.0.0.1:5434/postgres}"
+      FILE_SEARCH_POSTGRES_TABLE: "${FILE_SEARCH_POSTGRES_TABLE:-files_search_table2}"
+      MILVUS_WATCHDOG_ENABLED: "${MILVUS_WATCHDOG_ENABLED:-true}"
+      MILVUS_WATCHDOG_START_DELAY_SECONDS: "${MILVUS_WATCHDOG_START_DELAY_SECONDS:-60}"
+      MILVUS_WATCHDOG_INTERVAL_SECONDS: "${MILVUS_WATCHDOG_INTERVAL_SECONDS:-20}"
+      MILVUS_WATCHDOG_FAILURE_THRESHOLD: "${MILVUS_WATCHDOG_FAILURE_THRESHOLD:-3}"
+      MILVUS_WATCHDOG_HTTP_TIMEOUT_SECONDS: "${MILVUS_WATCHDOG_HTTP_TIMEOUT_SECONDS:-10}"
+      MILVUS_HEALTH_TIMEOUT_SECONDS: "${MILVUS_HEALTH_TIMEOUT_SECONDS:-5}"
+      # Shared guard for main/ILAB background indexing. Search APIs remain online.
+      BACKGROUND_RESOURCE_GUARD_ENABLED: "${BACKGROUND_RESOURCE_GUARD_ENABLED:-true}"
+      # This 31 GiB device has about 6 GiB available after interactive image
+      # search loads the resident vision model. Higher gates permanently starve
+      # a clean rebuild despite zero memory PSI and 5+ GiB cgroup headroom.
+      # Keep a 5 GiB reserve. The shared model server retains about 11 GiB of
+      # OpenVINO shared-memory pages after switching models, so a higher resume
+      # watermark cannot be reached while indexing is paused. Swap, PSI, load
+      # and cgroup guards below remain in force for real pressure.
+      BACKGROUND_MIN_AVAILABLE_GB: "${BACKGROUND_MIN_AVAILABLE_GB:-5}"
+      BACKGROUND_RESUME_AVAILABLE_GB: "${BACKGROUND_RESUME_AVAILABLE_GB:-5}"
+      # Swap occupancy is historical. Only use it as an additional blocker
+      # below the 5 GiB memory safety line, never as a standalone latch.
+      BACKGROUND_SWAP_GUARD_AVAILABLE_GB: "${BACKGROUND_SWAP_GUARD_AVAILABLE_GB:-5}"
+      BACKGROUND_MAX_SWAP_PERCENT: "${BACKGROUND_MAX_SWAP_PERCENT:-70}"
+      BACKGROUND_RESUME_SWAP_PERCENT: "${BACKGROUND_RESUME_SWAP_PERCENT:-60}"
+      BACKGROUND_MAX_MEMORY_PSI_FULL_AVG10: "${BACKGROUND_MAX_MEMORY_PSI_FULL_AVG10:-1}"
+      BACKGROUND_RESUME_MEMORY_PSI_FULL_AVG10: "${BACKGROUND_RESUME_MEMORY_PSI_FULL_AVG10:-0.5}"
+      BACKGROUND_MAX_IO_PSI_FULL_AVG10: "${BACKGROUND_MAX_IO_PSI_FULL_AVG10:-30}"
+      BACKGROUND_RESUME_IO_PSI_FULL_AVG10: "${BACKGROUND_RESUME_IO_PSI_FULL_AVG10:-15}"
+      BACKGROUND_MAX_LOAD_PER_CPU: "${BACKGROUND_MAX_LOAD_PER_CPU:-4}"
+      BACKGROUND_RESUME_LOAD_PER_CPU: "${BACKGROUND_RESUME_LOAD_PER_CPU:-2}"
+      BACKGROUND_RESOURCE_CHECK_SECONDS: "${BACKGROUND_RESOURCE_CHECK_SECONDS:-20}"
+      BACKGROUND_RESOURCE_RESUME_SAMPLES: "${BACKGROUND_RESOURCE_RESUME_SAMPLES:-2}"
+      BACKGROUND_WORK_LOCK_PATH: /tmp/ai-studio-background-work.lock
+      BACKGROUND_TASK_PAUSE_FILE: /app/data/data_base/background_tasks.paused
+      # Picture summaries are optional enrichment. A cold Qwen/VLM load needs a
+      # larger reserve; successful consecutive summaries reuse the loaded model
+      # under a lower reserve while Swap/PSI/load/cgroup guards stay enforced.
+      PICTURE_SUMMARY_COLD_MIN_AVAILABLE_GB: "${PICTURE_SUMMARY_COLD_MIN_AVAILABLE_GB:-7.5}"
+      PICTURE_SUMMARY_COLD_RESUME_AVAILABLE_GB: "${PICTURE_SUMMARY_COLD_RESUME_AVAILABLE_GB:-7.5}"
+      PICTURE_SUMMARY_WARM_MIN_AVAILABLE_GB: "${PICTURE_SUMMARY_WARM_MIN_AVAILABLE_GB:-3}"
+      PICTURE_SUMMARY_WARM_RESUME_AVAILABLE_GB: "${PICTURE_SUMMARY_WARM_RESUME_AVAILABLE_GB:-3.5}"
+      PICTURE_SUMMARY_WARM_WINDOW_SECONDS: "${PICTURE_SUMMARY_WARM_WINDOW_SECONDS:-300}"
+      # Rebuilding a cleared DB can reuse durable CLIP/face analysis. Cache hits
+      # do not load models and may proceed below the cold-task reserve.
+      PICTURE_VECTOR_CACHE_MIN_AVAILABLE_GB: "${PICTURE_VECTOR_CACHE_MIN_AVAILABLE_GB:-3}"
+      PICTURE_VECTOR_CACHE_RESUME_AVAILABLE_GB: "${PICTURE_VECTOR_CACHE_RESUME_AVAILABLE_GB:-3.5}"
+      MEDIA_CACHE_REPLAY_MIN_AVAILABLE_GB: "${MEDIA_CACHE_REPLAY_MIN_AVAILABLE_GB:-3}"
+      MEDIA_CACHE_REPLAY_RESUME_AVAILABLE_GB: "${MEDIA_CACHE_REPLAY_RESUME_AVAILABLE_GB:-3.5}"
+      FILE_TASK_STATUS_POLL_SECONDS: "${FILE_TASK_STATUS_POLL_SECONDS:-10}"
+      FILE_TASK_STATUS_TIMEOUT_SECONDS: "${FILE_TASK_STATUS_TIMEOUT_SECONDS:-3600}"
+      FILE_TASK_MISSING_RECHECKS: "${FILE_TASK_MISSING_RECHECKS:-3}"
+      # Bound long/hallucinated ASR text before local-LLM summarization. Full
+      # transcripts are still indexed in 500-character searchable chunks.
+      # A 5,000-character window reproduced a global OOM on this 31 GiB
+      # appliance. Keep model requests near the empirically stable size; full
+      # transcripts remain searchable through the chunk vectors below.
+      AUDIO_SUMMARY_INPUT_MAX_CHARS: "${AUDIO_SUMMARY_INPUT_MAX_CHARS:-1000}"
+      AUDIO_SUMMARY_MAX_PARTS: "${AUDIO_SUMMARY_MAX_PARTS:-4}"
+      AUDIO_EMBEDDING_BATCH_SIZE: "${AUDIO_EMBEDDING_BATCH_SIZE:-8}"
     network_mode: host
     privileged: true
     healthcheck:
@@ -275,18 +265,10 @@ services:
       interval: 30s
       retries: 3
       start_period: 2m0s
-    # Milvus Lite 与主服务共享内存；4.5 GiB 已实测触发 OOM，保留稳定运行余量。
     mem_limit: "8g"
     mem_reservation: "4g"
-    # 允许最多 2 GiB 应急 Swap，吸收短时峰值，持续异常仍由内存上限保护宿主机。
-    memswap_limit: "10g"
-    deploy:
-      resources:
-        limits:
-          cpus: "10.0"
-          memory: "4608m"
-        reservations:
-          memory: "3g"
+    memswap_limit: "8g"
+    cpus: "10.0"
     logging:
       driver: json-file
       options:
@@ -308,4 +290,4 @@ x-casaos:
   title:
     zh_CN: 小宝检索服务
     en_US: "Xiaobao RAG Service"
-  version: "1.0.7"
+  version: "1.1.0"
