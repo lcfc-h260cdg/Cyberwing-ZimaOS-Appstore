@@ -2,7 +2,7 @@ name: cyberwing-config-manager
 
 services:
   config-manager:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/config-manager:v1.0.0
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/config-manager:v1.0.1
     container_name: cyberwing-config-manager
     restart: always
     ports:
@@ -48,10 +48,12 @@ x-casaos:
   category: Others
   architectures:
     - amd64
-  version: "1.0.0"
-  update_at: "2026-08-18"
+  version: "1.0.1"
+  update_at: "2026-08-27"
   release_notes:
     zh_CN: |-
-      - "首个版本：支持安装和更新内置配置包"
+      - "2026-08-18 首个版本：支持安装和更新内置配置包"
+      - "2026-08-27 更新小宝语音后端配置"
     en_US: |-
-      - "First release: install and update the embedded config package"
+      - "2026-08-18 First release: install and update the embedded config package"
+      - "2026-08-27 Update Xiaobao Assistant backend configs"
