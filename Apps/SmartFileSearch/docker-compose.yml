@@ -127,7 +127,7 @@ services:
     mem_limit: "4608m"
     mem_reservation: "3g"
     memswap_limit: "4608m"
-    cpus: "4.0"
+    cpus: 4.0
     logging:
       driver: json-file
       options:
@@ -268,7 +268,7 @@ services:
     mem_limit: "8g"
     mem_reservation: "4g"
     memswap_limit: "8g"
-    cpus: "10.0"
+    cpus: 10.0
     logging:
       driver: json-file
       options:
