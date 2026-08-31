@@ -1,0 +1,30 @@
+name: xiaobao-asr
+
+services:
+  asr-service:
+    # v1.0.0
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/sherpa-onnx-asr:devel-20260831@sha256:8447a8777c405110a332c95eb221b7498dd0f774b884a8f1a215f86c60149011
+    container_name: asr-service
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      MODEL: paraformer
+      RULE: "on"
+      CHUNK_SECONDS: "30"
+      CHUNK_THRESHOLD: "60"
+      WORKER_COUNT: "1"
+      SHORT_AUDIO_THRESHOLD: "60"
+      MODEL_THREADS: "2"
+
+# networks:
+#   default:
+#     name: xiaobao-asr_default
+
+x-casaos:
+  id: com.mycyberwing.xiaobao-asr
+  main: asr-service
+  icon: https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages/apps/com.mycyberwing.xiaobao-asr/assets/icon.png
+  title:
+    zh_CN: 小宝语音识别服务
+    en_US: "Xiaobao ASR Service"
+  version: "1.0.0"

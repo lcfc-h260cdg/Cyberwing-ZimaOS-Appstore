@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "updated_at": "2026-08-27T06:58:41Z",
-  "app_count": 6,
+  "updated_at": "2026-08-31T09:44:48Z",
+  "app_count": 7,
   "base_url": "https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages",
   "apps": [
     {
@@ -21,7 +21,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.config-manager/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.config-manager/meta.json",
-      "content_hash": "4ef99d42",
+      "content_hash": "ebca1b17",
       "version": "1.0.1"
     },
     {
@@ -41,7 +41,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.smart-album/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.smart-album/meta.json",
-      "content_hash": "56b1e848",
+      "content_hash": "590d84b8",
       "version": "1.0.3"
     },
     {
@@ -61,7 +61,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.smart-file-search/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.smart-file-search/meta.json",
-      "content_hash": "47e5a05e",
+      "content_hash": "6b1e11cc",
       "version": "1.1.0"
     },
     {
@@ -81,7 +81,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.smart-pick/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.smart-pick/meta.json",
-      "content_hash": "41012f6d",
+      "content_hash": "5b83011e",
       "version": "1.0.5"
     },
     {
@@ -101,8 +101,28 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.xiaobao-agent/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.xiaobao-agent/meta.json",
-      "content_hash": "f6625989",
+      "content_hash": "c38d95cf",
       "version": "1.0.9"
+    },
+    {
+      "id": "com.mycyberwing.xiaobao-asr",
+      "title": "Xiaobao ASR Service",
+      "tagline": "ASR Service for Cyberwing Device",
+      "category": "AI",
+      "categories": [
+        "ai"
+      ],
+      "author": "LCFC",
+      "developer": "hjx",
+      "architectures": [
+        "amd64"
+      ],
+      "icon": "/apps/com.mycyberwing.xiaobao-asr/assets/icon.png",
+      "thumbnail": "",
+      "compose_url": "/apps/com.mycyberwing.xiaobao-asr/docker-compose.yml",
+      "meta_url": "/apps/com.mycyberwing.xiaobao-asr/meta.json",
+      "content_hash": "3ff54d2c",
+      "version": "1.0.0"
     },
     {
       "id": "com.mycyberwing.xiaobao-assistant",
@@ -121,7 +141,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.xiaobao-assistant/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.xiaobao-assistant/meta.json",
-      "content_hash": "ac95540c",
+      "content_hash": "2485b951",
       "version": "1.0.8"
     }
   ]
