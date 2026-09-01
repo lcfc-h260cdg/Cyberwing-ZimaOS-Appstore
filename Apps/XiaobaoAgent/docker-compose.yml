@@ -135,7 +135,12 @@ x-casaos:
     - "https://zimaos-store.oss-cn-beijing.aliyuncs.com/XiaobaoAgent/screenshot-1.png"
     - "https://zimaos-store.oss-cn-beijing.aliyuncs.com/XiaobaoAgent/screenshot-2.png"
     - "https://zimaos-store.oss-cn-beijing.aliyuncs.com/XiaobaoAgent/screenshot-3.png"
-  tips: {}
+  tips:
+    before_install:
+      en_us: |
+        Default login account password is the same as OS admin account password.
+      zh_cn: |
+        默认登录账户密码与操作系统管理员账户密码相同。
   author: LCFC
   developer: sven,lgy
   category: AI

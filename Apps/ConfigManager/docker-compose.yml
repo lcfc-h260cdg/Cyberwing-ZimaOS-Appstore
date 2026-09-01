@@ -43,6 +43,7 @@ x-casaos:
   description:
     zh_CN: 管理和更新设备上的应用配置文件
     en_US: Manage and update application configuration files on the device
+  tips: {}
   author: LCFC
   developer: Cyberwing
   category: Others

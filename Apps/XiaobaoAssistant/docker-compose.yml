@@ -105,7 +105,12 @@ x-casaos:
   description:
     en_US: "Xiaobao AI Chat Assistant for Cyberwing Device"
     zh_CN: 小宝语音助手
-  tips: {}
+  tips:
+    before_install:
+      en_us: |
+        The application relies on `Cyberwing Config Manager` app to operate. Please make sure the above application(s) is installed.
+      zh_cn: |
+        应用运行依赖于`小宝配置管家`应用，请确认已安装好上述应用。
   author: LCFC
   developer: "lgy,hjx"
   category: AI

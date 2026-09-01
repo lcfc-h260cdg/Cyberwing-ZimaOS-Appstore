@@ -296,7 +296,12 @@ x-casaos:
   description:
     zh_CN: 小宝检索服务
     en_US: "RAG Service for Cyberwing Device"
-  tips: {}
+  tips:
+    before_install:
+      en_us: |
+        The application relies on `Cyberwing Config Manager` and `Xiaobao ASR` app to operate. Please make sure the above application(s) is installed.
+      zh_cn: |
+        应用运行依赖于`小宝配置管家`和`小宝语音识别服务`应用，请确认已安装好上述应用。
   author: LCFC
   developer: nmh
   category: AI
