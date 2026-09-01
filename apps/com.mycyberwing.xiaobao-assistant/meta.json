@@ -1,7 +1,9 @@
 {
   "tagline": "Xiaobao AI Chat Assistant for Cyberwing Device",
   "description": "Xiaobao AI Chat Assistant for Cyberwing Device",
-  "tips": {},
+  "tips": {
+    "before_install": "The application relies on `Cyberwing Config Manager` app to operate. Please make sure the above application(s) is installed.\n"
+  },
   "author": "LCFC",
   "developer": "lgy,hjx",
   "category": "AI",

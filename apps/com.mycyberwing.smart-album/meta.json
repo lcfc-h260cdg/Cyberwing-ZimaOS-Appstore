@@ -5,7 +5,9 @@
     "/apps/com.mycyberwing.smart-album/assets/screenshot-1.webp",
     "/apps/com.mycyberwing.smart-album/assets/screenshot-2.webp"
   ],
-  "tips": {},
+  "tips": {
+    "before_install": "Default access email: `admin@lcfc.com`, access password: `vncpassword`, can be changed in app settings.\n"
+  },
   "author": "LCFC",
   "developer": "dk",
   "category": "Media",

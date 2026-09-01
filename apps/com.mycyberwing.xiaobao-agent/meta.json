@@ -6,7 +6,9 @@
     "/apps/com.mycyberwing.xiaobao-agent/assets/screenshot-2.webp",
     "/apps/com.mycyberwing.xiaobao-agent/assets/screenshot-3.webp"
   ],
-  "tips": {},
+  "tips": {
+    "before_install": "Default login account password is the same as OS admin account password.\n"
+  },
   "author": "LCFC",
   "developer": "sven,lgy",
   "category": "AI",

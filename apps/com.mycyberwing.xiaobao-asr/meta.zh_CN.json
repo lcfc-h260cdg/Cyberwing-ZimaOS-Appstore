@@ -1,7 +1,7 @@
 {
   "id": "com.mycyberwing.xiaobao-asr",
   "title": "小宝语音识别服务",
-  "description": "小宝语音识别服务",
   "tagline": "小宝语音识别服务",
-  "release_note": "- \"2026-08-31 首个版本\""
+  "release_note": "- \"2026-08-31 首个版本\"",
+  "description": "小宝语音识别服务"
 }
