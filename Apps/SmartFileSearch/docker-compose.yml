@@ -136,8 +136,8 @@ services:
         compress: "true"
 
   ai-api:
-    # v2.1.0
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/ai-api:devel-20260827
+    # v2.1.1
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/ai-api:devel-20260915
     container_name: ai-api
     restart: always
     depends_on:
@@ -307,8 +307,8 @@ x-casaos:
   category: AI
   architectures:
     - amd64
-  version: "1.1.0"
-  update_at: "2026-08-27"
+  version: "1.1.1"
+  update_at: "2026-09-15"
   release_notes:
     en_US: |-
       - "2026-07-10 First release"
@@ -319,6 +319,7 @@ x-casaos:
       - "2026-08-06 Add RAG Dashboard"
       - "2026-08-12 Fix vector database write error"
       - "2026-08-27 Optimize memory usage and replace the API Key"
+      - "2026-09-15 Fix data directory error"
     zh_CN: |-
       - "2026-07-10 首次上线"
       - "2026-07-15 更新 ai-api 服务"
@@ -329,3 +330,4 @@ x-casaos:
       - "2026-08-10 新增 RAG Dashboard"
       - "2026-08-12 修复向量数据库写入错误"
       - "2026-08-27 对内存占用进行优化并更换 API Key"
+      - "2026-09-15 修复数据路径错误"
