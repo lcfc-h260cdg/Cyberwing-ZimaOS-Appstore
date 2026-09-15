@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-09-01T03:55:42Z",
+  "updated_at": "2026-09-15T07:14:34Z",
   "app_count": 7,
   "base_url": "https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages",
   "apps": [
@@ -61,8 +61,8 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.smart-file-search/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.smart-file-search/meta.json",
-      "content_hash": "fe79d152",
-      "version": "1.1.0"
+      "content_hash": "d75065b6",
+      "version": "1.1.1"
     },
     {
       "id": "com.mycyberwing.smart-pick",

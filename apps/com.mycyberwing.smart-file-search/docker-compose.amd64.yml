@@ -136,8 +136,8 @@ services:
         compress: "true"
 
   ai-api:
-    # v2.1.0
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/ai-api:devel-20260827@sha256:936ccf16bf303aed648cf3393c70636390c2e69e232671329a8cff10ce9f7e41
+    # v2.1.1
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/ai-api:devel-20260915@sha256:463feaeeb25a4c80f34b84c7bc5f538a9c600b6781dcfe1e9bb6fa7eef7c9f96
     container_name: ai-api
     restart: always
     depends_on:
@@ -290,4 +290,4 @@ x-casaos:
   title:
     zh_CN: 小宝检索服务
     en_US: "Xiaobao RAG Service"
-  version: "1.1.0"
+  version: "1.1.1"

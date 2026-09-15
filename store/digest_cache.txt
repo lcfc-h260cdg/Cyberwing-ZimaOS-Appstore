@@ -1,4 +1,4 @@
-docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/ai-api:devel-20260827 sha256:936ccf16bf303aed648cf3393c70636390c2e69e232671329a8cff10ce9f7e41
+docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/ai-api:devel-20260915 sha256:463feaeeb25a4c80f34b84c7bc5f538a9c600b6781dcfe1e9bb6fa7eef7c9f96
 docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/config-manager:v1.0.1 sha256:48b71fbbe6a9fe17df14ff265265cd7b9e9aa4ef2083ebaae30cd5f38b5653a4
 docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/file-rag-nas:v2.0.0_20260706 sha256:151ffe3e5ce943227c224455037c352858f7b219b26bb93dab5523420bc33e0e
 docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-adapter:v1.0.6 sha256:551ee4e3ddee8dd7e653a363d887f7534242b01cd9517d148b2662520e99bd92
