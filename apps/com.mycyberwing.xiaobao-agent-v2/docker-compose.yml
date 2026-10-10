@@ -2,7 +2,7 @@ name: xiaobao-agent-v2
 
 services:
   xiaobao-agent-v2:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-adapter:v2.0.0-beta1
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-master:v2.0.0-beta1
     container_name: xiaobao-agent-v2
     restart: always
     # depends_on:

@@ -2,7 +2,7 @@ name: xiaobao-agent-v2
 
 services:
   xiaobao-agent-v2:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-adapter:v2.0.0-beta1
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-master:v2.0.0-beta1@sha256:ad793b9adac0e778e745a6f91daca1725e5e61a4f3690efd2cbc53133fbba1df
     container_name: xiaobao-agent-v2
     restart: always
     # depends_on:
@@ -29,7 +29,7 @@ services:
       - hermes-master-net
 
   hermes-web:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-web:v2.0.0-beta1
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-web:v2.0.0-beta1@sha256:e59135cd0eeb8f27700398f822b2a24555064ff9a76bdcde69f9356e8db6e4fe
     container_name: hermes-web
     restart: unless-stopped
     depends_on:
@@ -40,7 +40,7 @@ services:
       - hermes-master-net
 
   hermes-agent-image-preload:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-agent-custom:v2.0.0-beta1
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-agent-custom:v2.0.0-beta1@sha256:40e2ad7ff7bdadf3d6a1a566a1f502c85d2776b97bdf8ad72fba9d428a44c2bb
     container_name: xiaobao-agent-image-preload
     restart: "no"
     entrypoint:
