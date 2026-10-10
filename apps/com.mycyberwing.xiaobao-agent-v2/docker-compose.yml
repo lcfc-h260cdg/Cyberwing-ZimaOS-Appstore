@@ -1,9 +1,9 @@
 name: xiaobao-agent-v2
 
 services:
-  xiaobao-agent-v2:
+  hermes-master:
     image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-master:v2.0.0-beta1
-    container_name: xiaobao-agent-v2
+    container_name: hermes-master
     restart: always
     # depends_on:
     #   hermes-agent-image-preload:
@@ -33,7 +33,7 @@ services:
     container_name: hermes-web
     restart: unless-stopped
     depends_on:
-      - xiaobao-agent-v2
+      - hermes-master
     ports:
       - "8085:8085"
     networks:
@@ -55,9 +55,9 @@ networks:
 
 x-casaos:
   id: com.mycyberwing.xiaobao-agent-v2
-  main: xiaobao-agent-v2
+  main: hermes-web
   index: /
-  port_map: "8686"
+  port_map: "8085"
   scheme: http
   icon: https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages/apps/com.mycyberwing.xiaobao-agent-v2/assets/icon.png
   title:
