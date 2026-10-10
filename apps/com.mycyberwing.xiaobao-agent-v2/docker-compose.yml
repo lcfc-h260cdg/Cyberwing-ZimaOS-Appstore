@@ -39,9 +39,9 @@ services:
     networks:
       - hermes-master-net
 
-  hermes-agent-image-preload:
+  hermes-agent-v2-image-preload:
     image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-agent-custom:v2.0.0-beta1
-    container_name: xiaobao-agent-image-preload
+    container_name: xiaobao-agent-v2-image-preload
     restart: "no"
     entrypoint:
       - /bin/sh
