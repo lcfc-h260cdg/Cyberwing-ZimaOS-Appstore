@@ -1,0 +1,125 @@
+name: xiaobao-agent-v2
+
+services:
+  xiaobao-agent-v2:
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-adapter:v2.0.0-beta1
+    container_name: xiaobao-agent-v2
+    restart: always
+    # depends_on:
+    #   hermes-agent-image-preload:
+    #     condition: service_completed_successfully
+    #     required: true
+    ports:
+      - "8686:8686"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /etc/localtime:/etc/localtime:ro
+      - /DATA/AppData/LCFC_APP/data/hermes_master_agent:/data/hermes-data
+      - /DATA/AppData/LCFC_APP/data/hermes_master/data:/opt/hermes-master/data
+      - /DATA/AppData/LCFC_APP/data/hermes_master/logs:/opt/hermes-master/logs
+      - /DATA/AppData/LCFC_APP/data/hermes_master/config:/opt/hermes-master/conf
+    environment:
+      MASTER_SETTINGS__PORT: "8686"
+      DOCKER_SETTINGS__USER_DATA_ROOT: /data/hermes-data
+      DOCKER_SETTINGS__NETWORK: hermes-master-net
+      TZ: Asia/Shanghai
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - hermes-master-net
+
+  hermes-web:
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-web:v2.0.0-beta1
+    container_name: hermes-web
+    restart: unless-stopped
+    depends_on:
+      - xiaobao-agent-v2
+    ports:
+      - "8085:8085"
+    networks:
+      - hermes-master-net
+
+  hermes-agent-image-preload:
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-agent-custom:v2.0.0-beta1
+    container_name: xiaobao-agent-image-preload
+    restart: "no"
+    entrypoint:
+      - /bin/sh
+      - -c
+      - "true"
+
+networks:
+  hermes-master-net:
+    name: hermes-master-net
+    driver: bridge
+
+x-casaos:
+  id: com.mycyberwing.xiaobao-agent-v2
+  main: xiaobao-agent-v2
+  index: /
+  port_map: "8686"
+  scheme: http
+  icon: https://zimaos-store.oss-cn-beijing.aliyuncs.com/XiaobaoAgent/icon.png
+  title:
+    zh_CN: "小宝智能体 2.0"
+    en_US: "Xiaobao Agent 2.0"
+  tagline:
+    zh_CN: "小宝智能体，你的专属智能体"
+    en_US: "Xiaobao Agent, Your Personal AI Agent"
+  description:
+    en_US: |
+      Xiaobao Agent is an AI agent management platform designed for both individuals and enterprises. Through an intuitive web-based management interface, administrators can configure AI models, connect messaging channels, manage user memories, and create dedicated AI assistants for each user.
+
+      **Key Features:**
+      - **Personal AI Assistant**: Create a dedicated AI assistant tailored to each user's needs and preferences.
+      - **Multi-Model Support**: Connect and configure leading large language model (LLM) providers and services.
+      - **Instant Messaging Integration**: Supports WeChat and other popular messaging applications, allowing users to connect their AI assistant with a simple QR code scan.
+      - **Long-Term Memory & User Profiles**: Enables personalized experiences through user profiles and persistent memory management.
+    zh_CN: |
+      小宝智能体是一款面向个人与企业的 AI 智能体管理平台。通过可视化管理界面完成模型配置、消息通道接入、用户记忆管理，为每位用户创建独立的专属 AI 助手。
+
+      **主要功能：**
+      - **专属智能体**：为每位用户打造专属智能助手。
+      - **多模型接入**：支持配置主流大语言模型服务。
+      - **即时通讯连接**：支持微信等多种即时通讯APP，通过扫码即可接入。
+      - **长期记忆与用户画像**：支持用户画像和长期记忆，提供个性化服务。
+  screenshot_link:
+    - "https://zimaos-store.oss-cn-beijing.aliyuncs.com/XiaobaoAgent/screenshot-1.png"
+    - "https://zimaos-store.oss-cn-beijing.aliyuncs.com/XiaobaoAgent/screenshot-2.png"
+    - "https://zimaos-store.oss-cn-beijing.aliyuncs.com/XiaobaoAgent/screenshot-3.png"
+  tips:
+    before_install:
+      en_us: |
+        Default login account password is the same as OS admin account password.
+      zh_cn: |
+        默认登录账户密码与操作系统管理员账户密码相同。
+  author: LCFC
+  developer: sven,lgy
+  category: AI
+  architectures:
+    - amd64
+  version: "2.0.0"
+  update_at: "2026-10-10"
+  release_notes:
+    en_US: |-
+      - "2026-07-10 First release"
+      - "2026-07-15 Bugfix"
+      - "2026-07-22 Update Hermes Agent"
+      - "2026-08-04 Optimize voiceprint & RAG, fix bugs"
+      - "2026-08-06 Fix agent docker container crashes when connecting to Lark and DingTalk message channels"
+      - "2026-08-07 Fix the bug of Xiaobao Assistant calling the agent responding too slowly"
+      - "2026-08-11 Optimize user profile management and RAG retrieval"
+      - "2026-08-12 Fix UI display issues"
+      - "2026-09-15 Fix directory read and write permission issues"
+      - "2026-10-10 Release 2.0.0"
+    zh_CN: |-
+      - "2026-07-10 首次上线"
+      - "2026-07-15 修复Bug"
+      - "2026-07-22 更新 Hermes 智能体版本"
+      - "2026-08-04 优化声纹、RAG功能，修复软件错误"
+      - "2026-08-06 修复连接飞书、钉钉消息通道时，智能体容器崩溃的问题"
+      - "2026-08-07 修复小宝语音助手调用智能体回复过慢的问题"
+      - "2026-08-11 优化用户画像管理和RAG检索"
+      - "2026-08-12 修复UI界面显示问题"
+      - "2026-09-15 修复目录读写权限问题"
+      - "2026-10-10 发布 2.0.0 版本"
