@@ -1,0 +1,31 @@
+{
+  "tagline": "Xiaobao Agent, Your Personal AI Agent",
+  "description": "Xiaobao Agent is an AI agent management platform designed for both individuals and enterprises. Through an intuitive web-based management interface, administrators can configure AI models, connect messaging channels, manage user memories, and create dedicated AI assistants for each user.\n\n**Key Features:**\n- **Personal AI Assistant**: Create a dedicated AI assistant tailored to each user's needs and preferences.\n- **Multi-Model Support**: Connect and configure leading large language model (LLM) providers and services.\n- **Instant Messaging Integration**: Supports WeChat and other popular messaging applications, allowing users to connect their AI assistant with a simple QR code scan.\n- **Long-Term Memory & User Profiles**: Enables personalized experiences through user profiles and persistent memory management.\n",
+  "screenshot_link": [
+    "/apps/com.mycyberwing.xiaobao-agent-v2/assets/screenshot-1.webp",
+    "/apps/com.mycyberwing.xiaobao-agent-v2/assets/screenshot-2.webp",
+    "/apps/com.mycyberwing.xiaobao-agent-v2/assets/screenshot-3.webp"
+  ],
+  "tips": {
+    "before_install": "Default login account password is the same as OS admin account password.\n"
+  },
+  "author": "LCFC",
+  "developer": "sven,lgy",
+  "category": "AI",
+  "architectures": [
+    "amd64"
+  ],
+  "update_at": "2026-10-10",
+  "title": "Xiaobao Agent 2.0",
+  "release_note": "- \"2026-07-10 First release\"\n- \"2026-07-15 Bugfix\"\n- \"2026-07-22 Update Hermes Agent\"\n- \"2026-08-04 Optimize voiceprint & RAG, fix bugs\"\n- \"2026-08-06 Fix agent docker container crashes when connecting to Lark and DingTalk message channels\"\n- \"2026-08-07 Fix the bug of Xiaobao Assistant calling the agent responding too slowly\"\n- \"2026-08-11 Optimize user profile management and RAG retrieval\"\n- \"2026-08-12 Fix UI display issues\"\n- \"2026-09-15 Fix directory read and write permission issues\"\n- \"2026-10-10 Release 2.0.0\"",
+  "base_url": "https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages",
+  "id": "com.mycyberwing.xiaobao-agent-v2",
+  "version": "2.0.0",
+  "categories": [
+    "ai"
+  ],
+  "min_memory": 0,
+  "min_image_size": {
+    "amd64": 1294153482
+  }
+}
