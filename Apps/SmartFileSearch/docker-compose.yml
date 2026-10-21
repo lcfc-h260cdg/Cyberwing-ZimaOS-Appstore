@@ -275,6 +275,21 @@ services:
         max-size: 50m
         max-file: "3"
         compress: "true"
+  
+  asr-service:
+    # v1.0.0
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/sherpa-onnx-asr:devel-20260831
+    container_name: asr-service
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      MODEL: paraformer
+      RULE: "on"
+      CHUNK_SECONDS: "30"
+      CHUNK_THRESHOLD: "60"
+      WORKER_COUNT: "1"
+      SHORT_AUDIO_THRESHOLD: "60"
+      MODEL_THREADS: "2"
 
 networks:
   default:
@@ -283,7 +298,7 @@ networks:
 x-casaos:
   id: com.mycyberwing.smart-file-search
   main: ai-api
-  index: /processingDashboard
+  index: /processingOverview
   port_map: "20100"
   scheme: http
   icon: "https://zimaos-store.oss-cn-beijing.aliyuncs.com/SmartFileSearch/icon.png"
@@ -299,16 +314,16 @@ x-casaos:
   tips:
     before_install:
       en_us: |
-        The application relies on `Cyberwing Config Manager` and `Xiaobao ASR` app to operate. Please make sure the above application(s) is installed.
+        The application relies on `Cyberwing Config Manager` app to operate. Please make sure the above application(s) is installed.
       zh_cn: |
-        应用运行依赖于`小宝配置管家`和`小宝语音识别服务`应用，请确认已安装好上述应用。
+        应用运行依赖于`小宝配置管家`应用，请确认已安装好上述应用。
   author: LCFC
   developer: nmh
   category: AI
   architectures:
     - amd64
-  version: "1.1.1"
-  update_at: "2026-09-15"
+  version: "1.1.2"
+  update_at: "2026-10-21"
   release_notes:
     en_US: |-
       - "2026-07-10 First release"
@@ -320,6 +335,7 @@ x-casaos:
       - "2026-08-12 Fix vector database write error"
       - "2026-08-27 Optimize memory usage and replace the API Key"
       - "2026-09-15 Fix data directory error"
+      - "2026-10-21 Merge ASR service"
     zh_CN: |-
       - "2026-07-10 首次上线"
       - "2026-07-15 更新 ai-api 服务"
@@ -331,3 +347,4 @@ x-casaos:
       - "2026-08-12 修复向量数据库写入错误"
       - "2026-08-27 对内存占用进行优化并更换 API Key"
       - "2026-09-15 修复数据路径错误"
+      - "2026-10-21 合并 ASR 服务"

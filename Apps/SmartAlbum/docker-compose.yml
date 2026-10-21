@@ -379,7 +379,7 @@ x-casaos:
   tips:
     before_install:
       en_us: |
-        Default access email: `admin@lcfc.com`, access password: `vncpassword`, can be changed in app settings.
+        Default access email: `admin@lcfc.com`, access password: `admin`, can be changed in app settings.
       zh_cn: |
         默认登录邮箱：`admin@lcfc.com`，默认登录密码：`admin`，可通过软件配置修改。
   author: LCFC

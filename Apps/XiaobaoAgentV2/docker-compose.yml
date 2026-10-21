@@ -14,14 +14,15 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /etc/localtime:/etc/localtime:ro
-      - /DATA/AppData/LCFC_APP/data/hermes_master_agent:/data/hermes-data
+      - /DATA/AppData/LCFC_APP/data/hermes_master_agent:/DATA/AppData/LCFC_APP/data/hermes_master_agent
       - /DATA/AppData/LCFC_APP/data/hermes_master/data:/opt/hermes-master/data
       - /DATA/AppData/LCFC_APP/data/hermes_master/logs:/opt/hermes-master/logs
       - /DATA/AppData/LCFC_APP/data/hermes_master/config:/opt/hermes-master/conf
     environment:
-      MASTER_SETTINGS__PORT: "8686"
-      DOCKER_SETTINGS__USER_DATA_ROOT: /data/hermes-data
       DOCKER_SETTINGS__NETWORK: hermes-master-net
+      DOCKER_SETTINGS__USER_DATA_ROOT: /DATA/AppData/LCFC_APP/data/hermes_master_agent
+      MASTER_CONFIG_SYNC: missing
+      MASTER_SETTINGS__PORT: "8686"
       TZ: Asia/Shanghai
     extra_hosts:
       - "host.docker.internal:host-gateway"
@@ -35,7 +36,7 @@ services:
     depends_on:
       - hermes-master
     ports:
-      - "8085:8085"
+      - "8085:80"
     networks:
       - hermes-master-net
 
