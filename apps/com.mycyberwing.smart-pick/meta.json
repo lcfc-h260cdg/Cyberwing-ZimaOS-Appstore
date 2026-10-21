@@ -6,7 +6,7 @@
     "/apps/com.mycyberwing.smart-pick/assets/screenshot-2.webp"
   ],
   "tips": {
-    "before_install": "Default access email: `admin@lcfc.com`, access password: `vncpassword`, can be changed in app settings.\n"
+    "before_install": "Default access email: `admin@lcfc.com`, access password: `admin`, can be changed in app settings.\n"
   },
   "author": "LCFC",
   "developer": "dk",

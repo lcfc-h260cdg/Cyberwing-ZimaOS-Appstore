@@ -275,6 +275,20 @@ services:
         max-size: 50m
         max-file: "3"
         compress: "true"
+  asr-service:
+    # v1.0.0
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/sherpa-onnx-asr:devel-20260831@sha256:8447a8777c405110a332c95eb221b7498dd0f774b884a8f1a215f86c60149011
+    container_name: asr-service
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      MODEL: paraformer
+      RULE: "on"
+      CHUNK_SECONDS: "30"
+      CHUNK_THRESHOLD: "60"
+      WORKER_COUNT: "1"
+      SHORT_AUDIO_THRESHOLD: "60"
+      MODEL_THREADS: "2"
 
 networks:
   default:
@@ -283,11 +297,11 @@ networks:
 x-casaos:
   id: com.mycyberwing.smart-file-search
   main: ai-api
-  index: /processingDashboard
+  index: /processingOverview
   port_map: "20100"
   scheme: http
   icon: https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages/apps/com.mycyberwing.smart-file-search/assets/icon.png
   title:
     zh_CN: 小宝检索服务
     en_US: "Xiaobao RAG Service"
-  version: "1.1.1"
+  version: "1.1.2"

@@ -2,7 +2,7 @@
   "tagline": "RAG Service for Cyberwing Device",
   "description": "RAG Service for Cyberwing Device",
   "tips": {
-    "before_install": "The application relies on `Cyberwing Config Manager` and `Xiaobao ASR` app to operate. Please make sure the above application(s) is installed.\n"
+    "before_install": "The application relies on `Cyberwing Config Manager` app to operate. Please make sure the above application(s) is installed.\n"
   },
   "author": "LCFC",
   "developer": "nmh",
@@ -10,17 +10,17 @@
   "architectures": [
     "amd64"
   ],
-  "update_at": "2026-09-15",
+  "update_at": "2026-10-21",
   "title": "Xiaobao RAG Service",
-  "release_note": "- \"2026-07-10 First release\"\n- \"2026-07-15 Update ai-api service\"\n- \"2026-07-22 Update RAG facial recognition\"\n- \"2026-07-24 Update LLM Server\"\n- \"2026-08-04 Optimize memory usage, increase memory limits, and add support for ASR Chinese path\"\n- \"2026-08-06 Add RAG Dashboard\"\n- \"2026-08-12 Fix vector database write error\"\n- \"2026-08-27 Optimize memory usage and replace the API Key\"\n- \"2026-09-15 Fix data directory error\"",
+  "release_note": "- \"2026-07-10 First release\"\n- \"2026-07-15 Update ai-api service\"\n- \"2026-07-22 Update RAG facial recognition\"\n- \"2026-07-24 Update LLM Server\"\n- \"2026-08-04 Optimize memory usage, increase memory limits, and add support for ASR Chinese path\"\n- \"2026-08-06 Add RAG Dashboard\"\n- \"2026-08-12 Fix vector database write error\"\n- \"2026-08-27 Optimize memory usage and replace the API Key\"\n- \"2026-09-15 Fix data directory error\"\n- \"2026-10-21 Merge ASR service\"",
   "base_url": "https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages",
   "id": "com.mycyberwing.smart-file-search",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "categories": [
     "ai"
   ],
   "min_memory": 0,
   "min_image_size": {
-    "amd64": 21834308865
+    "amd64": 22330610096
   }
 }
