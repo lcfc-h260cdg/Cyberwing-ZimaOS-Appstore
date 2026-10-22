@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "updated_at": "2026-10-21T05:52:58Z",
-  "app_count": 7,
+  "updated_at": "2026-10-22T08:52:08Z",
+  "app_count": 6,
   "base_url": "https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages",
   "apps": [
     {
@@ -21,7 +21,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.config-manager/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.config-manager/meta.json",
-      "content_hash": "525a34c4",
+      "content_hash": "9d1a04f9",
       "version": "1.0.1"
     },
     {
@@ -41,7 +41,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.smart-album/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.smart-album/meta.json",
-      "content_hash": "c46dd3a6",
+      "content_hash": "b54acf3c",
       "version": "1.0.3"
     },
     {
@@ -61,7 +61,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.smart-file-search/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.smart-file-search/meta.json",
-      "content_hash": "d11ec26c",
+      "content_hash": "08e648f2",
       "version": "1.1.2"
     },
     {
@@ -81,7 +81,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.smart-pick/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.smart-pick/meta.json",
-      "content_hash": "772c98ba",
+      "content_hash": "e03c6bff",
       "version": "1.0.5"
     },
     {
@@ -101,28 +101,8 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.xiaobao-agent/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.xiaobao-agent/meta.json",
-      "content_hash": "254c12f7",
-      "version": "1.0.10"
-    },
-    {
-      "id": "com.mycyberwing.xiaobao-agent-v2",
-      "title": "Xiaobao Agent 2.0",
-      "tagline": "Xiaobao Agent, Your Personal AI Agent",
-      "category": "AI",
-      "categories": [
-        "ai"
-      ],
-      "author": "LCFC",
-      "developer": "sven,lgy",
-      "architectures": [
-        "amd64"
-      ],
-      "icon": "/apps/com.mycyberwing.xiaobao-agent-v2/assets/icon.png",
-      "thumbnail": "",
-      "compose_url": "/apps/com.mycyberwing.xiaobao-agent-v2/docker-compose.yml",
-      "meta_url": "/apps/com.mycyberwing.xiaobao-agent-v2/meta.json",
-      "content_hash": "45571379",
-      "version": "2.0.0"
+      "content_hash": "c3a35897",
+      "version": "1.1.0"
     },
     {
       "id": "com.mycyberwing.xiaobao-assistant",
@@ -141,7 +121,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.xiaobao-assistant/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.xiaobao-assistant/meta.json",
-      "content_hash": "a1dbae87",
+      "content_hash": "19be32a1",
       "version": "1.0.8"
     }
   ]
