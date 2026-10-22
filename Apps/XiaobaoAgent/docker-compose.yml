@@ -2,7 +2,7 @@ name: xiaobao-agent
 
 services:
   xiaobao-agent:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-adapter:v1.0.7-beta1
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-adapter:v1.1.0
     container_name: xiaobao-agent
     restart: always
     # depends_on:
@@ -32,7 +32,7 @@ services:
           create_host_path: true
     environment:
       HERMES_RUNTIME_MODE: container_per_user
-      HERMES_ADAPTER_IMAGE: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-adapter:v1.0.7-beta1
+      HERMES_ADAPTER_IMAGE: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-adapter:v1.1.0
       HERMES_BASE_IMAGE: nousresearch/hermes-agent:v2026.7.20
       HERMES_USER_SCENARIO: zimaos
       HERMES_ADAPTER_HOME: /opt/data/hermes-adapter
@@ -52,7 +52,7 @@ services:
       HERMES_USER_DATA_ROOT: /DATA/AppData/LCFC_APP/data/hermes-data
       HERMES_HOST_RAG_PUBLIC_DIR: /DATA/Share,/DATA/AppData/LCFC_APP/data/smart_album/library/photos/upload,/DATA/Gallery
       HERMES_SHARED_PATH_BLACKLIST: /bin,/sbin,/lib,/lib64,/usr,/etc,/proc,/sys,/dev,/run,/var,/tmp,/opt/data,/opt/hermes,/opt/hermes-defaults,/opt/custom-skills
-      HERMES_AGENT_IMAGE: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-agent-custom:v1.0.7-beta1
+      HERMES_AGENT_IMAGE: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-agent-custom:v1.1.0
       HERMES_AGENT_COMMAND: gateway run
       HERMES_TAVILY_API_KEYS: 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,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,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,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,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,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,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
       HERMES_DOCKER_NETWORK: hermes-adapter-docker_hermes-net
@@ -86,7 +86,7 @@ services:
       hermes-net: null
 
   hermes-agent-image-preload:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-agent-custom:v1.0.7-beta1
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/hermes-agent-custom:v1.1.0
     container_name: xiaobao-agent-image-preload
     restart: "no"
     entrypoint:
@@ -146,8 +146,8 @@ x-casaos:
   category: AI
   architectures:
     - amd64
-  version: "1.0.10"
-  update_at: "2026-09-15"
+  version: "1.1.0"
+  update_at: "2026-10-22"
   release_notes:
     en_US: |-
       - "2026-07-10 First release"
@@ -159,6 +159,7 @@ x-casaos:
       - "2026-08-11 Optimize user profile management and RAG retrieval"
       - "2026-08-12 Fix UI display issues"
       - "2026-09-15 Fix directory read and write permission issues"
+      - "2026-10-22 Add guide page for token purchase steps. Fixed the issue where read and write permissions of the user directory were inconsistent in certain situations. Fix the issue where the recent login time is not displayed."
     zh_CN: |-
       - "2026-07-10 首次上线"
       - "2026-07-15 修复Bug"
@@ -169,3 +170,4 @@ x-casaos:
       - "2026-08-11 优化用户画像管理和RAG检索"
       - "2026-08-12 修复UI界面显示问题"
       - "2026-09-15 修复目录读写权限问题"
+      - "2026-10-22 新增 Token 购买步骤引导页，修复在某些情况下用户目录的读写权限不一致的问题,修复最近登录时间不显示的问题"
