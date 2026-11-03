@@ -37,7 +37,7 @@ services:
     shm_size: "134217728"
 
   immich-init:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-server:v1.0.2@sha256:cd1f13f7c3079737b8e076a868a4f5294181da25c660191bf518b460cf0319d7
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-server:v1.0.3@sha256:bac0efa4e3f54fd1597f74dcb48c7efbbbcd194b1d3ddd7940ad3c7ebaf9017c
     build:
       context: /DATA
       dockerfile: server/Dockerfile.dev
@@ -62,7 +62,7 @@ services:
       - /tmp
 
   immich-machine-learning:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-machine-learning:v1.0.2@sha256:951617d0684e95c12ea5e5bc91ed28d0e2378c61fe6daa0e3cf0525ce620eab2
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-machine-learning:v1.0.3@sha256:951617d0684e95c12ea5e5bc91ed28d0e2378c61fe6daa0e3cf0525ce620eab2
     container_name: immich_machine_learning
     restart: always
     depends_on:
@@ -90,7 +90,7 @@ services:
       UPLOAD_LOCATION: /DATA/AppData/LCFC_APP/data/smart_album/library
 
   immich-server:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-server:v1.0.2@sha256:cd1f13f7c3079737b8e076a868a4f5294181da25c660191bf518b460cf0319d7
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-server:v1.0.3@sha256:bac0efa4e3f54fd1597f74dcb48c7efbbbcd194b1d3ddd7940ad3c7ebaf9017c
     build:
       context: /DATA
       dockerfile: server/Dockerfile.dev
@@ -170,7 +170,7 @@ services:
       - /tmp
 
   immich-web:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-web:v1.0.2@sha256:86a5ddf022e7ecfc6bbf579d4c32e81a475e22f94fd59403d4084b5c03aa7166
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-web:v1.0.3@sha256:d2592394e68f3f3bc138a8b7e183cdce740a6d97c7054374c4fc5a0e0bce9d5b
     build:
       context: /DATA
       dockerfile: server/Dockerfile.dev
@@ -354,4 +354,4 @@ x-casaos:
   title:
     zh_CN: "智能相册"
     en_US: "Smart Album"
-  version: "1.0.3"
+  version: "1.0.4"

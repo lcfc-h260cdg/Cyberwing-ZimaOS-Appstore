@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-10-29T07:33:36Z",
+  "updated_at": "2026-11-03T03:08:38Z",
   "app_count": 6,
   "base_url": "https://cdn.jsdelivr.net/gh/lcfc-h260cdg/Cyberwing-ZimaOS-Appstore@gh-pages",
   "apps": [
@@ -41,8 +41,8 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.smart-album/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.smart-album/meta.json",
-      "content_hash": "22b48df6",
-      "version": "1.0.3"
+      "content_hash": "6fa1294d",
+      "version": "1.0.4"
     },
     {
       "id": "com.mycyberwing.smart-file-search",
@@ -81,8 +81,8 @@
       "thumbnail": "",
       "compose_url": "/apps/com.mycyberwing.smart-pick/docker-compose.yml",
       "meta_url": "/apps/com.mycyberwing.smart-pick/meta.json",
-      "content_hash": "e3600100",
-      "version": "1.0.5"
+      "content_hash": "0aec4285",
+      "version": "1.0.6"
     },
     {
       "id": "com.mycyberwing.xiaobao-agent",

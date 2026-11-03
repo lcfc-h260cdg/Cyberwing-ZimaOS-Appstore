@@ -7,10 +7,10 @@ docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/immich-app/postg
 docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/llm_server:v2.1.2 sha256:b0f925f598c0afbc0c3bd7b9d0ba8d24844ed9719f1b43af26b04376706e11a9
 docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/pgvector/pgvector:pg18-trixie sha256:de7e23dbfb8bec8c460c0b40888a6bd1a0302041aabffb19f7b9b9fd9837e104
 docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/sherpa-onnx-asr:devel-20260831 sha256:8447a8777c405110a332c95eb221b7498dd0f774b884a8f1a215f86c60149011
-docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-machine-learning:v1.0.2 sha256:951617d0684e95c12ea5e5bc91ed28d0e2378c61fe6daa0e3cf0525ce620eab2
-docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-server:v1.0.2 sha256:cd1f13f7c3079737b8e076a868a4f5294181da25c660191bf518b460cf0319d7
-docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-web:v1.0.2 sha256:86a5ddf022e7ecfc6bbf579d4c32e81a475e22f94fd59403d4084b5c03aa7166
-docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-pick/capture-score:v1.0.4 sha256:037aebd394f8ed838c99c65c36674d3bc5eddcdb36a70c16b1650d6db0322296
+docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-machine-learning:v1.0.3 sha256:951617d0684e95c12ea5e5bc91ed28d0e2378c61fe6daa0e3cf0525ce620eab2
+docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-server:v1.0.3 sha256:bac0efa4e3f54fd1597f74dcb48c7efbbbcd194b1d3ddd7940ad3c7ebaf9017c
+docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-album/immich-web:v1.0.3 sha256:d2592394e68f3f3bc138a8b7e183cdce740a6d97c7054374c4fc5a0e0bce9d5b
+docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-pick/capture-score:v1.0.5 sha256:63e044ea144728173d12745a2bd413bab06f5472ce21befd1586b71bebe16cc1
 docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/valkey/valkey:9 sha256:7a48ff82d4b41e6faa1de0e10a1343bcfef8f0a7a0cd5df4b5b360daf7ab0139
 docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/xiaobao-client:v1.0.8 sha256:f5d1f15f68d63b5eea044ec7c7e81ef3172c5e653c3ada12ed8a1e844e73603d
 docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/xiaobao-server:v1.0.5 sha256:36b804f19fb0d0346c48fa4ac78029c6dddf4ce58ad29c17bee7daf0ffdfefa4
