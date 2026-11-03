@@ -2,7 +2,7 @@ name: smart-pick
 
 services:
   capture-score:
-    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-pick/capture-score:v1.0.4
+    image: docker-cyberwing-registry.cn-hangzhou.cr.aliyuncs.com/cyberwing/smart-pick/capture-score:v1.0.5
     container_name: capture-score
     restart: always
     ports:
@@ -99,8 +99,8 @@ x-casaos:
   category: Media
   architectures:
     - amd64
-  version: "1.0.5"
-  update_at: "2026-08-11"
+  version: "1.0.6"
+  update_at: "2026-11-03"
   release_notes:
     en_US: |-
       - "2026-07-10 First release"
@@ -108,9 +108,11 @@ x-casaos:
       - "2026-07-22 Update app deploy configs"
       - "2026-08-04 Optimize the 'Reached Limit' UI"
       - "2026-08-11 Fix bugs"
+      - "2026-11-03 Add User and Privacy Agreement"
     zh_CN: |-
       - "2026-07-10 首次上线"
       - "2026-07-15 限制每次同时上传的文件数量和大小"
       - "2026-07-22 更新应用部署配置"
       - "2026-08-04 优化“已达上限”提示界面"
       - "2026-08-11 修复 Bug"
+      - "2026-11-03 增加用户和隐私协议"
